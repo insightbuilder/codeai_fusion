@@ -1,0 +1,97 @@
+Opentelemetry is a mechanism by which application code is 
+instrumented to help make system observable
+
+Concepts of Opentelemetry:
+Observability: Understand a system from outside by letting you 
+ask questions about that system, w/o sharing its working
+
+Purpose of Opentelemetry:
+Collect, process and export signals.
+
+Signals: Are emitted by the system, like traces, metrics and logs
+Its also called Telemetry. They describe the underlying activity, 
+
+
+Reliabilty is when system is doing what it is being expected 
+to do, and not something else.
+
+Distributed Tracing: lets you observe "requests" as they 
+propagate through complex Distributed systems.
+
+  - traces: Records the path taken by requests as they 
+  propagate through multi-service architectures
+    - it is made of one or more spans, starting with root span
+    - root span represents request from start to finish
+    - child spans below show sub requests sent out to complete
+    root span 
+
+  - logs: a timestamped message emitted which is not 
+  necessarily associated with particular request
+
+  - spans: Represents a unit of work. It tracks a specific 
+  operation that a request makes, and shows what happened 
+  during the time the operation was executed. 
+    - Contains structured logs, time data, along with metadata
+    - Span Attributes are the metadata attached to span
+
+  - metrics: A measurement captured at a runtime
+
+  - baggage: Context info passed between signals
+
+Context Propagation:
+  - context: an object that contains information for the sending 
+  and recieving service, or execution unit.
+  - propagation: mechanism that moves context between services 
+  & processes. it serde's the context and provides the information 
+  to be propagated b/w services
+    - propagators are managed by the instrumentation libraries
+
+Instrumentation: Need to have your code instrumented, 
+meaning they have to emit traces, logs and metrics
+  - Code based: Opentelemetry API itself generates telemetry 
+  for you.
+
+  - Zero code: Useful when you can't modify the appln that you 
+  want to get telemetry out of. Provide info about happening at 
+  app edges
+
+Components:
+- Specification: Requirements + expectation for all implementation
+
+- Collector: proxy that recieve, process & export telemetry data. 
+Support reciept in diff formats(Prometheum, Jaeger, OTLP)
+
+- Lang specific SDKs: 
+
+  - Instrumentation libraries: component that generate relevant 
+  telemetry, for popular packages and libraries
+  
+  - Exporters: Send telemetry data to collector, like Jaeger, 
+  zipkin and Prometheus backend. Lang specific exporters are given 
+    - https://opentelemetry.io/ecosystem/registry/?component=exporter&language=
+
+  - Zero-Code instrumentation: Instrument w/o touching source-code of your app
+
+  - Resource Detector: resource is anything that produces telemetry, 
+    OT supports detecting them.
+
+  - Cross-Service Propagators: Moving data/ context between services
+
+  - Samplers: process of reducing the traces generated
+
+- K8 operators
+
+- Function as Services: Pre-built lambda layers, that auto-instrument your 
+application, and stand alone collector lambda for manual instrumentation
+
+Semantic Conventions: Common names for different operation and data
+- Trace Semantic: Spans can be created freely, its upto implementer 
+how it is annotated. Ranging from General, Database, HTTP to RPC, Obj Stores etc
+- Metric Semantic: System, FaaS, General
+  - https://opentelemetry.io/docs/specs/semconv/general/metrics/ (provides metric guidelines)
+- Log Semantic:General, Exception and Feature Flags
+- Resource Semantic: How the resources are named, inherited from OpenCensus Standard
+
+Instrumentation Scope is defind by a name and version pair, when a tracer, meter 
+or logger instance is obtained from provider.
+Each span, metric or log is associated with scope.
