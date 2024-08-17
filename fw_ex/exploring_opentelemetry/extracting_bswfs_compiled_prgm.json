@@ -1,0 +1,31 @@
+{
+  "prog": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "news_body": "Fake news body 1",
+        "rationale": "determine the credibility of the news body. We first analyze the content for factual accuracy, checking if the claims made can be substantiated by reliable sources. Next, we consider the language used; sensationalist or emotionally charged language often indicates a lack of credibility. Additionally, we look for citations or references to reputable organizations or studies. In this case, the news body presents unverified claims without supporting evidence and uses exaggerated language, which suggests it is not trustworthy. Therefore, we conclude that the news body is likely to be false.",
+        "answer": "fake"
+      },
+      {
+        "augmented": true,
+        "news_body": "Real news body 2",
+        "rationale": "determine the authenticity of the news body. We first analyze the content for factual accuracy, checking for credible sources and evidence supporting the claims made. Next, we consider the language used; real news typically maintains a neutral tone and avoids sensationalism. Finally, we cross-reference the information with established news outlets to verify its legitimacy. Since the news body presents verifiable facts and is consistent with reputable sources, we conclude that it is credible.",
+        "answer": "real"
+      },
+      {
+        "augmented": true,
+        "news_body": "Fake news body 3",
+        "rationale": "determine the authenticity of the news body. We first analyze the content for factual accuracy, checking for credible sources and evidence. Next, we consider the language used; sensational or exaggerated claims often indicate misinformation. Finally, we cross-reference the information with established news outlets. Since the news body presents unverifiable claims and lacks credible sources, it suggests that the information is misleading.",
+        "answer": "fake"
+      }
+    ],
+    "signature_instructions": "Given the fields `news_body`, produce the fields `answer`.",
+    "signature_prefix": "Answer:",
+    "extended_signature_instructions": "Given the fields `news_body`, produce the fields `answer`.",
+    "extended_signature_prefix": "Answer:"
+  }
+}

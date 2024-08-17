@@ -1,0 +1,31 @@
+{
+  "prog": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "news_body": "Fake news body 1",
+        "rationale": "determine the authenticity of the news body. The phrase \"Fake news body 1\" suggests that the content is likely fabricated or misleading. Additionally, there are no credible sources or factual information presented in the body. Therefore, it is reasonable to conclude that this news body is not based on truth.",
+        "answer": "fake"
+      },
+      {
+        "augmented": true,
+        "news_body": "Fake news body 3",
+        "rationale": "determine the authenticity of the news body. We first analyze the content for factual accuracy, checking for credible sources and evidence. Next, we consider the language used; sensational or exaggerated claims often indicate misinformation. Finally, we cross-reference the information with established news outlets. Since the news body presents unverifiable claims and lacks credible sources, it suggests that the information is misleading.",
+        "answer": "fake"
+      },
+      {
+        "augmented": true,
+        "news_body": "Real news body 2",
+        "rationale": "determine the authenticity of the news body. We first analyze the content for factual accuracy, checking for credible sources and evidence supporting the claims made. Next, we consider the language used; real news typically maintains a neutral tone and avoids sensationalism. Finally, we cross-reference the information with established news outlets to verify its legitimacy. Since the news body presents verifiable facts and is consistent with reputable sources, we conclude that it is credible.",
+        "answer": "real"
+      }
+    ],
+    "signature_instructions": "Given the fields `news_body`, produce the fields `answer`.",
+    "signature_prefix": "Answer:",
+    "extended_signature_instructions": "In a world inundated with misinformation, accurately categorizing news articles as \"fake\" or \"real\" is crucial for public awareness and safety. Given the provided `news_body`, critically analyze each news article and produce the corresponding `answer`. Ensure your reasoning is clear and methodical, demonstrating how you arrived at your classification.",
+    "extended_signature_prefix": "Answer:"
+  }
+}
