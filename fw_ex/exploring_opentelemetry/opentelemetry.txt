@@ -95,3 +95,8 @@ how it is annotated. Ranging from General, Database, HTTP to RPC, Obj Stores etc
 Instrumentation Scope is defind by a name and version pair, when a tracer, meter 
 or logger instance is obtained from provider.
 Each span, metric or log is associated with scope.
+
+Open Inference:
+
+https://github.com/Arize-ai/openinference/tree/main/spec
+
