@@ -1,0 +1,80 @@
+# AWS playbook
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  vars:
+    key_name: my_as             # Key used for SSH
+    region: ap-south-1       # Region may affect response and pricing
+    # image: ami-06cd706b6bacee637 # look in ec2 > ami (filter owner alias: amazon) or amis of manually launched instances
+    image: ami-0ad21ae1d0696ad58 # look into https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
+    id: "ansible testing"
+    instance_type: t2.micro # Choose instance type, check AWS for pricing
+    # vpc_id: subnet-012345
+    sec_group: "ansi-sec-1"
+    ec2_access_key: "A656565LMKLHsrobus"
+    ec2_secret_key: "iiiiiiiiiiiiittthetdhdcheEjthethe"
+
+  tasks:
+    - name: Provisioning EC2 instances
+      block:
+
+      - name: Create security group
+        amazon.aws.ec2_security_group:
+          name: "{{ sec_group }}"
+          description: "Ansible security group"
+          region: "{{ region }}"
+          aws_access_key: "{{ec2_access_key}}"  # From vault as defined
+          aws_secret_key: "{{ec2_secret_key}}"  # From vault as defined
+          rules:                                # allows ssh on port 22
+            - proto: tcp
+              ports:
+                - 22
+              cidr_ip: 0.0.0.0/0
+              rule_desc: allow all on ssh port
+
+      - name: Amazon EC2 | Create Key Pair      # Create key pair for ssh
+        amazon.aws.ec2_key:
+          name: "{{ key_name }}"
+          region: "{{ region }}"
+          aws_access_key: "{{ec2_access_key}}"  # From vault as defined
+          aws_secret_key: "{{ec2_secret_key}}"  # From vault as defined
+          key_material: "{{ item }}"
+        with_file: ~/.ssh/my_a.pub
+
+      - name: Start an instance with a public IP address
+        amazon.aws.ec2_instance:
+          name: "public-compute-instance"
+          key_name: "{{ key_name }}"
+          # vpc_subnet_id: "{{ vpc_id }}"
+          instance_type: "{{ instance_type }}"
+          security_group: "{{ sec_group }}"
+          aws_access_key: "{{ ec2_access_key }}"
+          aws_secret_key: "{{ ec2_secret_key }}"
+          region: "{{ region }}"
+          network:
+            assign_public_ip: true
+          image_id: "{{ image }}"
+          tags:
+            Environment: Testing
+
+      # Always require the 'create_ec2' tag to provision EC2 instance
+      tags: ['never', 'create_ec2'] 
+
+    - name: Facts
+      block: # this block prints out instance data
+
+      - name: Get instances facts
+        ec2_instance_info:
+          aws_access_key: "{{ ec2_access_key }}"
+          aws_secret_key: "{{ ec2_secret_key }}"
+          region: "{{ region }}"
+        register: result
+
+      - name: Instances ID
+        debug:
+          msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
+        loop: "{{ result.instances }}"
+      tags: always

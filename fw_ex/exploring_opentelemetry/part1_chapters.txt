@@ -1,17 +1,16 @@
-Intro
-Why Phoenix & Dspy
-Development of F1 Score metric for Simply discover
-Necessity of tracing while developing metric
-What to Expect & dive into Open Telemetry & Inference
-Purpose of Telemetry
-Parts of Telemetry
-Explaining part of Telemetry
-Explaining parts of OTLP framework
-Intro to Phoenix by showing Server
-Ways of getting a Phoenix Server
-Setup process through commandline
-instrumenting the DSPy in notebook
-sending traces to server
-Outro
-Conclusion
+0:00 Intro
+0:15 Why Phoenix & Dspy
+0:52 Necessity of Telemetry 
+1:40 Phoenix Intro
+2:25 What to Expect 
+2:55 Purpose and Parts of Telemetry
+4:20 Explaining part of Telemetry
+7:50 Explaining parts of OTLP framework
+9:30 Ways of Setting up Phoenix Server
+16:40 Reviewing the Server UI
+17:10 Instrumenting the DSPy in notebook
+19:10 AI Integration to Phoenix
+22:50 Sending, Seeing and Updating traces
+26:20 Conclusion
+27:10 Outro
 
