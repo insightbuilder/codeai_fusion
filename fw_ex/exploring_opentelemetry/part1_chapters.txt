@@ -14,3 +14,17 @@
 26:20 Conclusion
 27:10 Outro
 
+part2_chapters:
+
+0:00 Intro
+0:20 Agenda
+1:20 Metric Primer
+2:20 Parts of Metric
+3:55 Metric During Optimisation
+5:30 Looking at DSPy Trace
+6:10 Metric During Evaluation
+7:40 Debugging with Phoenix server
+10:15 Reviewing Bootstrapped calls
+11:45 Reviewing
+12:20 Outro
+
