@@ -1,0 +1,8 @@
+Flask
+Flask-RESTful
+SQLAlchemy
+Marshmallow
+requests
+flask-marshmallow
+flask-sqlalchemy
+marshmallow-sqlalchemy

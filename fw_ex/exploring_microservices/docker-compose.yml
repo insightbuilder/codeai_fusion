@@ -1,0 +1,34 @@
+services:
+  flask-app-1:
+    build: ./order_app
+    ports:
+      - "5001:5000" # Maps host port 5001 to container port 5000
+    volumes:
+      - data:/data
+    # networks:
+    #   - flask-network
+
+  flask-app-2:
+    build: ./product_app
+    ports:
+      - "5002:5000"
+    volumes:
+      - data:/data
+    # networks:
+    #   - flask-network
+
+  flask-app-3:
+    build: ./fileup_app
+    ports:
+      - "5003:5000"
+    volumes:
+      - data:/data
+    # networks:
+    #   - flask-network
+
+# networks:
+#   flask-network:
+#     driver: bridge
+
+volumes:
+  data:
