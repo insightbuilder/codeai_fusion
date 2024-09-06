@@ -1,0 +1,10 @@
+System setup:
+ 
+1) Marktext to make the presentation
+2) Gromit MPX to annotate and draw
+3) Screenkey to show keys used
+4) Simple Recorder to record the presentations & screen recs
+5) Kdenlive for splicing audio with video
+
+Workflow For Youtube Videos:
+
