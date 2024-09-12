@@ -359,8 +359,14 @@ op=>operation: Square 2
 op2=>operation: Square 3
 op3=>operation: Square 4
 op4=>operation: Square 5
+c=>condition: Rectangle1
+r1=>operation: Type1
+r2=>operation: Type2
 
 st->op(right)->op2->op3(right)->op4
+op4->c
+c(yes)->r1
+c(no)->r2
 ```
 
 ```flowchart
@@ -405,4 +411,8 @@ flowchart LR
     "y": {"field": "b", "type": "quantitative"}
   }
 }
+```
+
+```plantuml
+
 ```

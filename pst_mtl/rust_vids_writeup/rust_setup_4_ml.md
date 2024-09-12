@@ -1,5 +1,23 @@
 # Rust Setup with LunarVim For ML in Ubuntu24.04
 
+- [ ] Come up with the plan for 3 videos
+  
+  > 1) Why learn Rust? 
+  > 
+  > 2) Setup environment for Rust
+  > 
+  > 3) Getting hello world from Rust
+
+- [ ] Complete the content write up for 3 videos
+
+- [ ] Prepare the presentation steps for the videos
+
+- [ ] Work on presenting the videos   
+
+---
+
+Following was a rough draft...
+
 ### Video 1: Showcasing Candle Rust Crate in Action
 
 Learning & Mastering Rust requires RAPID FEEDBACK & LunarVim & with its many Rust extensions 
