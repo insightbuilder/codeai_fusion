@@ -117,7 +117,7 @@ def update_book(book_id: int, book: BookUpdate, db: Session = Depends(get_db)):
     if book.author:
         db_book.author = book.author
     if book.summary:
-        db_book.encrypted_summary = encrypt_summary(book.summary)
+        db_book.summary = encrypt_summary(book.summary)
     db.commit()
     db.refresh(db_book)
 

@@ -1,5 +1,5 @@
 System setup:
- 
+
 1) Marktext to make the presentation
 2) Gromit MPX to annotate and draw
 3) Screenkey to show keys used
@@ -7,4 +7,3 @@ System setup:
 5) Kdenlive for splicing audio with video
 
 Workflow For Youtube Videos:
-
