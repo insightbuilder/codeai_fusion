@@ -186,14 +186,12 @@ def run_conversation(user_request: str):
             },
         },
     ]
-    try:
-        response = client.chat(
-            model=model,
-            messages=messages,
-            tools=tools,
-        )
-    except Exception as e:
-        print(f"Following exception occured in 1st call:\n {e}")
+
+    response = client.chat(
+        model=model,
+        messages=messages,
+        tools=tools,
+    )
 
     print("Completed first request\n")
 
@@ -206,6 +204,7 @@ def run_conversation(user_request: str):
 
     # # Step 2: check if the model wanted to call a function
     print("Enumerating the tool calls\n")
+
     if tool_calls:
         messages.append(response_message)  # extend conversation with assistant's reply
         available_functions = {
@@ -228,31 +227,32 @@ def run_conversation(user_request: str):
             function_args = tool_call["function"]["arguments"]
             try:
                 function_response = function_to_call(**function_args)
+
+                # Step 4: send the info for each function call
+                # and function response to the model
+                print(
+                    "function return is appended to message, and 2nd request is made ready"
+                )
+                messages.append({
+                    "role": "tool",
+                    "content": function_response,
+                })  # extend conversation with function response
             except Exception as e:
                 print(f"The following exception occured in function call:\n {e}")
-
-            # Step 4: send the info for each function call and function response to the model
-            print(
-                "function return is appended to message, and 2nd request is made ready"
-            )
-            messages.append({
-                "role": "tool",
-                "content": function_response,
-            })  # extend conversation with function response
         try:
             second_response = client.chat(
                 model=model,
                 messages=messages,
-            )  # get a new response from the model where it can see the function response
+            )  # get a new response from the model
+            # where it can see the function response
             return second_response
         except Exception as e:
-            print(f"Following exception occured in 1st call:\n {e}")
+            return {
+                "message": {
+                    "content": f"Following exception occured in 1st call:\n {e}"
+                }
+            }
 
-
-# print(read_file_contents("/home/uberdev/history.txt"))
-# print(update_file_contents("/home/uberdev/history.txt", "added by function"))
-# print(create_file_contents("/home/uberdev/funcreate.txt", "added by function"))
-# print(delete_file("/home/uberdev/funcreate.txt"))
 
 if __name__ == "__main__":
     print("""This bot can operate on your file.
