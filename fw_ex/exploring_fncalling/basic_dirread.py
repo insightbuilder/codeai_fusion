@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 
 # Setup the OpenAI client to use either Azure, OpenAI or Ollama API
-load_dotenv("/media/uberdev/ddrv/gitFolders/python_de_learners_data/.env")
+load_dotenv(".env")
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # print(os.getenv("OPENAI_API_KEY"))

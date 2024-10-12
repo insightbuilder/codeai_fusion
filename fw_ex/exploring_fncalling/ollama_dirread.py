@@ -3,7 +3,6 @@ import json
 import ollama
 from dotenv import load_dotenv
 
-
 # Setup the Ollama client to use either Azure, OpenAI or Ollama API
 client = ollama.Client()
 model = "llama3.2:1b"
