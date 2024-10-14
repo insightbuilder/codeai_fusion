@@ -1,11 +1,18 @@
 import openai
 from dotenv import load_dotenv
+
+# Note the below inspect module, which is
+# part of the Python. This helps to review the
+# objects/ classes, functions inside python
 import inspect
 import json
 
 
+# This is part of the routine.py module,
+# which is in the same location as the auto_handoff.py
 # function that creates the schemas
 def function_to_schema(func) -> dict:
+    # the type_map dictionary for different python objekts
     type_map = {
         str: "string",
         int: "integer",
@@ -15,48 +22,61 @@ def function_to_schema(func) -> dict:
         dict: "object",
         type(None): "null",
     }
-
+    # we are going to extract the signature of the func function
+    # that is sent as the parameter to this function
     try:
         # extracts the names, arguments
         signature = inspect.signature(func)
+        # if the parameter is wrongly sent, then below error
+        # vwill be raised
     except ValueError as e:
         raise ValueError(
             f"Failed to get signature for function {func.__name__}: {str(e)}"
         )
-
+    # next we need to extract the parameters of the func function,
+    # and store before returning it,
     parameters = {}
     # building the parameter schema
+    # from the extracted "Signature" we extract the parameters
     for param in signature.parameters.values():
         try:
+            # here we use the type_map dict to find the annotation of the parameter type
             param_type = type_map.get(param.annotation, "string")
         except KeyError as e:
+            # if the parameter is of Unknown type then we have to raise the error
             raise KeyError(
                 f"Unknown type annotation {param.annotation} for parameter {param.name}: {str(e)}"
             )
         parameters[param.name] = {"type": param_type}
-
+    # then we need to assign if any of the parameter is required compulsorily
+    # for the func function to be called...
     required = [
         param.name
         for param in signature.parameters.values()
         if param.default == inspect._empty
     ]
-    # below is the schema
+    # below is the schema, that is being built with the aboev collected data
     return {
-        "type": "function",
+        "type": "function",  # this is type
         "function": {
-            "name": func.__name__,
-            "description": (func.__doc__ or "").strip(),
-            "parameters": {
+            "name": func.__name__,  # name is directly extracted
+            "description": (func.__doc__ or "").strip(),  # docstrings for description
+            "parameters": {  # Parameters for the function
                 "type": "object",
-                "properties": parameters,
-                "required": required,
+                "properties": parameters,  # this is list of parameters
+                "required": required,  # this is the required_list of parameter
             },
         },
     }
 
 
-# 1st function
+# Let take the 1st function as example
 def look_up_item(search_query):
+    # fn_name is look_up_item
+    # type is Function
+    # parameter is search_query, of type string
+    # this parameter is required.
+    # All the above info is extracted from the function_to_schema function
     """Use to find item ID.
     Search query can be a description or keywords."""
 
