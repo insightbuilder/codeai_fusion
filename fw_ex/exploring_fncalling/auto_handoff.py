@@ -42,7 +42,7 @@ class Response(BaseModel):
 # Lets do that...
 # Lets not look at run_full_turn function, here you will understand
 # how agents work...
-def run_full_turn(agent, messages):
+def run_full_turn(agent, messages, client):
     # here the agent persona is assigned
     current_agent = agent
     # the history of messages is recievd as list
@@ -254,11 +254,33 @@ issues_and_repairs_agent = Agent(
     ),
     tools=[execute_refund, look_up_item, transfer_back_to_triage],
 )
+
+
 # The agents and supportng functions are explained..
 # before going to main, lets move to run_full_turn function above
 # We have seen all the supporting functions, agents definition... lets now
 # look at the main loop
 # this is the loop that created the chat in the demo
+
+
+def run_repl(entry_agent: Agent, client: OpenAI):
+    agent = entry_agent  # The first interfacing agent
+    messages = []
+
+    while True:
+        user = input("User: ")
+        # user query goes into the messages
+        messages.append({"role": "user", "content": user})
+        # start the conversation with triage agent
+        # this calles the run_full_turn function, where the user request
+        # used classify which function to call, with help of the LLMS
+        # the function is called, and the necessary activity is completed
+        # and then it returns back here...
+        response = run_full_turn(agent=agent, messages=messages, client=client)
+        agent = response.agent
+        messages.extend(response.messages)
+
+
 if __name__ == "__main__":
     load_dotenv(".env")
     # we are using the OpenAI client
@@ -275,7 +297,7 @@ if __name__ == "__main__":
         # used classify which function to call, with help of the LLMS
         # the function is called, and the necessary activity is completed
         # and then it returns back here...
-        response = run_full_turn(agent, messages)
+        response = run_full_turn(agent=agent, messages=messages, client=client)
         agent = response.agent
         messages.extend(response.messages)
     # The loop continues, until the escalate_to_human is called
