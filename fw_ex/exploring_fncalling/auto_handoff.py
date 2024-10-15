@@ -263,10 +263,12 @@ issues_and_repairs_agent = Agent(
 # this is the loop that created the chat in the demo
 
 
+## This is the run_repl that we were seeing inside db_main.py
 def run_repl(entry_agent: Agent, client: OpenAI):
+    # it starts with an agent, in our case it is triage
     agent = entry_agent  # The first interfacing agent
     messages = []
-
+    # This loop keeps the user interaction with the LLM in a loop
     while True:
         user = input("User: ")
         # user query goes into the messages
