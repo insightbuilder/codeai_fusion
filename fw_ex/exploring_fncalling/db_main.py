@@ -30,6 +30,18 @@ def transfer_to_refund():
     return refunds_agent
 
 
+def show_pdt_price():
+    """Provides the available products and the price of each product and its pdt_id"""
+    conn = database.get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM PRODUCTS""")
+    result = cursor.fetchall()
+    data = ""
+    for row in result:
+        data += str(row)
+    return data
+
+
 def refund_item(user_id, item_id):
     """Initiate a refund based on the user ID and item ID.
     Takes as input arguments in the format '{"user_id":"1","item_id":"3"}'
@@ -133,9 +145,10 @@ sales_agent = Agent(
     Regardless of what the user wants to purchase, must ask for BOTH the user ID and product ID to place an order.
     An order cannot be placed without these two pieces of inforamation. Ask for both user_id and product_id in one message.
     If the user asks you to notify them, you must ask them what their preferred method is. For notifications, you must
-    ask them for user_id and method in one message.
+    ask them for user_id and method in one message. If user asks to show the product list, then you can show it using 
+    show_pdt_price
     """,
-    tools=[order_item, notify_customer, transfer_back_to_triage],
+    tools=[order_item, notify_customer, transfer_back_to_triage, show_pdt_price],
 )
 
 triage_agent = Agent(
