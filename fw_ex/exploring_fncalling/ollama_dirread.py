@@ -12,8 +12,12 @@ from dotenv import load_dotenv
 # Setup the Ollama client to use either Azure, OpenAI or Ollama API
 # Ollama client is simple Client object
 client = ollama.Client()
+<<<<<<< Updated upstream
 # model variable holds the name of the model
 model = "llama3.2:1b"
+=======
+model = "llama3.2"
+>>>>>>> Stashed changes
 
 
 # Following are the list of 5 python functions
@@ -277,6 +281,7 @@ def run_conversation(user_request: str):
             try:
                 # here the function is called with the extracted arguments by unpacking them...
                 function_response = function_to_call(**function_args)
+<<<<<<< Updated upstream
 
                 # Step 4: send the info for each function call
                 # and function response to the model
@@ -306,6 +311,15 @@ def run_conversation(user_request: str):
                     "content": f"Following exception occured in 1st call:\n {e}"
                 }
             }
+=======
+                # Step 4: print function response to the screen
+                print(f"Function Response: {function_response}")
+            except Exception as e:
+                print(f"The following exception occured in function call:\n {e}")
+        # the 2nd call to the LLM is not required, as the work is
+        # completed with one
+
+>>>>>>> Stashed changes
 
 
 # below is the main loop where the aboev run_conversation is executed
@@ -331,6 +345,7 @@ if __name__ == "__main__":
     while True:
         # asking for user input
         user_post = input(f"Start your Convo with {model}: ")
+<<<<<<< Updated upstream
         # run_conversation function is called with user_request
         result = run_conversation(user_request=user_post)
         # the result of the function call, after completing the requested operation
@@ -342,3 +357,13 @@ if __name__ == "__main__":
 
         print("Ctrl + D to exit")
     # all of this from locally running Ollama server, with Llama 3.2 1B model...
+=======
+
+        try:
+            result = run_conversation(user_request=user_post)
+
+            print("Ctrl + D to exit")
+        except Exception as e:
+            print(f"Error: {e}")
+            print("Ctrl + D to exit")
+>>>>>>> Stashed changes

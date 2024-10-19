@@ -1,0 +1,18 @@
+= Document Title
+Doc Writer <doc.writer@email.org>
+:doctype: book
+:toc:
+
+[appendix]
+= The Appendix
+
+[preface]
+= Reference Documentation
+Lead Developer
+
+This is documentation for project X.
+
+include::test1.adoc[]
+include::test2.adoc[]
+
+include::test3.adoc[]

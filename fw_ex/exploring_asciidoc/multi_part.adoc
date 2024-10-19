@@ -1,0 +1,34 @@
+= Document Title (Level 0)
+:doctype: book
+
+== Level 1 Section Title
+
+= Level 0 Section Title (Part)
+
+== Level 1 Section Title
+
+=== Level 2 Section Title
+
+==== Level 3 Section Title
+
+===== Level 4 Section Title
+
+====== Level 5 Section Title
+
+= Another Level 0 Section Title (Part)
+
+== This is a section
+
+[discrete]
+=== I'm an independent heading!
+
+This paragraph is its sibling, not its child.
+
+[preface]
+= Book Preface
+
+= Part Title
+This is a part 
+
+== Chapter Title
+

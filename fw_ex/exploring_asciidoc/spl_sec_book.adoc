@@ -1,0 +1,62 @@
+= Multi-Part Book with Special Sections
+Author Name <author@example.com>
+:doctype: book
+:toc:
+
+[colophon]
+= The Colophon
+
+Text at the beginning of a book describing facts about its production.
+
+= The First Part
+
+== The First Chapter
+
+Chapters can be grouped by preceding them with a level 0 Book Part title.
+
+= The List part
+
+== Unordered list
+
+* List item
+** Nested list item
+*** Deeper nested list item
+* List item
+ ** Another nested list item
+* List item
+
+== MAX Listing 
+
+* Level 1 list item
+** Level 2 list item
+*** Level 3 list item
+**** Level 4 list item
+***** Level 5 list item
+****** etc.
+* Level 1 list item
+
+=== ordered list
+
+. Level 1 list item
+.. Level 2 list item
+... Level 3 list item
+.... Level 4 list item
+..... Level 5 list item
+. Level 1 list item
+
+==== Level four cheked
+* [*] checked
+* [x] also checked
+* [ ] not checked
+* normal list item
+
+[appendix]
+= The Appendix
+
+=== Basics
+
+A multipart book can have appendixes, which should be defined at section level 0.
+
+=== Subsections
+
+Subsections of an appendix in a multipart book should start at level 2.

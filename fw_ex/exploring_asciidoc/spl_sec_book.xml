@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Multi-Part Book with Special Sections</title>
+<date>2024-10-19</date>
+<author>
+<personname>
+<firstname>Author</firstname>
+<surname>Name</surname>
+</personname>
+<email>author@example.com</email>
+</author>
+<authorinitials>AN</authorinitials>
+</info>
+<colophon xml:id="_the_colophon">
+<title>The Colophon</title>
+<simpara>Text at the beginning of a book describing facts about its production.</simpara>
+</colophon>
+<part xml:id="_the_first_part">
+<title>The First Part</title>
+<chapter xml:id="_the_first_chapter">
+<title>The First Chapter</title>
+<simpara>Chapters can be grouped by preceding them with a level 0 Book Part title.</simpara>
+</chapter>
+</part>
+<part xml:id="_the_list_part">
+<title>The List part</title>
+<chapter xml:id="_unordered_list">
+<title>Unordered list</title>
+<itemizedlist>
+<listitem>
+<simpara>List item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Nested list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Deeper nested list item</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>List item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Another nested list item</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>List item</simpara>
+</listitem>
+</itemizedlist>
+</chapter>
+<chapter xml:id="_max_listing">
+<title>MAX Listing</title>
+<itemizedlist>
+<listitem>
+<simpara>Level 1 list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Level 2 list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Level 3 list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Level 4 list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Level 5 list item</simpara>
+<itemizedlist>
+<listitem>
+<simpara>etc.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>Level 1 list item</simpara>
+</listitem>
+</itemizedlist>
+<section xml:id="_ordered_list">
+<title>ordered list</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Level 1 list item</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>Level 2 list item</simpara>
+<orderedlist numeration="lowerroman">
+<listitem>
+<simpara>Level 3 list item</simpara>
+<orderedlist numeration="upperalpha">
+<listitem>
+<simpara>Level 4 list item</simpara>
+<orderedlist numeration="upperroman">
+<listitem>
+<simpara>Level 5 list item</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+<listitem>
+<simpara>Level 1 list item</simpara>
+</listitem>
+</orderedlist>
+<section xml:id="_level_four_cheked">
+<title>Level four cheked</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; checked</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; also checked</simpara>
+</listitem>
+<listitem>
+<simpara>&#10063; not checked</simpara>
+</listitem>
+<listitem>
+<simpara>normal list item</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+</chapter>
+</part>
+<appendix xml:id="_the_appendix">
+<title>The Appendix</title>
+<section xml:id="_basics">
+<title>Basics</title>
+<simpara>A multipart book can have appendixes, which should be defined at section level 0.</simpara>
+</section>
+<section xml:id="_subsections">
+<title>Subsections</title>
+<simpara>Subsections of an appendix in a multipart book should start at level 2.</simpara>
+</section>
+</appendix>
+</book>

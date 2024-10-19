@@ -1,0 +1,10 @@
+= Test2
+Test2 Writer <Test@writr.olm>
+:doctype: book
+:toc:
+
+[preface]
+== Chapter 2
+
+[appendix]
+= The Appendix 2

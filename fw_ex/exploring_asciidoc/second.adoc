@@ -1,0 +1,7 @@
+= Document Title
+Author Name <author@email.org>
+v2.0, 2019-03-22
+:toc:
+:homepage: https://example.org
+
+This document provides...

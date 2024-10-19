@@ -1,0 +1,10 @@
+= Test3
+Test 3 Writer Test Writer <Test@writr.olm>
+:doctype: book
+:toc:
+
+[preface]
+== Chapter 1
+
+[appendix]
+= The Appendixwritr.olm>

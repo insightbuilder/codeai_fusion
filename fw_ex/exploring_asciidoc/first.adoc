@@ -1,0 +1,110 @@
+= Asciidoctor Title: Hanging around
+
+This is the first para and it will be rendered with bigger text.
+
+== Section 1
+
+Text of section 1
+
+== Section 2
+
+Text of section 2
+
+A normal paragraph.
+
+A literal paragraph.
+One or more consecutive lines indented by at least one space.
+
+The text is shown in a fixed-width (typically monospace) font.
+The lines are preformatted (i.e., as formatted in the source).
+Spaces and newlines,
+like the ones in this sentence,
+are preserved.
+
+Roses are red, +
+violets are blue.
+
+[%hardbreaks]
+
+A ruby is red.
+Java is black.
+
+[.lead]
+This text will be styled as a lead paragraph (i.e., larger font).
+
+This paragraph will not be.
+
+It has *strong* significance to me.
+
+I _cannot_ stress this enough.
+
+Type `OK` to accept.
+
+That *_really_* has to go.
+
+Can't pick one? Let's use them *_all_*.
+
+**C**reate, **R**ead, **U**pdate and **D**elete (CRUD)
+
+That's fan__freakin__tastic!
+
+Don't pass generic ``Object``s to methods that accept ``String``s!
+
+It was Beatle**__mania__**!
+
+Mark my words, #automation is essential#.
+
+##Mark##up refers to text that contains formatting ##mark##s.
+
+Where did all the [.underline]#cores# go?
+
+We need [.line-through]#ten# twenty VMs.
+
+A [.myrole]#custom role# must be fulfilled by the theme.
+
+"`double curved quotes`"
+
+'`single curved quotes`'
+
+Olaf's desk was a mess.
+
+A ``std::vector```'s size is the number of items it contains.
+
+All of the werewolves`' desks were a mess.
+
+Olaf had been with the company since the `'00s.
+
+https://asciidoctor.org - automatic!
+
+https://asciidoctor.org[Asciidoctor]
+
+devel@discuss.example.org
+
+mailto:devel@discuss.example.org[Discuss]
+
+mailto:join@discuss.example.org[Subscribe,Subscribe me,I want to join!]
+
+https://chat.asciidoc.org[Discuss AsciiDoc,role=external,window=_blank]
+
+https://chat.asciidoc.org[Discuss AsciiDoc^]
+
+link:++https://example.org/?q=[a b]++[URL with special characters]
+
+https://example.org/?q=%5Ba%20b%5D[URL with special characters]
+
+link:first.html[Docs]
+
+link:\\server\share\whitepaper.pdf[Whitepaper]
+
+[[bookmark-a]]Inline anchors make arbitrary content referenceable.
+
+[#bookmark-b]#Inline anchors can be applied to a phrase like this one.#
+
+anchor:bookmark-c[]Use a cross reference to link to this location.
+
+[[bookmark-d,last paragraph]]The xreflabel attribute will be used as link text in the cross-reference link.
+
+See <<paragraphs>> to learn how to write paragraphs.
+
+Learn how to organize the document into <<section-titles,sections>>.
+
