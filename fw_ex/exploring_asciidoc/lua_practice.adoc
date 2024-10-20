@@ -1,0 +1,51 @@
+= Lua Practice Doc
+Insight hacker <insighthacker21@gmail.com>
+:doc type: book
+:toc:
+
+
+== First Steps
+. Work lua and luarocks
+
+[.lead]
+Install lua and luarocks using the sudo apt install on ubuntu
+
+Next work on installing the below packages to send a web request 
+and get the output
+
+== Next Steps
+
+[.lead]
+Learn to get the user input, process it and send to database
+Then extract it and place it back on the output
+
+== Third Step
+
+[.lead]
+Learn to take url as input from the user
+
+Get the response from the server, and store it in local variable
+Write the data into seperate files, based on the list of json returned
+Then create a MD file from those jsons
+
+== Final Step: Creating Plugin
+
+Develop the above input process into a plugin
+The input from user is taken from the buffer
+Request is processed in the backend, and populate the buffer back
+
+The above steps will be using the below 
+https://chatgpt.com/share/671488ba-1850-8007-8675-7997b685f515[homepage] for the request
+
+[ditaa]
+....
+    +-------+   +-------+    +---------+
+    |       | --+ lua   +--> |         |
+    | link  |   +-------+    | data out|
+    |    {d}|   | !mag! |    |         |
+    +---+---+   +-------+    +---------+
+        .                         ^
+        .                         |
+        |                         |
+        +-------------------------+
+....
