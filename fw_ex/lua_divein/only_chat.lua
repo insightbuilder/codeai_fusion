@@ -8,6 +8,14 @@ local client = openai.new(api_key)
 local vimerror = vim.log.levels.ERROR
 local viminfo = vim.log.levels.INFO
 
+local function split(input_str, delimiter)
+  local result = {}
+  for match in (input_str .. delimiter):gmatch("(.-)" .. delimiter) do
+    table.insert(result, match)
+  end
+  return result
+end
+
 local function chat_n_save()
   -- get cursor location line
   local cursor = vim.api.nvim_win_get_cursor(0)[1]
@@ -27,14 +35,17 @@ local function chat_n_save()
   })
   -- send the line to llm
   local resp = chat:send(line)
-
+  -- vim.notify(type(resp), viminfo)
   -- if line and resp are true
   if line and resp then
-    local compl = {}
-    table.insert(compl, resp)
+    -- local compl = {}
+    local resplines = split(resp, "\n")
     -- update the response on the next line of the current cursor location
-    vim.notify(resp, viminfo)
-    vim.api.nvim_buf_set_lines(0, cursor + 1, -1, false, compl)
+    vim.notify(tostring(#resplines), viminfo)
+    local cst = cursor + 1
+    local ced = cst + #resplines
+    vim.notify(tostring(#resplines), tonumber(cst), tostring(ced), viminfo)
+    vim.api.nvim_buf_set_lines(0, cst, ced, false, resplines)
   else
     -- if false then notify
     vim.notify("line or resp is missing.", vimerror)
