@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapp-deployment
+  labels:
+    app: fastapp 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapp 
+  template:
+    metadata:
+      labels:
+        app: fastapp 
+    spec:
+      containers:
+      - name: fastapp 
+        image: solverbot/fastapp:0.01 
+        env:
+        - name: PATH
+          value: "production"
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 300m
+            memory: 400Mi
+          limits:
+            memory: 500Mi
+      # readinessProbe:
+      #   httpGet:
+      #     path: /health
+      #     port: 80
+      #   initialDelaySeconds: 5
+      #   periodSeconds: 10
+      # livenessProbe:
+      #   httpGet:
+      #     path: /health
+      #     port: 80
+      #   initialDelaySeconds: 15
+      #   periodSeconds: 10
+
