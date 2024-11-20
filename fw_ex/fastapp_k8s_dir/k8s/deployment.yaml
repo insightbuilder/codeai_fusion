@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fastapp
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: fastapp
@@ -16,18 +16,18 @@ spec:
     spec:
       containers:
       - name: fastapp
-        image: solverbot/fastapp:0.03
+        image: solverbot/fastapp:0.05
         env:
         - name: APP_ENV
           value: "production"
         ports:
         - containerPort: 8086
-        # resources:
-        #   requests:
-        #     cpu: 300m
-        #     memory: 400Mi
-        #   limits:
-        #     memory: 500Mi
+        resources:
+          requests:
+            cpu: 1
+            memory: 512Mi 
+          limits:
+            memory: 700Mi
         readinessProbe:
           httpGet:
             path: /health/ready
