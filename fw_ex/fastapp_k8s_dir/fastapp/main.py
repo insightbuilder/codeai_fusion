@@ -21,6 +21,4 @@ def readiness():
     # Add checks for critical services here if needed.
     return {"status": "ok"}
 
-@app.on_event("shutdown")
-async def shutdown():
-    print("Shutting down gracefully...")
+
