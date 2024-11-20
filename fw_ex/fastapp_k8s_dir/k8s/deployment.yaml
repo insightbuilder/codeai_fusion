@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   name: fastapp-deployment
   labels:
-    app: fastapp 
+    app: fastapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: fastapp 
+      app: fastapp
   template:
     metadata:
       labels:
-        app: fastapp 
+        app: fastapp
     spec:
       containers:
-      - name: fastapp 
-        image: solverbot/fastapp:0.01 
+      - name: fastapp
+        image: solverbot/fastapp:0.01
         env:
-        - name: PATH
+        - name: APP_ENV
           value: "production"
         ports:
         - containerPort: 80
@@ -28,16 +28,15 @@ spec:
             memory: 400Mi
           limits:
             memory: 500Mi
-      # readinessProbe:
-      #   httpGet:
-      #     path: /health
-      #     port: 80
-      #   initialDelaySeconds: 5
-      #   periodSeconds: 10
-      # livenessProbe:
-      #   httpGet:
-      #     path: /health
-      #     port: 80
-      #   initialDelaySeconds: 15
-      #   periodSeconds: 10
-
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 15
