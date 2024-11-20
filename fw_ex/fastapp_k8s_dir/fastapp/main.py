@@ -20,3 +20,7 @@ def readiness():
     # Logic to check if dependencies are ready (e.g., database, cache)
     # Add checks for critical services here if needed.
     return {"status": "ok"}
+
+@app.on_event("shutdown")
+async def shutdown():
+    print("Shutting down gracefully...")

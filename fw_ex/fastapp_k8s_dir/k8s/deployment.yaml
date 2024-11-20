@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fastapp
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: fastapp
@@ -21,7 +21,7 @@ spec:
         - name: APP_ENV
           value: "production"
         ports:
-        - containerPort: 80
+        - containerPort: 8086
         resources:
           requests:
             cpu: 300m
