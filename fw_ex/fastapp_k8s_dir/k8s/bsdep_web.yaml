@@ -1,0 +1,39 @@
+# https://kubernetes.io/docs/concepts/workloads/pods/
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: bsdep-web
+  labels:
+    app: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp 
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: bstashchuk/k8s-web-to-nginx
+        ports:
+        - containerPort: 3000 
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bsdep-web-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 3030 
+      targetPort: 3000 

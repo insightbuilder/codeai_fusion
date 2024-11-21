@@ -1,0 +1,40 @@
+# https://kubernetes.io/docs/concepts/workloads/pods/
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "myapp"
+  namespace: default
+  labels:
+    annotations:
+      kubectl.kubernetes.io/default-container:  myapp
+    app: "myapp"
+spec:
+  containers:
+  - name: myapp
+    image: "debian-slim:latest"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    env:
+    - name: DB_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: myapp
+          key: DB_HOST
+    ports:
+    - containerPort: 80
+      name: http
+    volumeMounts:
+    - name: localtime
+      mountPath: /etc/localtime
+  volumes:
+    - name: localtime
+      hostPath:
+        path: /usr/share/zoneinfo/Asia/Taipei
+  restartPolicy: Always
+---
+
