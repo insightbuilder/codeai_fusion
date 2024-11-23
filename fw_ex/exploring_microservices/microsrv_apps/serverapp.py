@@ -1,34 +1,52 @@
 # pyright: reportGeneralTypeIssues=false
 
-from fastapi import FastAPI
-from redis_om import Migrator, get_redis_connection, HashModel
+from fastapi import FastAPI, Depends, Query
+from models import Product
+from sqlmodel import create_engine, Session, select
+from typing import Annotated
 
 app = FastAPI()
+pdt_url = "sqlite:///product.db"
+per_url = "sqlite:///person.db"
 
-redis = get_redis_connection(
-    host="34.229.80.21",
-    port="6379",
-)
+connect_args = {"check_same_thread": False}
 
-
-class Product(HashModel):
-    name: str
-    price: float
-    quantity: int
-
-    # class Meta:
-    #     database: redis
+pdt_engine = create_engine(pdt_url, connect_args=connect_args)
+per_engine = create_engine(per_url, connect_args=connect_args)
 
 
-Migrator(redis).run()
+def get_pdt_session():
+    with Session(pdt_engine) as pdtses:
+        yield pdtses
+
+
+def get_per_session():
+    with Session(per_engine) as perses:
+        yield perses
+
+
+SessionDepPdt = Annotated[Session, Depends(get_pdt_session)]
+SessionDepPer = Annotated[Session, Depends(get_per_session)]
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Product Micro Services"}
 
 
-@app.get("/products")
-def all():
-    # return []
-    return Product.all_pks()
+@app.get("/pdts")
+async def get_pdt(
+    session: SessionDepPdt,
+    offset: int = 0,
+    limit: Annotated[int, Query(le=5)] = 5,
+) -> list[Product]:
+    pdts = session.exec(select(Product).offset(offset).limit(limit)).all()
+    return pdts
+
+
+@app.post("/pdt")
+async def post_pdt(session: SessionDepPdt, pdt: Product) -> Product:
+    session.add(pdt)
+    session.commit()
+    session.refresh(pdt)
+    return pdt

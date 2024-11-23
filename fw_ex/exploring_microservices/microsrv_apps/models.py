@@ -11,7 +11,7 @@ class Product(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     qty: int | None = Field(default=None, index=True)
-    secret_name: str
+    price: int = Field(default=10)
 
 
 sqlite_file = "product.db"
