@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service PersonService {
+  // Unary RPC
+  rpc GetPersonById(PersonIdRequest) returns (PersonResponse);
+
+  // Unary RPC
+  rpc CreatePerson(CreatePersonRequest) returns (CreatePersonResponse);
+  // Server-streaming RPC
+
+  rpc ListPersons(Empty) returns (stream PersonResponse);
+}
+
+message PersonIdRequest {
+  // Returns the PersonID
+  int32 id = 1;
+}
+
+message CreatePersonRequest {
+  // Takes the name, age, and location
+  string name = 1;
+  int32 age = 2;
+  string location = 3;
+}
+
+message CreatePersonResponse {
+  // Response contains Person Id & Message
+   int32 id = 1;
+   string message = 2;
+}
+
+message PersonResponse {
+  // Contains the name, age, location and id
+  string name = 1;
+  int32 age = 2;
+  string location = 3;
+  int32 id = 4;
+}
+
+message Empty {}
