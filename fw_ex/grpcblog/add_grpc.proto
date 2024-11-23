@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package add_grpc;
+
+service AddNumber {
+  //Adds two numbers
+  rpc AddTwoNumber(AddRequest) returns (AddResponse) {};
+}
+
+message AddRequest {
+  // Request containing two number
+  int32 num1 = 1;
+  int32 num2 = 2;
+}
+
+message AddResponse {
+  // Response containing single number
+  int32 added = 1;
+}
