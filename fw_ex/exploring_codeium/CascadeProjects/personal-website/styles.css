@@ -1,0 +1,192 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    padding-top: 76px;
+}
+
+/* Navigation */
+.navbar {
+    transition: all var(--transition-speed) ease;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: all var(--transition-speed) ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    background-color: var(--light-color);
+    position: relative;
+}
+
+.hero-content {
+    padding: 2rem;
+}
+
+.name-highlight {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.social-icon {
+    color: var(--dark-color);
+    transition: color var(--transition-speed) ease;
+}
+
+.social-icon:hover {
+    color: var(--primary-color);
+}
+
+/* About Section */
+.profile-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border: 5px solid white;
+    transition: transform var(--transition-speed) ease;
+}
+
+.profile-image img:hover {
+    transform: scale(1.05);
+}
+
+/* Skills Section */
+.card {
+    transition: transform var(--transition-speed) ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.material-icons {
+    color: var(--primary-color);
+}
+
+/* Projects Section */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Contact Form */
+.form-control {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #dee2e6;
+    padding: 0.75rem 0;
+    transition: border-color var(--transition-speed) ease;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: darken(var(--primary-color), 10%);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .profile-image img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .card-img-top {
+        height: 150px;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+}
+
+/* Utility Classes */
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.bg-light {
+    background-color: var(--light-color) !important;
+}
