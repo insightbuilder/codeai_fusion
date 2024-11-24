@@ -58,7 +58,9 @@ def create_delete_loop():
     create_times = []
     delete_times = []
 
-    with grpc.insecure_channel("localhost:5055") as chn:
+    with grpc.insecure_channel(
+        "ec2-54-198-243-221.compute-1.amazonaws.com:5055"
+    ) as chn:
         stub = pb2_grpc.PersonServiceStub(chn)
         for out in range(0, 5):
             print(f"Starting {out + 1} create delete loop")

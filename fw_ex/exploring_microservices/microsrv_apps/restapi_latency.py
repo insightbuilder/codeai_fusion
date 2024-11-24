@@ -3,7 +3,7 @@
 import requests
 import random
 
-base_url = "http://127.0.0.1:8000/"
+base_url = "http://ec2-54-198-243-221.compute-1.amazonaws.com:8000/"
 
 
 def create_persons():
