@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13multi_service.proto\"\x1d\n\x0fPersonIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"B\n\x13\x43reatePersonRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x10\n\x08location\x18\x03 \x01(\t\"3\n\x14\x43reatePersonResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"I\n\x0ePersonResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x10\n\x08location\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\x05\"\x07\n\x05\x45mpty2\xaa\x01\n\rPersonService\x12\x32\n\rGetPersonById\x12\x10.PersonIdRequest\x1a\x0f.PersonResponse\x12;\n\x0c\x43reatePerson\x12\x14.CreatePersonRequest\x1a\x15.CreatePersonResponse\x12(\n\x0bListPersons\x12\x06.Empty\x1a\x0f.PersonResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13multi_service.proto\"\x1d\n\x0fPersonIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"&\n\x14\x44\x65letePersonResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"B\n\x13\x43reatePersonRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x10\n\x08location\x18\x03 \x01(\t\"3\n\x14\x43reatePersonResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"I\n\x0ePersonResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x10\n\x08location\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\x05\"\x07\n\x05\x45mpty2\xe7\x01\n\rPersonService\x12\x32\n\rGetPersonById\x12\x10.PersonIdRequest\x1a\x0f.PersonResponse\x12;\n\x0c\x43reatePerson\x12\x14.CreatePersonRequest\x1a\x15.CreatePersonResponse\x12(\n\x0bListPersons\x12\x06.Empty\x1a\x0f.PersonResponse0\x01\x12;\n\x10\x44\x65letePersonById\x12\x10.PersonIdRequest\x1a\x15.DeletePersonResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,14 +33,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_PERSONIDREQUEST']._serialized_start=23
   _globals['_PERSONIDREQUEST']._serialized_end=52
-  _globals['_CREATEPERSONREQUEST']._serialized_start=54
-  _globals['_CREATEPERSONREQUEST']._serialized_end=120
-  _globals['_CREATEPERSONRESPONSE']._serialized_start=122
-  _globals['_CREATEPERSONRESPONSE']._serialized_end=173
-  _globals['_PERSONRESPONSE']._serialized_start=175
-  _globals['_PERSONRESPONSE']._serialized_end=248
-  _globals['_EMPTY']._serialized_start=250
-  _globals['_EMPTY']._serialized_end=257
-  _globals['_PERSONSERVICE']._serialized_start=260
-  _globals['_PERSONSERVICE']._serialized_end=430
+  _globals['_DELETEPERSONRESPONSE']._serialized_start=54
+  _globals['_DELETEPERSONRESPONSE']._serialized_end=92
+  _globals['_CREATEPERSONREQUEST']._serialized_start=94
+  _globals['_CREATEPERSONREQUEST']._serialized_end=160
+  _globals['_CREATEPERSONRESPONSE']._serialized_start=162
+  _globals['_CREATEPERSONRESPONSE']._serialized_end=213
+  _globals['_PERSONRESPONSE']._serialized_start=215
+  _globals['_PERSONRESPONSE']._serialized_end=288
+  _globals['_EMPTY']._serialized_start=290
+  _globals['_EMPTY']._serialized_end=297
+  _globals['_PERSONSERVICE']._serialized_start=300
+  _globals['_PERSONSERVICE']._serialized_end=531
 # @@protoc_insertion_point(module_scope)

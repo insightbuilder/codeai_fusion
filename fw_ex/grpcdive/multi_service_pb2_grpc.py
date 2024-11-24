@@ -49,6 +49,11 @@ class PersonServiceStub(object):
                 request_serializer=multi__service__pb2.Empty.SerializeToString,
                 response_deserializer=multi__service__pb2.PersonResponse.FromString,
                 _registered_method=True)
+        self.DeletePersonById = channel.unary_unary(
+                '/PersonService/DeletePersonById',
+                request_serializer=multi__service__pb2.PersonIdRequest.SerializeToString,
+                response_deserializer=multi__service__pb2.DeletePersonResponse.FromString,
+                _registered_method=True)
 
 
 class PersonServiceServicer(object):
@@ -63,14 +68,21 @@ class PersonServiceServicer(object):
 
     def CreatePerson(self, request, context):
         """Unary RPC
-        Server-streaming RPC
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListPersons(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Unary RPC
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeletePersonById(self, request, context):
+        """Unary RPC
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -92,6 +104,11 @@ def add_PersonServiceServicer_to_server(servicer, server):
                     servicer.ListPersons,
                     request_deserializer=multi__service__pb2.Empty.FromString,
                     response_serializer=multi__service__pb2.PersonResponse.SerializeToString,
+            ),
+            'DeletePersonById': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeletePersonById,
+                    request_deserializer=multi__service__pb2.PersonIdRequest.FromString,
+                    response_serializer=multi__service__pb2.DeletePersonResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -175,6 +192,33 @@ class PersonService(object):
             '/PersonService/ListPersons',
             multi__service__pb2.Empty.SerializeToString,
             multi__service__pb2.PersonResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeletePersonById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/PersonService/DeletePersonById',
+            multi__service__pb2.PersonIdRequest.SerializeToString,
+            multi__service__pb2.DeletePersonResponse.FromString,
             options,
             channel_credentials,
             insecure,

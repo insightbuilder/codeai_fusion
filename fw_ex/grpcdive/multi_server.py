@@ -1,3 +1,5 @@
+#!/bin/python
+
 import grpc
 from concurrent import futures
 import multi_service_pb2 as pb2
@@ -17,6 +19,15 @@ class PersonService(pb2_grpc.PersonServiceServicer):
             name=person.name, age=person.age, location=person.location, id=person.id
         )
 
+    def DeletePersonById(self, request, context):
+        get_id = request.id
+        person = session.get(Person, get_id)
+        if not person:
+            return pb2.DeletePersonById(status="Person Missing")
+        session.delete(person)
+        session.commit()
+        return pb2.DeletePersonResponse(status="Person Deleted")
+
     def CreatePerson(self, request, context):
         person = Person(name=request.name, age=request.age, location=request.location)
         session.add(person)
@@ -26,7 +37,7 @@ class PersonService(pb2_grpc.PersonServiceServicer):
         return pb2.CreatePersonResponse(id=person.id, message=message)
 
     def ListPersons(self, request, context):
-        persons = session.exec(select(Person).limit(5)).all()
+        persons = session.exec(select(Person)).all()
         for person in persons:
             yield pb2.PersonResponse(
                 name=person.name, age=person.age, location=person.location, id=person.id

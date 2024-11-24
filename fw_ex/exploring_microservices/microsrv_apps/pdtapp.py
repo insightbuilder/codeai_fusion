@@ -31,7 +31,7 @@ async def root():
 async def get_pdts(
     session: SessionDepPdt,
     offset: int = 0,
-    limit: Annotated[int, Query(le=5)] = 5,
+    limit: Annotated[int, Query(le=5)] = 50,
 ) -> list[Product]:
     pdts = session.exec(select(Product).offset(offset).limit(limit)).all()
     return pdts
@@ -47,6 +47,7 @@ async def get_pdt(session: SessionDepPdt, pdt_id: int) -> Product:
 
 @app.post("/pdt")
 async def post_pdt(session: SessionDepPdt, pdt: Product) -> Product:
+    print(pdt)
     session.add(pdt)
     session.commit()
     session.refresh(pdt)

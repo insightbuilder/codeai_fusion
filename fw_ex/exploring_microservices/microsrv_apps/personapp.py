@@ -1,6 +1,8 @@
+#!/bin/python
+
 from personmodel import Person
 from fastapi import FastAPI, HTTPException, Depends
-from sqlmodel import SQLModel, create_engine, Session, select
+from sqlmodel import create_engine, Session, select
 from typing import Annotated
 
 # pyright: reportReturnType=false
@@ -38,7 +40,7 @@ async def add_persons(
 
 @app.get("/person/all")
 async def list_persons(
-    session: SessionDepPer, offset: int = 0, limit: int = 5
+    session: SessionDepPer, offset: int = 0, limit: int = 50
 ) -> list[Person]:
     persons = session.exec(select(Person).offset(offset).limit(limit)).all()
     return persons

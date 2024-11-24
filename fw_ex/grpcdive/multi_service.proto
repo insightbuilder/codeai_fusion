@@ -6,14 +6,22 @@ service PersonService {
 
   // Unary RPC
   rpc CreatePerson(CreatePersonRequest) returns (CreatePersonResponse);
-  // Server-streaming RPC
 
+  // Unary RPC
   rpc ListPersons(Empty) returns (stream PersonResponse);
+
+  //Unary RPC
+  rpc DeletePersonById(PersonIdRequest) returns (DeletePersonResponse);
 }
 
 message PersonIdRequest {
   // Returns the PersonID
   int32 id = 1;
+}
+
+message DeletePersonResponse{
+  // Returns acknowledgement string
+  string status = 1;
 }
 
 message CreatePersonRequest {
