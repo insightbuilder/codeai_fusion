@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Orders</h2>
+        
+        <!-- Create Order Form -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Create New Order</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="orderForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="customer_id" class="form-label">Customer</label>
+                            <select class="form-select" id="customer_id" name="customer_id" required>
+                                <option value="">Select a customer</option>
+                                {% for customer in customers %}
+                                <option value="{{ customer.id }}">{{ customer.name }} ({{ customer.email }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="orderItems">
+                        <div class="order-item row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Product</label>
+                                <select class="form-select" name="items[][product_id]" required>
+                                    <option value="">Select a product</option>
+                                    {% for product in products %}
+                                    <option value="{{ product.id }}" data-price="{{ product.price }}">
+                                        {{ product.name }} (${{ "%.2f"|format(product.price) }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Quantity</label>
+                                <input type="number" class="form-control" name="items[][quantity]" min="1" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="button" class="btn btn-danger d-block" onclick="removeOrderItem(this)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary mb-3" onclick="addOrderItem()">Add Item</button>
+                    <button type="submit" class="btn btn-primary mb-3">Create Order</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Orders List -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Order List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Order Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.customer.name }}</td>
+                                <td>
+                                    <ul class="list-unstyled mb-0">
+                                        {% for item in order.items %}
+                                        <li>{{ item.product.name }} (x{{ item.quantity }})</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>${{ "%.2f"|format(order.total_price) }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.order_date }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary">Update Status</button>
+                                    <button class="btn btn-sm btn-info">View Details</button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">No orders found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function addOrderItem() {
+    const template = document.querySelector('.order-item').cloneNode(true);
+    template.querySelector('select').value = '';
+    template.querySelector('input[type="number"]').value = '';
+    document.getElementById('orderItems').appendChild(template);
+}
+
+function removeOrderItem(button) {
+    const items = document.querySelectorAll('.order-item');
+    if (items.length > 1) {
+        button.closest('.order-item').remove();
+    }
+}
+</script>
+{% endblock %}

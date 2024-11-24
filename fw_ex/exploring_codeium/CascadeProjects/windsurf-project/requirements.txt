@@ -1,0 +1,7 @@
+grpcio
+grpcio-tools
+protobuf
+sqlalchemy
+flask
+bootstrap-flask
+watchdog

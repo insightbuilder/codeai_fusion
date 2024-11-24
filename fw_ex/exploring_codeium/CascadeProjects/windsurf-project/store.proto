@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package store;
+
+service StoreService {
+  // Customer operations
+  rpc CreateCustomer(Customer) returns (CustomerResponse) {}
+  rpc GetCustomer(CustomerQuery) returns (Customer) {}
+  rpc ListCustomers(Empty) returns (CustomerListResponse) {}
+  rpc UpdateCustomer(Customer) returns (CustomerResponse) {}
+  rpc DeleteCustomer(CustomerQuery) returns (DeleteResponse) {}
+
+  // Product operations
+  rpc CreateProduct(Product) returns (ProductResponse) {}
+  rpc GetProduct(ProductQuery) returns (Product) {}
+  rpc ListProducts(Empty) returns (ProductListResponse) {}
+  rpc UpdateProduct(Product) returns (ProductResponse) {}
+  rpc DeleteProduct(ProductQuery) returns (DeleteResponse) {}
+
+  // Inventory operations
+  rpc UpdateInventory(InventoryUpdate) returns (InventoryResponse) {}
+  rpc ListInventory(Empty) returns (InventoryListResponse) {}
+  rpc GetInventory(ProductQuery) returns (InventoryItem) {}
+
+  // Order operations
+  rpc CreateOrder(Order) returns (OrderResponse) {}
+  rpc GetOrder(OrderQuery) returns (Order) {}
+  rpc ListOrders(Empty) returns (OrderListResponse) {}
+  rpc UpdateOrderStatus(OrderStatusUpdate) returns (OrderResponse) {}
+}
+
+message Empty {}
+
+message Customer {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+}
+
+message CustomerQuery {
+  int32 id = 1;
+  string email = 2;
+}
+
+message CustomerResponse {
+  bool success = 1;
+  string message = 2;
+  Customer customer = 3;
+}
+
+message CustomerListResponse {
+  repeated Customer customers = 1;
+}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+}
+
+message ProductQuery {
+  int32 id = 1;
+  string name = 2;
+}
+
+message ProductResponse {
+  bool success = 1;
+  string message = 2;
+  Product product = 3;
+}
+
+message ProductListResponse {
+  repeated Product products = 1;
+}
+
+message InventoryItem {
+  int32 product_id = 1;
+  int32 quantity = 2;
+  Product product = 3;
+}
+
+message InventoryUpdate {
+  int32 product_id = 1;
+  int32 quantity = 2;  // Changed from quantity_change to quantity
+}
+
+message InventoryResponse {
+  bool success = 1;
+  string message = 2;
+  int32 current_quantity = 3;
+}
+
+message InventoryListResponse {
+  repeated InventoryItem items = 1;
+}
+
+message Order {
+  int32 id = 1;
+  int32 customer_id = 2;
+  repeated OrderItem items = 3;
+  string status = 4;
+  float total_price = 5;
+  string order_date = 6;
+  Customer customer = 7;
+}
+
+message OrderItem {
+  int32 product_id = 1;
+  int32 quantity = 2;
+}
+
+message OrderQuery {
+  int32 id = 1;
+  int32 customer_id = 2;
+}
+
+message OrderStatusUpdate {
+  int32 order_id = 1;
+  string new_status = 2;
+}
+
+message OrderResponse {
+  bool success = 1;
+  string message = 2;
+  Order order = 3;
+}
+
+message OrderListResponse {
+  repeated Order orders = 1;
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string message = 2;
+}

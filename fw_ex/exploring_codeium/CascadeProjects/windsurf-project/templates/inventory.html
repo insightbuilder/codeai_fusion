@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Inventory Management</h2>
+    
+    <!-- Update Inventory Form -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Update Inventory
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="product_id" class="form-label">Product</label>
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        <option value="">Select a product</option>
+                        {% for product in products %}
+                        <option value="{{ product.id }}">{{ product.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">New Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Inventory</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inventory List -->
+    <div class="card">
+        <div class="card-header">
+            Current Inventory
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Current Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in inventory %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.product.description }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ "%.2f"|format(item.product.price) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
