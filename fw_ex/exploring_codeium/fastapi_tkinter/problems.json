@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Two Sum",
+        "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+        "difficulty": "Easy",
+        "starter_code": "def two_sum(nums, target):\n    # Your solution here\n    pass"
+    },
+    {
+        "id": 2,
+        "title": "Palindrome Number",
+        "description": "Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.",
+        "difficulty": "Easy", 
+        "starter_code": "def is_palindrome(x):\n    # Your solution here\n    pass"
+    },
+    {
+        "id": 3,
+        "title": "Reverse String",
+        "description": "Write a function that reverses a string. The input string is given as an array of characters s.",
+        "difficulty": "Easy",
+        "starter_code": "def reverse_string(s):\n    # Your solution here\n    pass"
+    }
+]
