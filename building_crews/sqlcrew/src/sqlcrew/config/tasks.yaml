@@ -1,0 +1,20 @@
+nl_to_sql_task:
+  description: >
+    Process the natural language query '{nl_query}' using the following steps:
+    1. Analyze the database schema information: {schema_info}
+    2. Convert the natural language query into a valid SQL statement
+    3. Execute the query against the database: {db_name}
+    4. Format and return the results in a user-friendly way
+    
+    If the query is ambiguous or cannot be processed, ask for clarification
+    or provide a helpful error message.
+  expected_output: >
+    A well-formatted response containing:
+    1. The interpreted SQL query (for transparency)
+    2. The query results in a human-readable format
+    3. Any relevant explanations or context
+    4. Error messages or clarification requests if needed
+  tools:
+    - translate_to_sql
+    - execute_sql
+  agent: nl_sql_agent

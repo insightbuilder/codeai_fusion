@@ -1,0 +1,20 @@
+[project]
+name = "sqlcrew"
+version = "0.1.0"
+description = "sqlcrew using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.83.0,<1.0.0"
+]
+
+[project.scripts]
+sqlcrew = "sqlcrew.main:run"
+run_crew = "sqlcrew.main:run"
+train = "sqlcrew.main:train"
+replay = "sqlcrew.main:replay"
+test = "sqlcrew.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
