@@ -1,0 +1,67 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "brand": "Dell",
+      "price": 899.99,
+      "categories": ["Electronics", "Computers"],
+      "rating": 4.5
+    },
+    {
+      "id": 2,
+      "name": "Smartphone",
+      "brand": "Apple",
+      "price": 1199.99,
+      "categories": ["Electronics", "Mobile"],
+      "rating": 4.7
+    },
+    {
+      "id": 3,
+      "name": "Headphones",
+      "brand": "Sony",
+      "price": 199.99,
+      "categories": ["Electronics", "Audio"],
+      "rating": 4.3
+    },
+    {
+      "id": 4,
+      "name": "Desk Chair",
+      "brand": "Ikea",
+      "price": 149.99,
+      "categories": ["Furniture", "Office"],
+      "rating": 4.1
+    },
+    {
+      "id": 5,
+      "name": "Coffee Maker",
+      "brand": "Keurig",
+      "price": 89.99,
+      "categories": ["Home", "Kitchen"],
+      "rating": 4.0
+    }
+  ],
+  "users": [
+    {
+      "id": 101,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "purchases": [1, 5],
+      "preferences": {
+        "categories": ["Electronics", "Home"],
+        "brands": ["Dell", "Keurig"]
+      }
+    },
+    {
+      "id": 102,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "purchases": [2, 3],
+      "preferences": {
+        "categories": ["Mobile", "Audio"],
+        "brands": ["Apple", "Sony"]
+      }
+    }
+  ]
+}
+

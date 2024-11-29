@@ -1,0 +1,5 @@
+1. R is a free software environment for statistical computing and graphics, widely used among statisticians and data miners.
+2. It provides a wide variety of statistical and graphical techniques, including linear and non-linear modeling, classical statistical tests, time-series analysis, classification, and clustering.
+3. R is extensible, meaning that users can add new functions and packages, making it versatile for various analyses and data manipulations.
+4. R has a large active community and a wealth of packages available through CRAN, Bioconductor, and other repositories, enhancing its ability to perform complex analyses.
+5. The language has excellent data visualization capabilities, allowing users to create high-quality graphs and plots easily.

@@ -12,15 +12,17 @@ from crewai import Process
 load_dotenv()
 
 docs_tool = DirectoryReadTool(
-    directory="./docs",
+    directory="./agent_docs",
 )
+
 files_tool = FileReadTool()
-search_tool = DirectoryReadTool()
+
 search_tool = SerperDevTool()
+
 web_req_tool = WebsiteSearchTool()
 
-researcher = Agent(
-    role="Market Researcher",
+ai_agent_researcher = Agent(
+    role="AI Agent Researcher",
     goal="Provider up-to-date market analysis of the AI industry",
     backstory="An expert market researcher",
     tools=[search_tool, web_req_tool],
@@ -38,7 +40,7 @@ writer = Agent(
 research = Task(
     description="Research the latest trends in the AI Industry and provided a summary",
     expected_output="A summary of the top 3 trending development in the AI industry with a unique perspective on their significance",
-    agent=researcher,
+    agent=ai_agent_researcher,
 )
 
 write = Task(
