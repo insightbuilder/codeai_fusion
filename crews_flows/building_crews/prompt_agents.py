@@ -12,9 +12,10 @@ groqllm = LLM(
 )
 
 langchain_tools = load_tools(["google-serper"], llm=groqllm)
+
 # input goes to all the agents
 agent1 = Agent(
-    role="agent role",
+    role="Find who or what is the person",
     goal="who is {input}?",
     backstory="agent backstory",
     verbose=True,
@@ -56,6 +57,9 @@ writertask = Task(
 )
 
 my_crew = Crew(agents=[agent1, agent2, fileagent], tasks=[task1, task2, writertask])
-crew = my_crew.kickoff(
-    inputs={"input": "Mark Twain", "file_path": "./agent_docs/mktwain.txt"}
-)
+
+if __name__ == "__main__":
+
+    crew = my_crew.kickoff(
+        inputs={"input": "Mark Twain", "file_path": "./agent_docs/mktwain.txt"}
+    )
