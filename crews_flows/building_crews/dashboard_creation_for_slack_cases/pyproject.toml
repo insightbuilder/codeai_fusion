@@ -1,0 +1,20 @@
+[project]
+name = "dashboard_creation_for_slack_cases"
+version = "0.1.0"
+description = "dashboard_creation_for_slack_cases using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.80.0,<1.0.0"
+]
+
+[project.scripts]
+dashboard_creation_for_slack_cases = "dashboard_creation_for_slack_cases.main:run"
+run_crew = "dashboard_creation_for_slack_cases.main:run"
+train = "dashboard_creation_for_slack_cases.main:train"
+replay = "dashboard_creation_for_slack_cases.main:replay"
+test = "dashboard_creation_for_slack_cases.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

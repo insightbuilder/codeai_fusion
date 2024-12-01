@@ -1,0 +1,26 @@
+---
+navigate_to_whatsapp_task:
+  description: Open WhatsApp Web at {chat_url}, ensuring that the user is logged in
+    and the desired chat is selected. Wait for the chat to fully load before proceeding.
+  expected_output: Successfully navigated to the WhatsApp Web chat at {chat_url} and
+    selected the chat for scraping.
+  async_execution: false
+  agent: WhatsAppScraper
+scrape_messages_task:
+  description: Scroll through the chat to load all messages and extract their content
+    into a structured JSON format. Ensure all messages are captured accurately, including
+    timestamps and sender information.
+  expected_output: A structured JSON object containing all messages from the chat,
+    including timestamps and sender information.
+  async_execution: false
+  agent: WhatsAppScraper
+  context:
+  - navigate_to_whatsapp_task
+save_json_file_task:
+  description: 'Save the extracted messages as a JSON file at the specified path:
+    {output_file_path}.'
+  expected_output: The messages have been successfully saved as a JSON file at {output_file_path}.
+  async_execution: false
+  agent: WhatsAppScraper
+  context:
+  - scrape_messages_task

@@ -1,0 +1,17 @@
+---
+collect_slack_case_data:
+  description: Gather case data from Slack, focusing on metrics such as case IDs,
+    timestamps, status, and assignee. Ensure the data is structured for analysis.
+  expected_output: A structured dataset containing Slack case data, including case
+    IDs, timestamps, status, and assignee information.
+  async_execution: false
+  agent: data_collector
+create_visualizations:
+  description: Generate visualizations based on the collected Slack case data, including
+    charts for case volume, resolution times, and performance indicators.
+  expected_output: A series of visualizations (charts and graphs) that depict Slack
+    case metrics, including case volume and resolution times.
+  async_execution: false
+  agent: data_visualization_expert
+  context:
+  - collect_slack_case_data
