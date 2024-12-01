@@ -1,0 +1,18 @@
+Part1 Video:
+
+0:00 Introduction to CrewAI
+2:00 What Agents can do
+3:25 Integrating Agents
+5:00 Flow in Action : Windsurf
+6:10 Updating Files precisely with Windsurf 
+9:00 Diving into CrewAI Agents, Crew, Flow 
+12:45 Parts of Agents
+13:35 Pars of Tasks
+14:45 How to find Crew Yaml Files
+16:00 Basics of How to Think about Agents & Tasks
+17:30 Start with Overall Objective.
+18:10 Create Tasks by breaking Objective into Sub Parts 
+19:35 Deciding the Agents for the Task
+22:25 Conclusion & Outro
+
+

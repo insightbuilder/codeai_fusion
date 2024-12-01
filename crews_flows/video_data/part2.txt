@@ -1,0 +1,15 @@
+Part 2
+
+0:00 Table of Content
+1:00 Basics of Agents & Tasks
+1:30 Why Understand : Windsurf Example
+4:00 Introducing CrewAI Tools
+4:50 Installing Crewai & Crewai_tools
+6:00 Creating Crew with Create Command 
+7:20 File Reader Agent Crew 
+9:50 Reading The Code
+10:20 Executing the Crew
+13:00 File Writer Agent Crew
+14:50 Executing the Writer Crew
+16:00 Agent becomes the Front End
+16:50 Outro
