@@ -1,0 +1,16 @@
+Part 3
+
+0:00 4 Ways of Creating Crews
+1:20 Manual Crew Creation Process
+2:10 Creating Crew Manually & Exploring File Tree
+4:45 CrewAI Templates Exploration
+5:40 CrewAI Enterprise Trial Templates
+7:10 Reviewing Template Crews File Tree
+9:00 Using Crew with Crew Studio Beta Feature
+11:10 Developing Whatsapp Extractor Crews with WindSurf
+19:00 Consolidating the process on Markdown File
+20:00 Review of 4 Ways of Creating Crew
+20:50 Development in AI Code Generation Area
+22:00 Learn to Read Code & Solve Problem with Code
+23:10 Brief on Crew Deployment on cloud
+24:00 Outro
