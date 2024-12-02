@@ -1,0 +1,17 @@
+Chapters:
+0:00 Intro
+0:45 Flow Example in Windsurf
+2:45 Intuiting the Flow in Cascade
+4:30 Different ways to Create Flows
+5:00 Parts of CrewAI Flows
+6:35 Benefits of CrewAI Flows Explained
+8:20 Different States in CrewAI Flows
+10:00 Interim Recap
+10:25 Designing the Flow & Decide requirement
+12:30 Flows & Agents Becomes the Front End
+14:55 Reviewin Logic of Updating Chocolate_Recipe.md in Windsurf
+12:30 Becoming Comfortable Desiging Flows
+17:40 Explaining the Designed Flow, Agents & Tasks
+21:10 Recap
+21:42 Practice to Debug the Flows
+22:00 Outro
