@@ -1,12 +1,12 @@
-# Pyright: reportMissingImports=false
-# Pyright: reportAttributeAccessIssue=false
+# pyright: reportMissingImports=false
+# pyright: reportAttributeAccessIssue=false
+# pyright: reportCallIssue=false
 
 from crewai import Crew, Agent, Task, LLM
 from crewai_tools import FileWriterTool
 from dotenv import load_dotenv
 import os
 from pydantic import BaseModel
-from functools import partial
 
 # flake8: noqa E501
 

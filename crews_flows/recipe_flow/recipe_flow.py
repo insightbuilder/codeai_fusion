@@ -45,7 +45,7 @@ class RecipeFlow(Flow[RecipeState]):
 makerecipe = RecipeFlow()
 flow_output = makerecipe.kickoff(
     {
-        "input": "Provide the Recipe for rice dumplings to serve 15 people, and write to chef_recipe.md"
+        "input": "Provide the Recipe for rice dumplings to serve 15 people, and write to ./chef_recipe.md"
     }
 )
 print(flow_output)
