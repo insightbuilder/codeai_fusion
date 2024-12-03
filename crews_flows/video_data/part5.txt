@@ -1,0 +1,24 @@
+chapter:
+0:00 Intro
+0:45 Setting up Stage in Windsurf
+4:15 Review the next steps
+5:20 Importance of Structured Output
+7:00 Review Flow Diagram with Pydantic Output in Tasks
+9:30 Its important practice creating flows
+11:00 CrewAI Recipe flow Demo
+12:30 Recovering the Write Tool Error
+13:45 Breaking the Complex Problem
+15:00 Seperating Concerns with Flows States 
+17:10 Reviewing the Recipe Crew Python Code
+20:30 Getting clear understanding with Verbose output
+22:00 Purpose of File Writing Tool
+23:00 How Crew without Agents still works
+23:55 Reviewing Recipe Flow Python Code
+25:35 State in Flow is Cache to Store data
+26:00 Return of Methods go to next "Listening" Methods
+28:00 Using State in Writing the File
+29:30 Flow is Finite State Machine
+30:20 Flow Kickoff
+31:10 Recap
+31:40 Outro
+
