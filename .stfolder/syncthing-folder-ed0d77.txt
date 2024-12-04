@@ -1,5 +1,0 @@
-# This directory is a Syncthing folder marker.
-# Do not delete.
-
-folderID: vrryc-jspvz
-created: 2024-10-12T09:53:02+05:30
