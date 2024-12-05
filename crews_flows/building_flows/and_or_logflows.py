@@ -44,6 +44,8 @@ class AndLogFlow(Flow):
 
 
 andflow = AndLogFlow()
+andflow.plot("andflow.png")
+
 andflow = andflow.kickoff({"counter": 5, "message": ""})
 
 print(f"And Flow output: {andflow}")

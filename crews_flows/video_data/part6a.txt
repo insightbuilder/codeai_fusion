@@ -1,0 +1,19 @@
+Chapter:
+0:00 Intro
+0:21 Purpose of Flows
+1:40 Flow Building Blocks
+2:55 Features of Flows
+4:05 Flow States Revisited
+5:25 Structured State Code Walkthrough
+6:45 Flow Kickoff sets the State value
+8:00 Debugging the Flow Execution
+9:30 Finite State Machine Data structure
+10:00 Debugging continued
+11:00 Pydantic & OOP knowledge will help
+12:20 Second method parameter is takes return value of first method
+14:00 Kickoff Flow Execution
+15:00 Discussing Plot 
+16:00 Flow kicked off with default state value
+17:15 Importance of Data Structures
+17:50 Recap
+18:20 Outro
