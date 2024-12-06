@@ -1,0 +1,27 @@
+chapter:
+0:00 Intro
+0:30 Repetitive Task Example
+1:20 Simple IDE replacing Browser
+2:20 Support Videos
+2:40 What are Tools
+3:50 What is Pydantic Model
+4:40 When Output is not meeting requirement
+5:20 Things Not To Do
+6:05 Understanding Pydantic Model in Code
+9:40 CrewAI Example Crews
+10:20 Starting with Task at Hand
+11:20 Expected Output & Pydantic Model
+13:10 Output_json Parameter in Task
+13:40 Agent Class Explained
+14:35 Tools Explained & used in Agent
+15:20 Instantiating LLM
+16:00 Executing Crew with Groq Model
+16:50 Understand why Groq Model output Fails
+18:30 Changing LLM to gpt-4 or gpt-4o-mini
+19:45 Executing Crew with Gpt-4 model
+20:50 Output recieved
+21:35 Changing Pydantic Model, remove channels
+22:30 Executing with new Pydantic Model
+23:30 Explaining Output without channels
+24:10 Recap
+24:40 Outro

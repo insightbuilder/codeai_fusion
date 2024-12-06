@@ -27,6 +27,8 @@ code_executor_agent = Agent(
     tools=[code_interpreter],
     verbose=True,
     llm=groqllm,
+    allow_code_execution=True,
+    code_execution_mode="unsafe",
 )
 
 write_code = Task(
