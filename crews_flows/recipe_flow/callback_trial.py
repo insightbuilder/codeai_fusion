@@ -10,6 +10,9 @@ import os
 from pydantic import BaseModel
 from typing import Any, Dict
 from crewai_tools import FileWriterTool
+from inspect import getsource
+from crewai.tasks.task_output import TaskOutput
+from crewai.agents.parser import AgentFinish
 
 
 load_dotenv()
@@ -73,6 +76,7 @@ def on_recipe_complete(recipe: Dict[str, Any], **kwargs):
         step_output: Dictionary containing the output of the current step
         **kwargs: Additional keyword arguments passed to the callback
     """
+    print(f"Recipe param type: {type(recipe)}")
     print(f"Chef Agent with {kwargs} creating Recipe:{recipe.output}")
 
 
@@ -84,6 +88,7 @@ def on_task_complete(task_test: Dict[str, Any], **kwargs):
         step_output: Dictionary containing the output of the current step
         **kwargs: Additional keyword arguments passed to the callback
     """
+    print(f"task_test param type: {type(task_test)}")
     print(f"Chef Task with {kwargs} completed Task:{task_test} ")
 
 
@@ -112,8 +117,8 @@ Extraction_Crew = Crew(
     tasks=[extraction_task, chef_task],
     # verbose=True,
     process=Process.sequential,
-    # step_callback=on_recipe_complete,  # should give agent return values, did not get called
-    task_callback=on_task_complete,  # should give task return values, did not get called
+    step_callback=on_recipe_complete,  # should give agent return values, did not get called
+    # task_callback=on_task_complete,  # should give task return values, did not get called
 )
 
 
@@ -133,5 +138,7 @@ def test_callback():
 
 
 if __name__ == "__main__":
-    result = test_callback()
-    print("\nFinal Result:", result)
+    print(getsource(TaskOutput))
+    print(getsource(AgentFinish))
+    # result = test_callback()
+    # print("\nFinal Result:", result)

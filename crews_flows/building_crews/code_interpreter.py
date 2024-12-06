@@ -1,7 +1,8 @@
 import os
-from crewai import LLM, Agent, Task, Crew, Process
+from crewai import LLM, Agent, Task, Crew
 from crewai_tools import CodeInterpreterTool
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -10,20 +11,26 @@ groqllm = LLM(
     api_key=os.environ["GROQ_API_KEY"],
 )
 
-code_interpreter = CodeInterpreterTool(unsafe_mode=True)
+code_interpreter = CodeInterpreterTool()
 
 code_executor_agent = Agent(
-    role="Versatile code executing agent",
-    goal="execute the code in the given {code}",
+    role="Versatile code writing, interpreting and executing agent",
+    goal="execute the code in the given {problem}",
     backstory="You are expert code executor",
     tools=[code_interpreter],
     verbose=True,
     llm=groqllm,
     allow_code_execution=True,
+    code_execution_mode="unsafe",
 )
 
+
+class CodeResult(BaseModel):
+    result: str
+
+
 execute_task = Task(
-    description="Your work is to execute the code",
+    description="Your work is to write code on given {problem} and then execute the code",
     expected_output="The result of the executed code",
     agent=code_executor_agent,
 )
@@ -31,10 +38,10 @@ execute_task = Task(
 executor_crew = Crew(
     agents=[code_executor_agent],
     tasks=[execute_task],
-    process=Process.sequential,
+    # process=Process.sequential,
     verbose=True,
 )
 
-result = executor_crew.kickoff({"code": "os.getcwd()\n print('This is executede')"})
+result = executor_crew.kickoff({"problem": "os.getcwd()\n print('This is executede')"})
 
 print(result)

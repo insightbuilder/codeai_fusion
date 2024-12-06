@@ -1,0 +1,22 @@
+chapter:
+0:00 Intro
+0:30 Playlist to Watch
+0:50 Why Use CallBacks
+1:50 IDEs are Becoming Front End
+2:10 Youtube Link Search Agents
+4:15 Use CallBacks When Doing Complex Flows
+4:40 Two Types of CallBacks
+5:30 Executing Callback Code
+6:30 Code Walkthrough of CallBacks
+7:45 How to execute Step / Task Callbacks
+8:20 Find Specific & Find The Purpose
+9:15 Looking at Task Callback 
+10:00 Ensure Agents present in Crew for Step CallBack to Work
+11:10 TaskOutput Object is returned in Task Callback
+12:00 AgentFinish Object is returned in Step Callback
+12:40 Reviewing Python Class code using Inpect Module
+14:40 Showing the Code of Classes
+15:55 First Params in Call Back Function is the Key
+16:40 Control the output of Task & Agents
+17:10 Recap
+17:40 Outro
