@@ -1,0 +1,46 @@
+OrderDate,Region,Manager,SalesMan,Item,Units,Unit_price,Sale_amt
+2018-01-06,East,Martha,Alexander,Television,95.0,1198.0,113810.0
+2018-01-23,Central,Hermann,Shelli,Home Theater,50.0,500.0,25000.0
+2018-02-09,Central,Hermann,Luis,Television,36.0,1198.0,43128.0
+2018-02-26,Central,Timothy,David,Cell Phone,27.0,225.0,6075.0
+2018-03-15,West,Timothy,Stephen,Television,56.0,1198.0,67088.0
+2018-04-01,East,Martha,Alexander,Home Theater,60.0,500.0,30000.0
+2018-04-18,Central,Martha,Steven,Television,75.0,1198.0,89850.0
+2018-05-05,Central,Hermann,Luis,Television,90.0,1198.0,107820.0
+2018-05-22,West,Douglas,Michael,Television,32.0,1198.0,38336.0
+2018-06-08,East,Martha,Alexander,Home Theater,60.0,500.0,30000.0
+2018-06-25,Central,Hermann,Sigal,Television,90.0,1198.0,107820.0
+2018-07-12,East,Martha,Diana,Home Theater,29.0,500.0,14500.0
+2018-07-29,East,Douglas,Karen,Home Theater,81.0,500.0,40500.0
+2018-08-15,East,Martha,Alexander,Television,35.0,1198.0,41930.0
+2018-09-01,Central,Douglas,John,Desk,2.0,125.0,250.0
+2018-09-18,East,Martha,Alexander,Video Games,16.0,58.5,936.0
+2018-10-05,Central,Hermann,Sigal,Home Theater,28.0,500.0,14000.0
+2018-10-22,East,Martha,Alexander,Cell Phone,64.0,225.0,14400.0
+2018-11-08,East,Douglas,Karen,Cell Phone,15.0,225.0,3375.0
+2018-11-25,Central,Hermann,Shelli,Video Games,96.0,58.5,5616.0
+2018-12-12,Central,Douglas,John,Television,67.0,1198.0,80266.0
+2018-12-29,East,Douglas,Karen,Video Games,74.0,58.5,4329.0
+2019-01-15,Central,Timothy,David,Home Theater,46.0,500.0,23000.0
+2019-02-01,Central,Douglas,John,Home Theater,87.0,500.0,43500.0
+2019-02-18,East,Martha,Alexander,Home Theater,4.0,500.0,2000.0
+2019-03-07,West,Timothy,Stephen,Home Theater,7.0,500.0,3500.0
+2019-03-24,Central,Hermann,Luis,Video Games,50.0,58.5,2925.0
+2019-04-10,Central,Martha,Steven,Television,66.0,1198.0,79068.0
+2019-04-27,East,Martha,Diana,Cell Phone,96.0,225.0,21600.0
+2019-05-14,Central,Timothy,David,Television,53.0,1198.0,63494.0
+2019-05-31,Central,Timothy,David,Home Theater,80.0,500.0,40000.0
+2019-06-17,Central,Hermann,Shelli,Desk,5.0,125.0,625.0
+2019-07-04,East,Martha,Alexander,Video Games,62.0,58.5,3627.0
+2019-07-21,Central,Hermann,Sigal,Video Games,55.0,58.5,3217.5
+2019-08-07,Central,Hermann,Shelli,Video Games,42.0,58.5,2457.0
+2019-08-24,West,Timothy,Stephen,Desk,3.0,125.0,375.0
+2019-09-10,Central,Timothy,David,Television,7.0,1198.0,8386.0
+2019-09-27,West,Timothy,Stephen,Cell Phone,76.0,225.0,17100.0
+2019-10-14,West,Douglas,Michael,Home Theater,57.0,500.0,28500.0
+2019-10-31,Central,Martha,Steven,Television,14.0,1198.0,16772.0
+2019-11-17,Central,Hermann,Luis,Home Theater,11.0,500.0,5500.0
+2019-12-04,Central,Hermann,Luis,Home Theater,94.0,500.0,47000.0
+2019-12-21,Central,Martha,Steven,Home Theater,28.0,500.0,14000.0
+,,,,,278.0,1125.0,62550.0
+,,,,,34.75,140.625,7818.75

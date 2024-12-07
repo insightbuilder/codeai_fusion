@@ -1,7 +1,7 @@
 import os
 from crewai import LLM, Agent, Task, Crew, Process
-from crewai_tools import CodeInterpreterTool
 from dotenv import load_dotenv
+from codeinterpreter_tool import CodeInterpreterTool
 
 load_dotenv()
 
@@ -10,7 +10,7 @@ groqllm = LLM(
     api_key=os.environ["GROQ_API_KEY"],
 )
 
-code_interpreter = CodeInterpreterTool(unsafe_mode=True)
+code_interpreter = CodeInterpreterTool()
 
 coder_agent = Agent(
     role="Coder",
@@ -28,23 +28,22 @@ code_executor_agent = Agent(
     verbose=True,
     llm=groqllm,
     allow_code_execution=True,
-    code_execution_mode="unsafe",
 )
 
 write_code = Task(
-    description="You have a knack of solving given problems",
+    description="You have a knack of solving {challenge}",
     expected_output="code that is written in python that executes",
     agent=coder_agent,
 )
 
 execute_task = Task(
-    description="Your work is to execute the code",
+    description="Your work is to execute the code with tools available to you",
     expected_output="The result of the executed code",
     agent=code_executor_agent,
 )
 
 executor_crew = Crew(
-    agents=[coder_agent, code_executor_agent],
+    # agents=[coder_agent, code_executor_agent],
     tasks=[write_code, execute_task],
     process=Process.sequential,
     verbose=True,
@@ -53,3 +52,6 @@ executor_crew = Crew(
 result = executor_crew.kickoff(
     {"challenge": "Provide the 20th fibonacci number by writin the code for it "}
 )
+
+# breaking the code generation and execution into seperate tasks lead to the
+# error as the executor agent is unable to get the result from the "Unsafe code interpreter"

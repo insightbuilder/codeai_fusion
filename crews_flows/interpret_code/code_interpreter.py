@@ -21,7 +21,7 @@ code_executor_agent = Agent(
     verbose=True,
     llm=groqllm,
     allow_code_execution=True,
-    code_execution_mode="unsafe",
+    code_execution_mode="safe",
 )
 
 
@@ -30,7 +30,7 @@ class CodeResult(BaseModel):
 
 
 execute_task = Task(
-    description="Your work is to write code on given {problem} and then execute the code",
+    description="Your work is to write code on given {problem} and then execute the code with tools available",
     expected_output="The result of the executed code",
     agent=code_executor_agent,
 )
@@ -42,6 +42,8 @@ executor_crew = Crew(
     verbose=True,
 )
 
-result = executor_crew.kickoff({"problem": "os.getcwd()\n print('This is executede')"})
+result = executor_crew.kickoff(
+    {"problem": "Get the current working directory of this program"}
+)
 
 print(result)
