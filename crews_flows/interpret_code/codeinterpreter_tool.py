@@ -10,7 +10,7 @@ class CodeInterpreterSchema(BaseModel):
 
     code: str = Field(
         ...,
-        description="Python3 code used to be interpreted in the Docker container. ALWAYS PRINT the final result and the output of the code",
+        description="""Python3 code used to be interpreted in the Docker container.ALWAYS PRINT the final result and the output of the code""",
     )
 
     libraries_used: List[str] = Field(
