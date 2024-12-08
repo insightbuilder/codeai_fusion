@@ -1,17 +1,28 @@
-from crewai import Crew, Agent, Task, Process
-from crewai.memory.enhanced_long_term_memory import EnhancedLongTermMemory
-from crewai.memory.enhanced_short_term_memory import EnhancedShortTermMemory
-from crewai.memory.enhanced_entity_memory import EnhancedEntityMemory
-from crewai.memory.storage import LTMSQLiteStorage, RAGStorage
+# pyright: reportMissingImports=false
+# pyright: reportCallIssue=false
+# pyright: reportAttributeAccessIssue=false
 
+# setting the os.environ.get("CREWAI_STORAGE_DIR")
+
+from crewai import Crew, Agent, Task, Process
+from crewai.memory.long_term.long_term_memory import LongTermMemory
+from crewai.memory.short_term.short_term_memory import ShortTermMemory
+from crewai.memory.entity.entity_memory import EntityMemory
+from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
+from crewai.memory.storage.rag_storage import RAGStorage
+from inspect import getsource
+
+# print(getsource(RAGStorage))
 # Configuration for embeddings
 embedder = {
+    "provider": "openai",
     "model": "text-embedding-ada-002",  # OpenAI's text embedding model
-    "dimension": 1536  # Dimension of the embeddings
+    "dimension": 1536,  # Dimension of the embeddings
 }
 
 # Define the data directory for memory storage
-DATA_DIR = "./memory_storage"
+DATA_DIR = "./db"
+
 
 def create_crew_with_memory():
     """
@@ -20,32 +31,10 @@ def create_crew_with_memory():
     2. Short-term Memory: RAG-based memory for recent context
     3. Entity Memory: Tracks and maintains information about specific entities
     """
-    
+
     # Initialize memory components
-    long_term_memory = EnhancedLongTermMemory(
-        storage=LTMSQLiteStorage(
-            db_path=f"{DATA_DIR}/long_term_memory.db"
-        )
-    )
-
-    short_term_memory = EnhancedShortTermMemory(
-        storage=RAGStorage(
-            crew_name="research_crew",
-            storage_type="short_term",
-            data_dir=DATA_DIR,
-            model=embedder["model"],
-            dimension=embedder["dimension"],
-        )
-    )
-
-    entity_memory = EnhancedEntityMemory(
-        storage=RAGStorage(
-            crew_name="research_crew",
-            storage_type="entities",
-            data_dir=DATA_DIR,
-            model=embedder["model"],
-            dimension=embedder["dimension"],
-        )
+    long_term_memory = LongTermMemory(
+        storage=LTMSQLiteStorage(db_path=f"{DATA_DIR}/long_term_memory.db")
     )
 
     # Create example agents
@@ -55,7 +44,7 @@ def create_crew_with_memory():
         goal="Conduct thorough research and analysis",
         backstory="Expert in gathering and analyzing information",
         allow_delegation=True,
-        memory=True  # Enable memory for this agent
+        memory=True,  # Enable memory for this agent
     )
 
     writer = Agent(
@@ -64,18 +53,35 @@ def create_crew_with_memory():
         goal="Create engaging content based on research",
         backstory="Experienced in creating compelling narratives",
         allow_delegation=True,
-        memory=True  # Enable memory for this agent
+        memory=True,  # Enable memory for this agent
+    )
+    short_term_memory = ShortTermMemory(
+        storage=RAGStorage(
+            type="short_term",
+        ),
+        embedder_config=embedder,
+        # path=f"{DATA_DIR}/short_term_memory.db",
+    )
+
+    entity_memory = EntityMemory(
+        storage=RAGStorage(
+            type="entities",
+        ),
+        embedder_config=embedder,
+        # path=f"{DATA_DIR}/entity_memory.db",
     )
 
     # Create example tasks
     research_task = Task(
         description="Research the latest developments in AI",
-        agent=researcher
+        expected_output="Summary of latest research development",
+        agent=researcher,
     )
 
     writing_task = Task(
         description="Write a comprehensive report based on the research",
-        agent=writer
+        expected_output="Comprehensive report based on the research",
+        agent=writer,
     )
 
     # Assemble the crew with memory capabilities
@@ -87,13 +93,15 @@ def create_crew_with_memory():
         long_term_memory=long_term_memory,
         short_term_memory=short_term_memory,
         entity_memory=entity_memory,
-        verbose=True
+        verbose=True,
     )
 
     return crew
 
+
 if __name__ == "__main__":
     # Create and run the crew
     crew = create_crew_with_memory()
-    result = crew.kickoff()
-    print("Crew execution completed:", result)
+    print("Crew execution started...")
+    # result = crew.kickoff()
+    # print("Crew execution completed:", result)
