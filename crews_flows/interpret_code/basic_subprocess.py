@@ -5,17 +5,18 @@ result = subprocess.run(
     # stdout=subprocess.PIPE,
     # stderr=subprocess.PIPE,
     # "ls -l",
-    "python basic_exec.py",
+    # "python basic_exec.py",
+    "lt -l",
     shell=True,
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE,
     text=True,
 )
-print(result.stdout)
-print(result.stderr)
+# print("Stdout:", result.stdout)
+# print("StdErr:", result.stderr)
 
 popen_result = subprocess.Popen(
-    "python basic_exec.py",
+    "ls -l",
     shell=True,
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE,

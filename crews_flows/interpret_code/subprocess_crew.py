@@ -41,7 +41,8 @@ code_crew = Crew(
 if __name__ == "__main__":
     # Input: Python code to execute
     inputs = {
-        "problem": "Execute the python script basic_exec.py in current directory",
+        # "problem": "Execute the python script basic_exec.py in current directory",
+        "problem": "List files in current directory",
         # "output_file": "result.md",
     }
 
