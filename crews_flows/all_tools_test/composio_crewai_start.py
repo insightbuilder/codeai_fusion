@@ -1,16 +1,12 @@
-from composio import App
-from crewai_tools import ComposioTool
-from crewai import Agent, Task, LLM
+from composio_crewai import App, ComposioToolSet
+from crewai import Agent, Task, LLM, Crew
 import os
 
-# from composio import Action
+# pip install composio_crewai composio_core composio_openai
 # from inspect import getsource
-
+toolset = ComposioToolSet(api_key=os.getenv("COMPOSIO_API_KEY"))
 llm = LLM(model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY"))
-# print(getsource(Action))
-# tools = [ComposioTool.from_action()]
-# tools = ComposioTool.from_app(App.GITHUB, tags=["important"])
-tools = ComposioTool.from_app(App.GITHUB, use_case="Star a github repository ")
+tools = toolset.get_tools(apps=[App.GITHUB])
 
 # print(tools[0])
 crewai_agent = Agent(
@@ -31,5 +27,11 @@ task = Task(
     expected_output="if the star happened",
 )
 
-result = task.execute()
+crew = Crew(
+    agents=[crewai_agent],
+    tasks=[task],
+    verbose=True,
+)
+
+result = crew.kickoff()
 print(result)
