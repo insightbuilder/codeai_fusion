@@ -1,6 +1,7 @@
 from composio_openai import ComposioToolSet, App
 from openai import OpenAI
-from crewai_tools import ComposioTool
+
+# from crewai_tools import ComposioTool
 
 openai_client = OpenAI()
 composio_toolset = ComposioToolSet()
@@ -11,7 +12,7 @@ print(git_tools[0])
 print(git_tools[0]["function"]["name"])
 print(len(git_tools))
 
-task = "Star the repo composiohq/composio on github"
+task = "Star the repo crewAIInc/crewAI-tools on github"
 
 response = openai_client.chat.completions.create(
     model="gpt-4o-mini",
