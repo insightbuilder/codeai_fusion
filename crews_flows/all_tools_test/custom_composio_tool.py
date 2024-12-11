@@ -18,7 +18,18 @@ def my_custom_action(message: str) -> str:
     return cowsay.get_output_string("cow", message)
 
 
-tools = toolset.get_tools(actions=[my_custom_action])
+@action(toolname="getmsg_len", requires=[])
+def getmsg_len(message: str) -> str:
+    """
+    Cow will say whatever you want it to say.
+
+    :param message: Message whose length to be returned
+    :return msglen: Number of characters in Message.
+    """
+    return str(len(message))
+
+
+tools = toolset.get_tools(actions=[getmsg_len])
 
 task = "Say 'AI is the future' using cowsay"
 
@@ -30,7 +41,7 @@ response = openai_client.chat.completions.create(
         {"role": "user", "content": task},
     ],
 )
-print(response.model_dump_json())
+# print(response.model_dump_json())
 
 result = toolset.handle_tool_calls(response)
-print(result[0]["data"]["greeting"])
+print(result[0]["data"]["msglen"])
