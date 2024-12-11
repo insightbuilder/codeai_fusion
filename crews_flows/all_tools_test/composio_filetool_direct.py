@@ -5,7 +5,7 @@ toolset = ComposioToolSet(api_key=os.getenv("COMPOSIO_API_KEY"))
 
 # connected_account_id = toolset.get_connected_account_id()
 
-tools = toolset.get_tools(actions=["FILETOOL_OPEN_FILE"])
+tools = toolset.get_tools(actions=["FILETOOL_CREATE_FILE"])
 
 # print(tools[0])
 # print(len(tools))
