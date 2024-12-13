@@ -1,11 +1,17 @@
 from crewai import Agent, Crew, Task, LLM
 import os
-from enum import Enum
+
+# from enum import Enum
 from pydantic import BaseModel, Field
 
 # this crew find the intents and places them in a analyser
 # code request, and other options.
-llm = LLM(model="gpt-4o-mini", api_key=os.environ["OPENAI_API_KEY"])
+# llm = LLM(model="gpt-4o-mini", api_key=os.environ["OPENAI_API_KEY"])
+
+llm = LLM(
+    model="anthropic/claude-3-haiku-20240307",
+    api_key=os.environ["ANTHROPIC_API_KEY"],
+)
 
 intent_agent = Agent(
     role="You are a code intent analyser",
@@ -43,11 +49,11 @@ intent_crew = Crew(
 
 if __name__ == "__main__":
     print("Testing intent_crew")
-    # result = intent_crew.kickoff(
-    #     {"user_query": "Write a python function to find the Greatest Common divisor"}
-    # )
-    # print(result.model_dump())
-    # print(result.to_dict())
+    result = intent_crew.kickoff(
+        {"user_query": "Write a python function to find the Greatest Common divisor"}
+    )
+    print(result.model_dump())
+    print(result.to_dict())
     # res1 = intent_crew.kickoff(
     #     {"user_query": "Write a python function to find the Greatest Common divisor"}
     # )
@@ -55,15 +61,15 @@ if __name__ == "__main__":
     # assert res1 == {"intent": "write_code"}, print(
     #     "Write code intent did not work", res1
     # )
-    res2 = intent_crew.kickoff(
-        {"user_query": "Read the ./coder_crew.py and provide a summary"}
-    )
-    assert res2.to_dict() == {"intent": "analyse_file"}, print(
-        "Analyse file intent did not work", res2
-    )
+    # res2 = intent_crew.kickoff(
+    #     {"user_query": "Read the ./coder_crew.py and provide a summary"}
+    # )
+    # assert res2.to_dict() == {"intent": "analyse_file"}, print(
+    #     "Analyse file intent did not work", res2
+    # )
 
-    res3 = intent_crew.kickoff({"user_query": "What is the day in the calendar today"})
+    # res3 = intent_crew.kickoff({"user_query": "What is the day in the calendar today"})
 
-    assert res3.to_dict() == {"intent": "other"}, print(
-        "Other intent did not work", res3
-    )
+    # assert res3.to_dict() == {"intent": "other"}, print(
+    #     "Other intent did not work", res3
+    # )

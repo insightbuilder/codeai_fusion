@@ -3,7 +3,11 @@ from pydantic import BaseModel, Field
 from crewai_tools import FileReadTool
 import os
 
-llm = LLM(model="gpt-4o-mini", api_key=os.environ["OPENAI_API_KEY"])
+llm = LLM(
+    model="anthropic/claude-3-haiku-20240307", api_key=os.environ["ANTHROPIC_API_KEY"]
+)
+
+# llm = LLM(model="gpt-4o-mini", api_key=os.environ["OPENAI_API_KEY"])
 
 file_read_tool = FileReadTool()
 

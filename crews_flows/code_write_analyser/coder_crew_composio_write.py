@@ -2,7 +2,11 @@ from crewai import Agent, Crew, Task, LLM
 from crewai_tools import FileWriterTool
 from pydantic import BaseModel, Field
 import os
+from composio_crewai import ComposioToolSet, Action
 
+toolset = ComposioToolSet(api_key=os.getenv("COMPOSIO_API_KEY"))
+
+tools = toolset.get_tools(actions=["FILETOOL_CREATE_FILE"])
 
 filewriter_tool = FileWriterTool()
 
@@ -34,7 +38,8 @@ data_write_agent = Agent(
     role="You are a data writer",
     goal="use the tools given to you and Write the code to the file name in the {user_query}",
     backstory="You are very good in formatting and writing the code to the file",
-    tools=[filewriter_tool],
+    # tools=[filewriter_tool],
+    tools=tools,  # this is using composio tools
     llm=llm,
 )
 
