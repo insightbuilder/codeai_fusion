@@ -10,7 +10,7 @@ import os
 # pyright: reportCallIssue=false
 
 # Trigger listener made ready on llmagent21
-toolset = ComposioToolSet(entity_id="agent1", api_key=os.getenv("COMPOSIO_API_KEY"))
+toolset = ComposioToolSet(entity_id="agent21", api_key=os.getenv("COMPOSIO_API_KEY"))
 openai_client = OpenAI()
 # antropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
@@ -23,25 +23,29 @@ def agent_function(thread_id: str, message: str, sender_mail: str):
     # here there are many tools, one of them will
     # make the message important.
     print("Entering Agent call")
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
-        tools=tools,
-        messages=[
-            {
-                "role": "system",
-                "content": """You are a helpful assistant that can parse the email content,
-                and draft an email reply for the recieved mail using the tools available to you.
-                Donot send the mail, just keep it in draft box.
-                You are given the thread id, message and sender of the recieved mail.""",
-            },
-            {
-                "role": "user",
-                "content": f"Thread ID: {thread_id}\nMessage: {message}\nSender: {sender_mail}",
-            },
-        ],
-    )
-    result = toolset.handle_tool_calls(response)
-    print(result)
+    try:
+
+        response = openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            tools=tools,
+            messages=[
+                {
+                    "role": "system",
+                    "content": """You are a helpful assistant that can parse the email content,
+                    send email reply for the recieved mail using the tools available to you.
+                    You are given the thread id, message and sender of the recieved mail.""",
+                },
+                {
+                    "role": "user",
+                    "content": f"Thread ID: {thread_id}\nMessage: {message}\nSender: {sender_mail}",
+                },
+            ],
+        )
+        result = toolset.handle_tool_calls(response)
+        print(result)
+
+    except Exception as e:
+        print("Error:", e)
 
 
 def mail_summary_writer(thread_id: str, message: str, sender_mail: str):
@@ -103,8 +107,8 @@ def callback_function(event):
     message = payload.get("messageText")
     sender_mail = payload.get("sender")
     print(f"Sender Mail recieved at llmagent21: {sender_mail}")
-    # agent_function(thread_id, message, sender_mail)
-    mail_summary_writer(thread_id, message, sender_mail)
+    agent_function(thread_id, message, sender_mail)
+    # mail_summary_writer(thread_id, message, sender_mail)
 
 
 print("Starting listener")

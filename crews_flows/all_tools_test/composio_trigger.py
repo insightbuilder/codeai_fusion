@@ -2,13 +2,13 @@ from composio import ComposioToolSet, App
 import os
 from rich import print
 
-client = ComposioToolSet(entity_id="agent1", api_key=os.getenv("COMPOSIO_API_KEY"))
+client = ComposioToolSet(entity_id="agent21", api_key=os.getenv("COMPOSIO_API_KEY"))
 entity = client.get_entity()
 print(entity.id)
 # Enable trigger with optional config parameter
 trigger_schema = client.get_trigger("gmail_new_gmail_message")
 
-# print(trigger_schema.json())
+print(trigger_schema.json())
 enable_response = entity.enable_trigger(
     app=App.GMAIL,
     trigger_name="gmail_new_gmail_message",
