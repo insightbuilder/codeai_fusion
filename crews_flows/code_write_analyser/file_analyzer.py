@@ -73,8 +73,9 @@ read_analyse_crew = Crew(
     process=Process.sequential,
 )
 
-output = read_analyse_crew.kickoff(
-    {"user_query": "Analyse the content of ./analyser_test.py"}
-)
+if __name__ == "__main__":
+    output = read_analyse_crew.kickoff(
+        {"user_query": "Analyse the content of ./analyser_test.py"}
+    )
 
-print(output.to_dict())
+    print(output.to_dict())

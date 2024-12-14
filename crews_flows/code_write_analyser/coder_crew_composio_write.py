@@ -2,9 +2,11 @@ from crewai import Agent, Crew, Task, LLM
 from crewai_tools import FileWriterTool
 from pydantic import BaseModel, Field
 import os
-from composio_crewai import ComposioToolSet, Action
+from composio_crewai import ComposioToolSet
 
-toolset = ComposioToolSet(api_key=os.getenv("COMPOSIO_API_KEY"))
+# pyright: reportMissingImports=false
+
+toolset = ComposioToolSet(api_key=os.getenv("COMPOSIO_API_KEY"), logging_level="debug")
 
 tools = toolset.get_tools(actions=["FILETOOL_CREATE_FILE"])
 
@@ -56,10 +58,11 @@ codegen_crew = Crew(
     verbose=True,
 )
 
-code_output = codegen_crew.kickoff(
-    {
-        "user_query": "Write a python function to find the Greatest Common divisor to ./gcd_function.py"
-    }
-)
+if __name__ == "__main__":
+    code_output = codegen_crew.kickoff(
+        {
+            "user_query": "Write a python function to find the Greatest Common divisor to ./gcd_function.py"
+        }
+    )
 
-print(code_output.to_dict())
+    print(code_output.to_dict())
