@@ -1,4 +1,5 @@
 from composio import ComposioToolSet, App
+from composio import Composio
 import os
 
 # This file is for authenticating any account
@@ -14,6 +15,25 @@ entity = toolset.get_entity()
 
 avbl_apps = toolset.get_apps()
 
+client = Composio(api_key=os.getenv("COMPOSIO_API_KEY"))
+
+avbl_actions = client.actions.get(limit=10)
+
+print(f"Some actions available {len(avbl_actions)}")
+
+for act in avbl_actions:
+    print(act)
+    break
+
+avbl_triggers = client.triggers.get()
+
+print(f"Some triggers available {len(avbl_triggers)}")
+
+print(f"Some actions available {len(avbl_actions)}")
+
+for act in avbl_actions:
+    print(act)
+    break
 print(f"There are {len(avbl_apps)}")
 
 ch1 = input("Do you want to list them (y/n): ")
