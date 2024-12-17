@@ -34,7 +34,7 @@ class RouterFlow(Flow[StructState]):
 
 justflow = RouterFlow()
 
-justflow.plot("routerflow.png")
+# justflow.plot("routerflow.png")
 
 rightroute = RouterFlow().kickoff({"counter": 11, "message": ""})
 print("Right route: ", rightroute)

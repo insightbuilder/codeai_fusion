@@ -64,5 +64,5 @@ if __name__ == "__main__":
             "user_query": "Write a python function to find the Greatest Common divisor to ./gcd_function.py"
         }
     )
-
+    # following will have {} output
     print(code_output.to_dict())

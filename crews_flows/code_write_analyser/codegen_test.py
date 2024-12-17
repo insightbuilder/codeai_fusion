@@ -1,13 +1,13 @@
 def gcd(a, b):
     """
-    Find the Greatest Common Divisor of two integers.
+    Finds the greatest common divisor of two integers using the Euclidean algorithm.
     
     Args:
         a (int): The first integer.
         b (int): The second integer.
     
     Returns:
-        int: The Greatest Common Divisor of a and b.
+        int: The greatest common divisor of a and b.
     """
     while b != 0:
         a, b = b, a % b

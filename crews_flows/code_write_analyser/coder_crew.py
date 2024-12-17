@@ -46,15 +46,17 @@ data_write_task = Task(
 
 codegen_crew = Crew(
     name="codegen_crew",
-    agents=[codegen_agent, data_write_agent],
-    tasks=[codegen_task, data_write_task],
+    agents=[codegen_agent],
+    tasks=[codegen_task],
     verbose=True,
 )
 
-code_output = codegen_crew.kickoff(
-    {
-        "user_query": "Write a python function to find the Greatest Common divisor to ./gcd_function.py"
-    }
-)
+if __name__ == "__main__":
 
-print(code_output.to_dict())
+    code_output = codegen_crew.kickoff(
+        {
+            "user_query": "Write a python function to find the Greatest Common divisor to ./gcd_function.py"
+        }
+    )
+
+    print(code_output.to_dict())
