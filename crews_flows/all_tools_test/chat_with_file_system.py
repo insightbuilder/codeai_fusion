@@ -51,6 +51,11 @@ put_table(
             "Editing the file content",
             "Update the first two lines to transformers and pytorch in composio_test.py",
         ],
+        ["Creating file", "Create a file with name composio_tools_test.txt"],
+        [
+            "Writing generated content to file",
+            "Write the tools you have into the file composio_tools_test.txt",
+        ],
     ]
 )
 
@@ -65,8 +70,17 @@ while True:
         ],
     )
     put_text("Getting response...")
-    # put_text(response)
+    put_text(f"Number of choices: {len(response.choices)}")
+    put_text(f"Choices: \n {response.choices}")
+    try:
+        put_text("Response Content: ", response.choices[0].message.content)
+        put_text("Choice 0: ", response.choices[0])
+        # put_text("Tool Call 1: ", response.choices[0].message.tool_calls[0].function)
+        put_text("Tool Name: ", response.choices[0].message.tool_calls[0].function.name)
 
-    result = toolset.handle_tool_calls(response)
+        result = toolset.handle_tool_calls(response)
 
-    put_text("result to change working directory: ", result)
+        put_text(f"result of | {task}: ")
+        put_text("Data: ", result[0]["data"])
+    except Exception as e:
+        put_text(f"Error: {str(e)}")
