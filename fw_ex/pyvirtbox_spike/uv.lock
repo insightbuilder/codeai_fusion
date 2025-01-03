@@ -1,0 +1,22 @@
+version = 1
+requires-python = ">=3.12"
+
+[[package]]
+name = "pyvirtbox-spike"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "virtualbox" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "virtualbox", specifier = ">=2.1.1" }]
+
+[[package]]
+name = "virtualbox"
+version = "2.1.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/83/ba/9253ee4b2a08d2868d163afbf8085cf70807368abbe630cbb133a1b25a02/virtualbox-2.1.1.tar.gz", hash = "sha256:2950f181ce06d249dd35aec364753318377c2f2c9e9d9382d7fcbc4ccce4e0f6", size = 284354 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cd/ea/bb32234710d4ad61782a30dc28c45baaa0e769ffe6a6162662b36545a1e5/virtualbox-2.1.1-py2.py3-none-any.whl", hash = "sha256:158a7e278b0a88bf3a9405131d79f569f2465270428914734573080d79b51dfc", size = 275265 },
+]
