@@ -1,0 +1,5 @@
+crewai
+crewai[tools]
+composio_core 
+composio_openai
+composio_crewai

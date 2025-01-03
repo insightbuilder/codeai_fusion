@@ -24,7 +24,6 @@ def agent_function(thread_id: str, message: str, sender_mail: str):
     # make the message important.
     print("Entering Agent call")
     try:
-
         response = openai_client.chat.completions.create(
             model="gpt-4o-mini",
             tools=tools,
@@ -49,7 +48,6 @@ def agent_function(thread_id: str, message: str, sender_mail: str):
 
 
 def mail_summary_writer(thread_id: str, message: str, sender_mail: str):
-
     print("Entering mail_summary_writer")
     llm = LLM(
         model="anthropic/claude-3-haiku-20240307",
@@ -83,13 +81,11 @@ def mail_summary_writer(thread_id: str, message: str, sender_mail: str):
             verbose=True,
         )
         print("reached kickoff")
-        writer_output = mail_writer_crew.kickoff(
-            {
-                "message": message,
-                "user_query": f"write the file to ./{thread_id}.txt",
-                "sender": sender_mail,
-            }
-        )
+        writer_output = mail_writer_crew.kickoff({
+            "message": message,
+            "user_query": f"write the file to ./{thread_id}.txt",
+            "sender": sender_mail,
+        })
 
         print(writer_output)
 
