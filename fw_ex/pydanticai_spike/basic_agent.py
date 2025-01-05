@@ -1,5 +1,4 @@
 # pyright: reportMissingImports=false
-
 from pydantic_ai import Agent
 from pywebio.input import input
 from pywebio.output import put_markdown, put_text

@@ -7,6 +7,9 @@ from pywebio.input import input
 from pywebio.output import put_text, put_markdown
 import traceback
 from rich import print
+import logfire
+
+logfire.configure()
 
 
 class ExpectedOutput(BaseModel):
@@ -51,6 +54,7 @@ while True:
     try:
         result = adv_agent.run_sync(your_prompt, deps=cache)
         put_text(f"Pydantic Agent:  {result.data}")  # print(result.data)
+        logfire.info(f"Pydantic Agent:  {result.data}")
 
     except Exception as e:
         print(e)

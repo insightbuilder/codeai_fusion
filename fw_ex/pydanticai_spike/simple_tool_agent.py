@@ -5,6 +5,7 @@ from pywebio.input import input
 from pywebio.output import put_text, put_markdown
 import traceback
 from typing import Optional
+from rich import print
 
 
 tool_agent = Agent(
@@ -46,6 +47,7 @@ put_markdown("## Welcome to Pydantic Agent with Tool")
 
 # Will be the variable to store the context
 cache = {}
+print(tool_agent.__dict__)
 
 while True:
     your_prompt = input("You: ")
