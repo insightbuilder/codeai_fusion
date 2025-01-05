@@ -24,6 +24,8 @@ adv_agent = Agent(
     result_type=ExpectedOutput,
 )
 
+print(adv_agent.__dict__)
+
 
 # Run Context used
 @adv_agent.tool
