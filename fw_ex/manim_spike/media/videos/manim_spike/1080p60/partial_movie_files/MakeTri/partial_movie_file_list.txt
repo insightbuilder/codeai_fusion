@@ -1,0 +1,9 @@
+# This file is used internally by FFMPEG.
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3529212410_1103446130_223132457.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_2167985936_2258466067.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_123554531_1746116955.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_1696862577_3876520661.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_123554531_183066310.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_1828519677_3859997701.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_4071659840_1372429848.mp4'
+file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/1080p60/partial_movie_files/MakeTri/3040924799_2880550170_2509506483.mp4'
