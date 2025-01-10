@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/PlotExample/2016333726_641265106_223132457.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/PlotExample/543634251_1531135777_1159679097.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/PlotExample/543634251_2501753801_4099755379.mp4'

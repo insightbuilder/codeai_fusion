@@ -1,6 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/CircleToSquare/2016333726_2766333427_223132457.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/CircleToSquare/543634251_2558624140_2574850341.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/CircleToSquare/543634251_123554531_1090733550.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/CircleToSquare/543634251_2979219142_3465251473.mp4'
-file 'file:/run/media/uberdev/ddrv/gitFolders/codeai_fusion/fw_ex/manim_spike/media/videos/manim_spike/720p30/partial_movie_files/CircleToSquare/543634251_123554531_3768046462.mp4'
