@@ -12,7 +12,7 @@ file_path = filedialog.askopenfilename(
 if file_path:  # If a file is selected
     output_path = file_path.rsplit(".", 1)[0] + ".gif"  # Save as .gif in same location
     clip = VideoFileClip(file_path)
-    clip.write_gif(output_path, fps=15)
+    clip.write_gif(output_path, fps=10)
     print(f"GIF saved at: {output_path}")
 else:
     print("No file selected!")
