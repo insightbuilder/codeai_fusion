@@ -17,6 +17,7 @@ def create_order(db: Session, username: str, item: str):
     """
     Creates a new order for the authenticated user.
     """
+    print("Execute make_order")
     new_order = Order(username=username, item=item)
     db.add(new_order)
     db.commit()
@@ -24,9 +25,11 @@ def create_order(db: Session, username: str, item: str):
     return new_order
 
 
-def get_orders(db: Session, username: str):
+def get_orders(db: Session):
     """
     Retrieves all orders for the authenticated user.
     """
-    orders = db.query(Order).filter(Order.username == username).all()
+    print("Execute get_orders")
+    # orders = db.query(Order).filter(Order.username == username).all()
+    orders = db.query(Order).all()
     return orders
