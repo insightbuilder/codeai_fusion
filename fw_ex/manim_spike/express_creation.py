@@ -50,3 +50,4 @@ class ExpressCreation(Scene):
             run_time=2.5,
         )
         self.wait(2.5)
+        self.interactive_embed()
