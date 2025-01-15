@@ -3,4 +3,4 @@ uvicorn>=0.15.0
 sqlalchemy>=1.4.23
 redis>=4.3.4
 pydantic>=1.9.0
-python-dotenv>=0.19.0
+python-dotenv>=0.19.0 
