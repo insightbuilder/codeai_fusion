@@ -29,10 +29,12 @@ class LogicCode(Scene):
         ask_more = Text("SPEAK", **text_kwargs)
         do_more.move_to(UP * 0.8)
         ask_more.move_to(DOWN * 0.8)
-        self.play(Create(top_line), Create(bottom_line), run_time=1.5)
+        # self.play(Create(top_line), Create(bottom_line), run_time=1.5)
+        self.add(top_line, bottom_line)
         self.add(
             title,
             author,
         )
-        self.play(GrowFromCenter(do_more), GrowFromCenter(ask_more), run_time=2.5)
-        self.wait(2.5)
+        self.add(do_more, ask_more)
+        # self.play(GrowFromCenter(do_more), GrowFromCenter(ask_more), run_time=2.5)
+        # self.wait(2.5)
