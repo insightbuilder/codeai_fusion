@@ -10,6 +10,7 @@ client = notion_client.Client(auth=token)
 results = client.search().get("results")
 print(len(results))
 result = results[4]
+print(f"The database id is: {result["id"]}")
 # print(f"The result is a: {result['object']}")
 print(f"The result is a: {result['properties']}")
 

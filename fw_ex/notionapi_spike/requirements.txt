@@ -1,0 +1,3 @@
+notion-client
+requests
+rich
