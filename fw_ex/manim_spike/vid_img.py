@@ -35,13 +35,14 @@ class VidImg(Scene):
         text_kwargs = {"font_size": 70, "color": BLACK, "weight": BOLD}
         future_kwargs = {"font_size": 90, "color": BLACK, "weight": BOLD}
 
-        if len(sys.argv) > 6:
-            cm = Text(sys.argv[3], **text_kwargs)
-            mid = Text(sys.argv[4], **text_kwargs)
-            st = Text(sys.argv[5], **future_kwargs)
+        if len(sys.argv) == 7:
+            print(sys.argv[4], sys.argv[5], sys.argv[6])
+            cm = Text(sys.argv[4], **text_kwargs)
+            mid = Text(sys.argv[5], **text_kwargs)
+            st = Text(sys.argv[6], **future_kwargs)
 
             cm.move_to(UP * 1.4)
-            st.move_to(DOWN * 1.4)
+            st.move_to(DOWN * 1.6)
             self.play(Create(top_line), Create(bottom_line), run_time=1.5)
 
             self.add(title, author)
@@ -53,8 +54,9 @@ class VidImg(Scene):
             )
             self.wait(2.5)
         else:
-            cm = Text(sys.argv[3], **text_kwargs)
-            st = Text(sys.argv[4], **future_kwargs)
+            print(sys.argv[4], sys.argv[5])
+            cm = Text(sys.argv[4], **text_kwargs)
+            st = Text(sys.argv[5], **future_kwargs)
 
             cm.move_to(UP)
             st.move_to(DOWN)
