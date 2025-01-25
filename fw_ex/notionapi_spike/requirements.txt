@@ -1,3 +1,6 @@
 notion-client
 requests
 rich
+pytube
+google-api-python-client
+bs4
