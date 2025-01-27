@@ -1,0 +1,4 @@
+manim
+jupyterlab
+Ipython
+manim-voiceover[azure,gtts]
