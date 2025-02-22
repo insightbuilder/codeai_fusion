@@ -4,3 +4,6 @@ rich
 pytube
 google-api-python-client
 bs4
+watchdog
+pywebio
+rich
