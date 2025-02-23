@@ -107,6 +107,12 @@ def insert_object(object_type):
                 "rich_text": [{"text": {"content": "Click to expand"}}],
             },
         },
+        # the below doesn't work, there is no block of type text
+        "Text": {
+            "object": "block",
+            "type": "text",
+            "text": {"content": "Nice simple text", "link": ""},
+        },
     }
 
     try:
@@ -188,6 +194,7 @@ def main():
             "Code Block",
             "Callout",
             "Toggle List",
+            # "Text",
         ],
         onclick=insert_object,
     )
