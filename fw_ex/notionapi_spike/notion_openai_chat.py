@@ -1,7 +1,7 @@
 import os
 from notion_client import Client
 from openai import OpenAI
-from pywebio.input import input
+from pywebio.input import input, textarea
 from pywebio.output import (
     put_button,
     put_error,
@@ -121,7 +121,13 @@ def main():
     past_memory = []
     while True:
         put_button("Clear Page", delete_page_children)
-        user_input = input("Enter your query: ")
+        user_input = textarea(
+            "Enter your query: ",
+            rows=4,
+            placeholder="""Provide Bullet points of tasks 
+Brainstorm Idea for Events
+Tasks for next Assignmentment""",
+        )
         # adding user input to past_memory
         put_text("Sending Input to Notion page")
         create_h2_in_page(page_id=PAGE_ID, content=user_input)
