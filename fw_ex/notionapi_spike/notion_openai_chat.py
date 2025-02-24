@@ -11,6 +11,8 @@ from pywebio.output import (
     put_success,
 )
 from pywebio import start_server
+from ollama import chat
+from ollama import ChatResponse
 
 # pyright: basic
 # ruff: noqa
@@ -89,7 +91,10 @@ def get_openai_inference(text, history=[]):
     """Send text to OpenAI and return formatted response."""
     try:
         messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
+            {
+                "role": "system",
+                "content": "You are a helpful assistant, who responds to the point and keeps it less than 300 words",
+            },
         ]
         # append history if supplied
         if len(history) > 0:
@@ -99,7 +104,7 @@ def get_openai_inference(text, history=[]):
         messages.append({"role": "user", "content": text})
         print("Before sent to OpenAI: ", messages)
         response = openai_client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=messages,
             temperature=0.7,
         )
@@ -107,6 +112,34 @@ def get_openai_inference(text, history=[]):
     except Exception as e:
         put_error(f"Error from OpenAI: {e}")
         return None
+
+
+def get_ollama_inference(text, history=[]):
+    try:
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant, who responds to the point and keeps it less than 300 words",
+            },
+        ]
+        # append history if supplied
+        if len(history) > 0:
+            messages.extend(history)
+
+        # append the user request
+        messages.append({"role": "user", "content": text})
+        print("Before sent to Ollama: ", messages)
+
+        response: ChatResponse = chat(
+            model="llama3.2:1b",
+            messages=messages,
+        )
+        # print(response["message"]["content"])
+        # or access fields directly from the response object
+        return response.message.content
+
+    except Exception as e:
+        print(f"Error in Ollama: {e}")
 
 
 def delete_page_children():
@@ -131,9 +164,10 @@ Tasks for next Assignmentment""",
         # adding user input to past_memory
         put_text("Sending Input to Notion page")
         create_h2_in_page(page_id=PAGE_ID, content=user_input)
-        put_text("Getting ChatGPT to respond")
+        put_text("Getting AI models to respond")
         put_text(f"Past history content: {len(past_memory)}")
-        model_out = get_openai_inference(text=user_input, history=past_memory)
+        model_out = get_ollama_inference(text=user_input, history=past_memory)
+
         put_markdown(model_out)
         put_text("Sending model output to Notion Page")
         create_code_in_page(page_id=PAGE_ID, content=model_out)
