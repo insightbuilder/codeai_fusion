@@ -1,12 +1,13 @@
-site_name: Code AI Integration Tutorial 
+site_name: Code AI Repo
 site_url: https://sitename.example
 theme:
   name: material
   font:
     text: Merriweather Sans
     code: Red Hat Mono
-  logo: assets/logo.png
-  favicon: assets/favicon.ico
+  icon:
+    logo: fontawesome/solid/w
+  favicon: fontawesome/solid/w
   features:
     - navigation.footer
   palette:
