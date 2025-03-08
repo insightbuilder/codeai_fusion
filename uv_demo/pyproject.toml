@@ -1,0 +1,13 @@
+[project]
+name = "uv-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2.3",
+    "requests>=2.32.3",
+    "rich>=13.9.4",
+]
+[project.scripts]
+add = "script:get_add"
