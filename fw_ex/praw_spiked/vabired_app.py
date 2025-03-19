@@ -10,6 +10,7 @@ from flask import Flask, render_template, request
 import praw
 from dotenv import load_dotenv
 import os
+from datetime import datetime, timedelta, timezone
 
 load_dotenv()
 
@@ -97,23 +98,38 @@ def search_posts():
 @app.route("/high_engagement_posts", methods=["POST"])
 def high_engagement_posts():
     query = request.form.get("query")
-    min_upvotes = int(request.form.get("min_upvotes", 100))
-    min_comments = int(request.form.get("min_comments", 10))
+    min_upvotes = int(request.form.get("min_upvotes", 10))
+    min_comments = int(request.form.get("min_comments", 0))
+    days = int(request.form.get("days", 7))  # Default to last 7 days
 
-    results = reddit.subreddit("all").search(query, limit=20)
-    filtered_posts = [
-        {
-            "subreddit": str(post.subreddit),
-            "title": post.title,
-            "comments": post.num_comments,
-            "score": post.score,
-            "url": post.url,
-        }
-        for post in results
-        if post.score >= min_upvotes and post.num_comments >= min_comments
-    ]
+    # Use datetime.now(timezone.utc) to get the current UTC time
+    cutoff_time = datetime.now(timezone.utc) - timedelta(days=days)
 
-    return render_template("index.html", filtered_posts=filtered_posts, query=query)
+    results = reddit.subreddit("all").search(
+        query, sort="relevance", limit=50
+    )  # Fetch latest posts
+    filtered_posts = []
+    for post in results:
+        # Convert created_utc timestamp to a timezone-aware datetime object
+        post_date = datetime.fromtimestamp(post.created_utc, tz=timezone.utc)
+
+        if (
+            post.score >= min_upvotes
+            and post.num_comments >= min_comments
+            and post_date >= cutoff_time
+        ):
+            filtered_posts.append({
+                "subreddit": str(post.subreddit),
+                "title": post.title,
+                "comments": post.num_comments,
+                "score": post.score,
+                "url": post.url,
+                "date": post_date.strftime("%Y-%m-%d %H:%M:%S UTC"),  # Format date
+            })
+
+    return render_template(
+        "index.html", filtered_posts=filtered_posts, query=query, days=days
+    )
 
 
 if __name__ == "__main__":
