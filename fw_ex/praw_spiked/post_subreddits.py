@@ -3,10 +3,12 @@
 # dependencies = [
 #     "praw",
 #     "python-dotenv",
+#     "pyyaml",
 # ]
 # ///
 import praw
 import time
+import yaml
 from dotenv import load_dotenv
 import os
 
@@ -46,18 +48,18 @@ def post_to_subreddits(subreddits, title, body=None, url=None, delay=10):
             print(f"📝 Posting to r/{subreddit_name}...")
 
             print("Choose a Flair in subreddit: \n")
-
-            flair_list = list(subreddit.flair.link_templates)
-            if len(flair_list) == 0:
-                print("No flairs found, setting flair to None")
-                flair = None
-            else:
+            try:
+                flair_list = list(subreddit.flair.link_templates)
                 print("****************************")
                 print("Flair name \t Flair ID")
                 for flair in flair_list:
                     print(f"{flair['text'][:10]}: \t {flair['id']}")
                 print("****************************")
                 flair = input("Enter Flair from above list: ")
+            except Exception as e:
+                print(f"Exception: {e}")
+                print("No flairs found, setting flair to None")
+                flair = None
             # Determine if it's a text post or a link post
             if url:
                 post = subreddit.submit(title, url=url, flair_id=flair)
@@ -84,16 +86,20 @@ if __name__ == "__main__":
         print(reddit.user.me(), "is Chosen")
     else:
         print("Choose 1 or 2")
-    print("Which Subreddits you want to post in?")
 
-    subreddits_list = []
+    yaml_file = input("Enter the path to the YAML file: ")
 
-    while True:
-        subreddit_name = input("Enter subreddit name (or 'done' to finish): ")
-        if subreddit_name.lower() == "done":
-            break
-        subreddits_list.append(subreddit_name)
-    print(subreddits_list)
-    post_title = input("Provide Post title: ")
-    post_body = input("Provide Post body: ")
-    post_to_subreddits(subreddits_list, post_title, body=post_body)
+    with open(yaml_file, "r", encoding="utf-8") as file:
+        yaml_data = yaml.safe_load(file)
+        subreddits_list = yaml_data["subreddits"]
+        post_title = yaml_data["title"]
+        post_body = yaml_data["body"]
+        print(
+            "Subreddits:",
+            subreddits_list,
+            "\nPost Title:",
+            post_title,
+            "\nPost Body:",
+            post_body,
+        )
+        post_to_subreddits(subreddits_list, post_title, body=post_body)
