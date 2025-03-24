@@ -10,7 +10,9 @@ credentials from Reddit to run the app. The
 process is provided
 [here](https://praw.readthedocs.io/en/stable/getting_started/quick_start.html#authorized-reddit-instances)
 
-What Va Bi Red can do? ![demo](vabired_demo.gif)
+## This is What Va-Bi-Red can do now?
+
+![demo](vabired_demo.gif)
 
 Feel free to fork the repo and play with the code.
 Give credit to Reddit API and PRAW.
