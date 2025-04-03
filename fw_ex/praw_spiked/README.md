@@ -19,4 +19,4 @@ Give credit to Reddit API and PRAW.
 
 let me add the youtube video link for Va Bi Red
 Tool intro
-![Va Bi Red Intro](https://youtu.be/OzvdWHpPQ9s)
+[Va Bi Red Intro](https://youtu.be/OzvdWHpPQ9s)
