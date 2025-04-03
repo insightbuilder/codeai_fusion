@@ -2,12 +2,19 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #     "python-dotenv",
+#     "simpleicons[imaging]",
 #     "simplepycons",
 # ]
 # ///
-from simplepycons import all_icons
+from simpleicons.all import icons
+from simpleicons.image import icon_to_image
+
 import os
 from dotenv import load_dotenv
+from PIL import Image
+
+# Increase Pillow’s safety limit
+Image.MAX_IMAGE_PIXELS = None
 
 load_dotenv()
 
@@ -35,12 +42,17 @@ while True:
         # inform user that we will try to fetch the icons
         else:
             print("Lets try to fetch the icons")
+            size = 75
             try:
-                icon = all_icons[need]
+                icon = icons.get(need)
             except KeyError:
                 print(f"Icon {need} not found")
                 exit()
-            file_svg = f"{icon_dir}{need}.svg"
-            print(f"Written svg to {file_svg}")
-            with open(file_svg, "w") as f:
-                f.write(icon.raw_svg)
+            xml_bytes = icon.get_xml_bytes(fill="orange")
+            img = icon_to_image(xml_bytes, bg=None, scale=(size, size))
+            # img = img.resize((size, size), Image.LANCZOS)
+            img = img.convert("RGBA")
+            # img.putalpha(255)
+            file_png = f"{icon_dir}{need}.png"
+            print(f"Written png to {file_png}")
+            img.save(file_png, format="PNG")

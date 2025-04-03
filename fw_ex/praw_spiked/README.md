@@ -16,3 +16,7 @@ process is provided
 
 Feel free to fork the repo and play with the code.
 Give credit to Reddit API and PRAW.
+
+let me add the youtube video link for Va Bi Red
+Tool intro
+![Va Bi Red Intro](https://youtu.be/OzvdWHpPQ9s)
