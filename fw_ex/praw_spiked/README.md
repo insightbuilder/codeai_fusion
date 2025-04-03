@@ -16,3 +16,7 @@ process is provided
 
 Feel free to fork the repo and play with the code.
 Give credit to Reddit API and PRAW.
+
+The below youtube video introduces Va Bi Red Tool
+with more detail
+[![Watch the video](./Auto_mrkt_research_Thumbnail.png)](https://youtu.be/OzvdWHpPQ9s)
