@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>What are they talking about?</h5>
+<form method="post">
+    <input type="text" name="subreddit" class="form-control mb-2" value="ProgrammingHumor">
+    <select name="sort_by" class="form-select mb-2">
+        <option value="hot">Hot</option>
+        <option value="new">New</option>
+        <option value="top">Top</option>
+    </select>
+    <button type="submit" class="btn btn-warning">Get Posts</button>
+</form>
+
+{% if trending %}
+<h4>🔥 Trending Posts in r/{{ subreddit_name }}</h4>
+<ul class="list-group">
+    {% for post in trending %}
+    <li class="list-group-item">
+        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a> - 👍 {{ post.score }} | 💬 {{ post.comments }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+

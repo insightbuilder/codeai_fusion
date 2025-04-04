@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Find High Engagement Posts</h5>
+<form method="post">
+    <input type="text" name="query" class="form-control mb-2" required placeholder="Enter keyword">
+    <label>Minimum Upvotes:</label>
+    <input type="number" name="min_upvotes" class="form-control mb-2" value="3">
+    <label>Minimum Comments:</label>
+    <input type="number" name="min_comments" class="form-control mb-2" value="0">
+    <label>Look Back (Days):</label>
+    <input type="number" name="days" class="form-control mb-2" value="30">
+    <button type="submit" class="btn btn-danger">Search</button>
+</form>
+
+{% if filtered_posts %}
+<h4>📈 High Engagement Posts for "{{ query }}"</h4>
+<ul class="list-group">
+    {% for post in filtered_posts %}
+    <li class="list-group-item">
+        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
+        <br>📌 r/{{ post.subreddit }} | 👍 {{ post.score }} | 💬 {{ post.comments }} | 🕒 {{ post.date }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
