@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Find Related Subreddits</h5>
+<form method="post">
+    <input type="text" name="keyword" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if subreddits %}
+<h4>🔎 Found Subreddits for "{{ keyword }}"</h4>
+<ul class="list-group">
+    {% for sub in subreddits %}
+    <li class="list-group-item">
+        <a href="{{ sub.url }}" target="_blank">r/{{ sub.name }}</a> - {{ sub.subscribers }} subscribers
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+

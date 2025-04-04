@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Search Posts Globally</h5>
+<form method="post">
+    <input type="text" name="query" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+
+{% if posts %}
+<h4>🔎 Found Posts for "{{ query }}"</h4>
+<ul class="list-group">
+    {% for post in posts %}
+    <li class="list-group-item">
+        <a href="{{ post.url }}" target="_blank">{{ post.title }}</a>
+        <br>📌 r/{{ post.subreddit }} | 👍 {{ post.score }} | 💬 {{ post.comments }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+

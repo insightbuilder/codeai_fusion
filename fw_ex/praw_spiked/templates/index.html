@@ -9,104 +9,13 @@
 <body class="bg-light">
     <div class="container mt-4">
         <h2 class="text-center">🔍 VABIRED - Validate Business Ideas</h2>
-        <p>This tool can be used by anyone with Reddit API key and want to check if their Ideas and Solutions are making sense</p>
-        <p>The sections below extract the data from Reddit and place it on the page. It includes minimum analysis.</p>
-        <p>Data analysis is currently done with reviewing the post headline and reading the comments manually. This will be automated.</p>
-        <p>The extracted and processed data is not stored in any database now. Without that itself, we can gain lot of insights. </p>
-        <p>The App is self-hosted on your own machine, so there is no security or login implemented. All your queries are processed in your machine</p>
-        <!-- Search Subreddits -->
-        <h5>Which Subreddits might be related to the Idea I am trying to validate</h5>
-        <form method="post" action="/search_subreddits" class="mb-4">
-            <!-- <label class="form-label">Find Subreddits related to:</label> -->
-            <input type="text" name="keyword" class="form-control mb-2" value="Reddit API">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-
-        {% if subreddits %}
-        <h4>🔎 Found Subreddits for "{{ keyword }}"</h4>
+        <p class="text-center">Use the tools below to validate your ideas using Reddit data.</p>
         <ul class="list-group">
-            {% for sub in subreddits %}
-            <li class="list-group-item"><a href="{{ sub.url }}" target="_blank">r/{{ sub.name }}</a> - {{ sub.subscribers }} subscribers</li>
-            {% endfor %}
+            <li class="list-group-item"><a href="/search_subreddits">Find Related Subreddits</a></li>
+            <li class="list-group-item"><a href="/trending_posts">See Trending Posts</a></li>
+            <li class="list-group-item"><a href="/search_posts">Search Posts Globally</a></li>
+            <li class="list-group-item"><a href="/high_engagement_posts">Find High Engagement Posts</a></li>
         </ul>
-        {% endif %}
-        <h6>Take one or two subreddits that you think might be related to your Business Idea, and then move to next section</h6>
-        <hr>
-      <p>We have communities that are related to our Business Idea. Lets find out what the people in those communities are talking about</p>
-      <p>Looking at the Hot, New and Top posts we can gather some basic insights</p>
-      <h5> What are they talking about?</h5>
-        <!-- Get Trending Posts -->
-        <form method="post" action="/trending_posts" class="mb-4">
-            <label class="form-label">Trending posts in subreddit:</label>
-            <input type="text" name="subreddit" class="form-control mb-2" value="ProgrammingHumor">
-            <select name="sort_by" class="form-select mb-2">
-                <option value="hot">Hot</option>
-                <option value="new">New</option>
-                <option value="top">Top</option>
-            </select>
-            <button type="submit" class="btn btn-warning">Get Posts</button>
-        </form>
-
-        {% if trending %}
-        <h4>🔥 Trending Posts in r/{{ subreddit_name }}</h4>
-        <ul class="list-group">
-            {% for post in trending %}
-            <li class="list-group-item">
-                <a href="{{ post.url }}" target="_blank">{{ post.title }}</a> - 👍 {{ post.score }} | 💬 {{ post.comments }}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <h6>The post titles itself will give you some idea</h6>
-        <hr>
-        <h5>If you want the Posts related to your Business Idea and see what they are talking about</h5>
-        <!-- Search Posts Globally -->
-        <form method="post" action="/search_posts" class="mb-4">
-            <label class="form-label">Search Reddit for:</label>
-            <input type="text" name="query" class="form-control mb-2" value="Reddit API">
-            <button type="submit" class="btn btn-success">Search</button>
-        </form>
-
-        {% if posts %}
-        <h4>🔎 Found Posts for "{{ query }}"</h4>
-        <ul class="list-group">
-            {% for post in posts %}
-            <li class="list-group-item">
-                <a href="{{ post.url }}" target="_blank">{{ post.title }}</a> - r/{{ post.subreddit }} | 👍 {{ post.score }} | 💬 {{ post.comments }}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        <hr>
-        <p>Reddit can be great place to check what is going on in minds of many people</p>
-        <p>These High Engagement posts could be useful to find which posts, subreddit are having something common with your idea</p>
-        <!-- Filter High Engagement Posts -->
-        <h5>You want to directly see what people across reddit are talking about something you have in mind</h5>
-        <form method="post" action="/high_engagement_posts" class="mb-4">
-            <label class="form-label">Find High Engagement Posts for:</label>
-            <input type="text" name="query" class="form-control mb-2" required>
-            <label class="form-label">Min Votes:</label>
-            <input type="number" name="min_upvotes" class="form-control mb-2" value=3>
-            <label class="form-label">Min Comments:</label>
-            <input type="number" name="min_comments" class="form-control mb-2" value=0>
-            <label class="form-label">Days:</label>
-            <input type="number" name="days" class="form-control mb-2" value=30>
-            <button type="submit" class="btn btn-danger">Search</button>
-        </form>
-
-        {% if filtered_posts %}
-        <h4>📈 High Engagement Posts for "{{ query }}"</h4>
-        <ul class="list-group">
-            {% for post in filtered_posts %}
-            <li class="list-group-item">
-                <a href="{{ post.url }}" target="_blank">{{ post.title }}</a> - r/{{ post.subreddit }} | 👍 {{ post.score }} | 💬 {{ post.comments }}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
     </div>
 </body>
 </html>
-

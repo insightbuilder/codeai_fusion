@@ -6,7 +6,7 @@
 #     "python-dotenv",
 # ]
 # ///
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import praw
 from dotenv import load_dotenv
 import os
@@ -23,6 +23,10 @@ reddit = praw.Reddit(
     username=os.environ["ANAME"],
     password=os.environ["APASS"],
 )
+
+
+def get_section_id():
+    return request.form.get("section_id", "home")
 
 
 @app.route("/")
@@ -42,12 +46,7 @@ def search_subreddits():
         }
         for sub in results
     ]
-    return render_template(
-        "index.html",
-        subreddits=subreddits,
-        keyword=keyword,
-        section="first",
-    )
+    return redirect(url_for("home", section="first") + "#first")
 
 
 @app.route("/trending_posts", methods=["POST"])
@@ -67,12 +66,7 @@ def trending_posts():
         }
         for post in posts
     ]
-    return render_template(
-        "index.html",
-        trending=trending,
-        subreddit_name=subreddit_name,
-        section="second",
-    )
+    return redirect(url_for("home", section="second") + "#second")
 
 
 @app.route("/search_posts", methods=["POST"])
@@ -89,7 +83,7 @@ def search_posts():
         }
         for post in results
     ]
-    return render_template("index.html", posts=posts, query=query, section="third")
+    return redirect(url_for("home", section="third") + "#third")
 
 
 @app.route("/high_engagement_posts", methods=["POST"])
@@ -117,13 +111,7 @@ def high_engagement_posts():
                 "url": post.url,
                 "date": post_date.strftime("%Y-%m-%d %H:%M:%S UTC"),
             })
-    return render_template(
-        "index.html",
-        filtered_posts=filtered_posts,
-        query=query,
-        days=days,
-        section="fourth",
-    )
+    return redirect(url_for("home", section="fourth") + "#fourth")
 
 
 if __name__ == "__main__":
