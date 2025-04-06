@@ -22,16 +22,20 @@ pages, each with its purposes.
 
 #### Index Page
 
-[Home Page](../fw_ex/praw_spiked/docs_image/index.png)
+![Home Page](https://github.com/insightbuilder/codeai_fusion/blob/main/fw_ex/praw_spiked/docs_image/index.png)
 
 #### Related Subreddits to Topic
 
-[Related Subreddits](../fw_ex/praw_spiked/docs_image/related_subreddits.png)
+![Related Subreddits](https://github.com/insightbuilder/codeai_fusion/blob/main/fw_ex/praw_spiked/docs_image/related_subreddits.png)
 
 #### Trending Subreddits Posts
 
-[Trending Subreddits](../fw_ex/praw_spiked/docs_image/trending.png)
+![Trending Subreddits](https://github.com/insightbuilder/codeai_fusion/blob/main/fw_ex/praw_spiked/docs_image/trending.png)
+
+#### Search Subreddits
+
+![Search Subreddits](https://github.com/insightbuilder/codeai_fusion/blob/main/fw_ex/praw_spiked/docs_image/search.png)
 
 #### High Engagement Posts
 
-[High Engagement](../fw_ex/praw_spiked/docs_image/hi_eng.png)
+![High Engagement](https://github.com/insightbuilder/codeai_fusion/blob/main/fw_ex/praw_spiked/docs_image/hi_eng.png)
