@@ -57,6 +57,15 @@ class MCPClient:
         # Need to get tools output if the server is up
         print("\nConnected to server with tools:", [tool.name for tool in tools])
 
+        # List available prompts
+        prompts = await self.session.list_prompts()
+
+        print(prompts)
+
+        # List available resources
+        resources = await self.session.list_resources()
+        print(resources)
+
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
         messages = [{"role": "user", "content": query}]
