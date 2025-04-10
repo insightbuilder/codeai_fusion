@@ -1,0 +1,5 @@
+mcp[cli]
+mcp
+python-dotenv
+flask
+anthropic
