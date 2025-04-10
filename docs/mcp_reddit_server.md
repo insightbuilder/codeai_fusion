@@ -23,6 +23,10 @@ uv add mcp "mcp[cli]" httpx praw pythod-dotenv httpx anthropic
 mv main.py server.py
 touch client.py
 uv run client.py server.py
+
+After the client start, you will be prompted for the query.
+
+Query: You are reddit analysing agent. Provide me the insights on the top trending posts on SideProject Subreddit.
 ```
 
 - Project Description:
