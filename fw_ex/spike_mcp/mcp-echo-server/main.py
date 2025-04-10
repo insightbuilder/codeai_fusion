@@ -66,6 +66,7 @@ async def long_task(files: list[str], ctx: Context) -> str:
     for i, file in enumerate(files):
         await ctx.info(f"Processing {file}")
         await ctx.report_progress(i, len(files))
+        ctx.
         data, mime_type = await ctx.read_resource("local://main")
         await ctx.info(f"File type: {mime_type}")
         await ctx.info(f"{data.content}")
