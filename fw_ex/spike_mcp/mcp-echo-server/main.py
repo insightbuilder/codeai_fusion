@@ -5,16 +5,30 @@ import httpx
 mcp = FastMCP("My App")
 
 
-@mcp.resource("config://app")
-def get_config() -> str:
-    """Static configuration data"""
-    return "App configuration here"
-
-
 @mcp.resource("users://{user_id}/profile")
 def get_user_profile(user_id: str) -> str:
     """Dynamic user data"""
     return f"Profile data for user {user_id}"
+
+
+@mcp.resource("config://app1")
+def get_config1() -> str:
+    """Static configuration data"""
+    return "App configuration here"
+
+
+@mcp.resource("config://{app}")
+def get_config(app: str) -> str:
+    """Static configuration data"""
+    return f"App configuration here is {app}"
+
+
+@mcp.resource("local://main")
+def get_file() -> str:
+    """Static file content"""
+    print("Reaching here...")
+    with open("./main.py", "r") as f:
+        return f.read()
 
 
 @mcp.tool()
@@ -48,13 +62,19 @@ def debug_error(error: str) -> list[base.Message]:
 @mcp.tool()
 async def long_task(files: list[str], ctx: Context) -> str:
     """Process multiple files with progress tracking"""
+    file_data = ""
     for i, file in enumerate(files):
-        ctx.info(f"Processing {file}")
+        await ctx.info(f"Processing {file}")
         await ctx.report_progress(i, len(files))
-        data, mime_type = await ctx.read_resource(f"file://{file}")
-    return "Processing complete"
+        data, mime_type = await ctx.read_resource("local://main")
+        await ctx.info(f"File type: {mime_type}")
+        await ctx.info(f"{data.content}")
+        file_data += data.content
+    return file_data
 
 
 if __name__ == "__main__":
     print("Server Starts")
+    print(dir(mcp))
+    print(mcp.settings)
     mcp.run()

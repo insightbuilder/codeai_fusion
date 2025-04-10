@@ -1,9 +1,11 @@
 import asyncio
 from typing import Optional
 from contextlib import AsyncExitStack
+from inspect import getsource
 
 # pyright: reportMissingImports=false
 # pyright: reportOptionalSubscript=false
+# pyright: reportOptionalMemberAccess=false
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -63,8 +65,31 @@ class MCPClient:
         print(prompts)
 
         # List available resources
+        print(dir(self.session))
         resources = await self.session.list_resources()
         print(resources)
+
+        read_resources = await self.session.list_resource_templates()
+        print(read_resources)
+
+        content = await self.session.read_resource("config://main")
+        print(f"Content: {content}")
+
+        content = await self.session.read_resource("config://app1")
+        print(f"Content: {content}")
+
+        content = await self.session.read_resource("users://{app1}/profile")
+        print(f"Content: {content}")
+
+        content = await self.session.read_resource("local://main")
+        print(f"Content: {content}")
+
+        getprompt = await self.session.get_prompt(
+            name="review_code", arguments={"code": "Super code"}
+        )
+        print(getprompt)
+
+        print(getsource(self.session.complete))
 
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
@@ -82,7 +107,7 @@ class MCPClient:
 
         # Initial Claude API call
         response = self.anthropic.messages.create(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-3-5-haiku-20241022",
             max_tokens=1000,
             messages=messages,
             tools=available_tools,
@@ -101,6 +126,7 @@ class MCPClient:
 
                 # Execute tool call
                 result = await self.session.call_tool(tool_name, tool_args)
+                print(result)
                 tool_results.append({"call": tool_name, "result": result})
                 final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
 

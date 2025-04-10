@@ -39,3 +39,22 @@
 
     After that uv run client.py main.py get the
     session established.
+
+## Findings under Session:
+
+, '**weakref**', '\_exit_stack',
+'\_handle_incoming', '\_in_flight',
+'\_is_protocol', '\_list_roo ts_callback',
+'\_logging_callback', '\_message_handler',
+'\_read_stream', '\_read_timeout_second s',
+'\_receive_loop', '\_receive_notification_type',
+'\_receive_request_type', '\_received_notif
+ication', '\_received_request', '\_request_id',
+'\_response_streams', '\_sampling_callback', '\_s
+end_response', '\_task_group', '\_write_stream',
+ist_prompts', 'list_resource_templates',
+'list_resources', 'list_tools', 'read_resource',
+'send_notification', 'send_ping',
+'send_progress_notification', 'send_request', 'sen
+d_roots_list_changed', 'set_logging_level',
+'subscribe_resource', 'unsubscribe_resource'
