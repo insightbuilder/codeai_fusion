@@ -13,7 +13,7 @@ This is part of the vabired project.
 - Project Path:
   ../fw_ex/praw_spiked/mcp-reddit-server
 
-- Project setup commands:
+### Project setup commands:
 
 ```bash
 cd ../fw_ex/praw_spiked
@@ -29,7 +29,7 @@ After the client start, you will be prompted for the query.
 Query: You are reddit analysing agent. Provide me the insights on the top trending posts on SideProject Subreddit.
 ```
 
-- Project Description:
+### Project Description:
 
 The server.py contains the tools to connect with
 reddit API, and the client.py contains the code to
@@ -40,3 +40,14 @@ the ../fw_ex/praw_spiked/vabired_app02.py. The MCP
 server and client are a different interface to the
 way we interact with the computers. So instead of
 using REST API servers, we will use plain english.
+
+### Project References
+
+- Server code referred from :
+  [MCP Installation](https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file#installation)
+
+- Client code referred from:
+  [Introducing Clients](https://modelcontextprotocol.io/quickstart/client)
+
+- Praw Code referred from:
+  [Vabired code](../docs/vabired_docs.md)
