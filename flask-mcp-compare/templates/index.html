@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Health Checker!</h1>
+        <p>This tool helps you calculate your Body Mass Index (BMI) using your height and weight.</p>
+
+        <div class="calculator">
+            <h2>BMI Calculator</h2>
+            <form method="POST">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" name="weight" step="0.1" required>
+
+                <label for="height">Height (cm):</label>
+                <input type="number" name="height" step="0.1" required>
+
+                <button type="submit">Calculate</button>
+            </form>
+
+            {% if bmi %}
+                <div class="result">
+                    <h3>Your BMI: {{ bmi }}</h3>
+                    <p>Category: {{ category }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
