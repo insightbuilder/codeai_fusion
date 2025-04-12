@@ -41,10 +41,10 @@ source .venv/bin/activate in linux
 
 pip install -r requirements.txt
 
-#### Running the Flask App
+#### Running the Flask App to Calculate BMI
 
 python flaskapp.py
 
-#### Running the MCP Server
+#### Running the MCP Server to Intelligently provide BMI
 
 python mcpclient.py mcpserver.py
