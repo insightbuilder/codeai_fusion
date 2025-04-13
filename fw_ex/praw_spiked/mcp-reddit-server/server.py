@@ -1,5 +1,17 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "mcp",
+#     "praw",
+#     "python-dotenv",
+#     "anthropic",
+# ]
+# ///
+from collections.abc import Iterable
 from mcp.server.fastmcp import FastMCP, Context
 from mcp.server.fastmcp.prompts import base
+from mcp.server.lowlevel.helper_types import ReadResourceContents
+from typing import List
 import praw
 from dotenv import load_dotenv
 import os
@@ -64,30 +76,45 @@ def subreddit_info_static() -> str:
 
 
 # @mcp.tool()
-# async def get_subreddit_info(query: str, ctx: Context) -> str:
-#     """Answer the user query by accessing the subreddit_info from
-#     get_subreddit resource. Use the reply_with_context prompt"""
+# async def get_subreddit_info(query: str) -> Iterable[ReadResourceContents]:
+# async def get_subreddit_info(query: str) -> str:
+# """Answer the user query by accessing the subreddit_info from
+# get_subreddit resource. Use the reply_with_context prompt"""
 
-#     info = await ctx.read_resource("subreddit_info")
-#     # making the prompt
-#     prompt = mcp.get_prompt(
-#         "reply_with_context", arguments={"context": info, "query": query}
-#     )
-#     # Building messages
-#     messages = [
-#         {
-#             "role": "user",
-#             "content": prompt,
-#         }
-#     ]
-#     # Calling the model
-#     response = anthropic.messages.create(
-#         model="claude-3-5-haiku-20241022",
-#         max_tokens=500,
-#         messages=messages,
-#     )
-#     # returning the reply.
-#     return response.content[0].text
+# data = await mcp.read_resource("subreddit://info")
+# # making the prompt
+# prompt = mcp.get_prompt(
+#     "reply_with_context",
+#     arguments={"context": data.contents[0].text, "query": query},
+# )
+# returning the reply.
+# return prompt.messages[0].content.text
+# return data
+# return data[0].content
+
+
+@mcp.tool()
+# async def get_subreddit_info(query: str) -> Iterable[ReadResourceContents]:
+async def get_subreddit_info(query: str) -> str:
+    """Used for answering the user query relating to subreddit informations"""
+
+    data = await mcp.read_resource("subreddit://info")
+    # making the prompt
+    prompt = await mcp.get_prompt(
+        "reply_with_context",
+        arguments={"context": data[0].content, "query": query},
+    )
+    # returning the reply.
+    # return prompt.model_dump_json()
+    return prompt.messages[0].content.text
+
+
+# @mcp.tool()
+# async def get_resources() -> str:
+#     """Returns the list of resources available with you"""
+#     resource_list = await mcp.list_resources()
+#     res_list_str = ",".join([res.name for res in resource_list])
+#     return f"Available resources with you are: {res_list_str}"
 
 
 @mcp.tool()
@@ -112,4 +139,5 @@ def reply_comment(comment_text: str) -> str:
 
 
 if __name__ == "__main__":
+    print("Starting MCP Server")
     mcp.run()

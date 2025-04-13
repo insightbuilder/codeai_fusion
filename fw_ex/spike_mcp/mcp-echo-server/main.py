@@ -60,13 +60,12 @@ def debug_error(error: str) -> list[base.Message]:
 
 
 @mcp.tool()
-async def long_task(files: list[str], ctx: Context) -> str:
+async def long_task(files: str, ctx: Context) -> str:
     """Process multiple files with progress tracking"""
     file_data = ""
     for i, file in enumerate(files):
         await ctx.info(f"Processing {file}")
         await ctx.report_progress(i, len(files))
-        ctx.
         data, mime_type = await ctx.read_resource("local://main")
         await ctx.info(f"File type: {mime_type}")
         await ctx.info(f"{data.content}")
