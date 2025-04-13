@@ -59,11 +59,30 @@ class MCPClient:
         # Need to get tools output if the server is up
         print("\nConnected to server with tools:", [tool.name for tool in tools])
 
+        # below code is used initially for testing the read_resource method
+        # resource_test = await self.session.read_resource("subreddit://info")
+        # print("Testing Resource in Client side:", resource_test)
+
+        # listing available prompts
+        response = await self.session.list_prompts()
+        prompts = response.prompts
+        print("\nAvailable prompts:", [prompt.name for prompt in prompts])
+
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
-        messages = [{"role": "user", "content": query}]
-
+        # get the tools
         response = await self.session.list_tools()
+        # get the resources
+        avbl_data = await self.session.read_resource("subreddit://info")
+        # use the resources in the prompt
+        context_prompt = await self.session.get_prompt(
+            "reply_with_context",
+            arguments={"context": avbl_data.contents[0].text, "query": query},
+        )
+        query_with_context = context_prompt.messages[0].content
+        print(query_with_context.text)
+        # build it into the message list
+        messages = [{"role": "user", "content": query_with_context.text}]
         available_tools = [
             {
                 "name": tool.name,
