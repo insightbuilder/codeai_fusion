@@ -18,15 +18,31 @@ This is part of the vabired project.
 ```bash
 cd ../fw_ex/praw_spiked
 uv init mcp-reddit-server
+
 cd mcp-reddit-server
 uv add mcp "mcp[cli]" httpx praw pythod-dotenv httpx anthropic
+
 mv main.py server.py
+
 touch client.py
+
+# Above two steps are not required if you are cloning this repo
+
 uv run client.py server.py
 
 After the client start, you will be prompted for the query.
 
 Query: You are reddit analysing agent. Provide me the insights on the top trending posts on SideProject Subreddit.
+```
+
+When you need use mcp inspector to debug the code,
+use the command below. Ensure you have
+[npx](https://docs.npmjs.com/cli/v8/commands/npx)
+and [node](https://nodejs.org/en/download)
+installed
+
+````bash
+npx @modelcontextprotocol/inspector uv run server.py
 ```
 
 ### Project Description:
@@ -51,3 +67,4 @@ using REST API servers, we will use plain english.
 
 - Praw Code referred from:
   [Vabired code](../docs/vabired_docs.md)
+````
