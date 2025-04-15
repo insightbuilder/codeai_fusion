@@ -7,15 +7,10 @@
 #     "anthropic",
 # ]
 # ///
-from collections.abc import Iterable
-from mcp.server.fastmcp import FastMCP, Context
-from mcp.server.fastmcp.prompts import base
-from mcp.server.lowlevel.helper_types import ReadResourceContents
-from typing import List
+from mcp.server.fastmcp import FastMCP
 import praw
 from dotenv import load_dotenv
 import os
-from datetime import datetime, timedelta, timezone
 from anthropic import Anthropic
 
 load_dotenv()
@@ -36,6 +31,48 @@ reddit = praw.Reddit(
 mcp = FastMCP("mcp-vabired")
 
 
+@mcp.prompt()
+def get_reply(comment: str) -> str:
+    """Prompt to get a suitable reply for a comment"""
+    return f"Review this {comment} and provide a suitable polite response"
+
+
+@mcp.prompt()
+def reply_with_context(context: str, query: str) -> str:
+    """Prompt to get the LLM to use the context and answer a query"""
+    return f"Review this {context} and answer the {query} precisely"
+
+
+# dynamic template resource
+@mcp.resource("reddit://search/{query}")
+def search_reddit(query: str) -> str:
+    """Searches the entire reddit and returns the post title, content, and score along with URL"""
+    results = reddit.subreddit("all").search(query, sort="relevance", limit=10)
+    posts = ""
+    for post in results:
+        posts += f"subreddit: {str(post.subreddit)} \n title: {post.title} \n comments: {post.num_comments} \n score: {post.score} \n url: {post.url}"
+    return posts
+
+
+# Static Resource
+@mcp.resource("subreddit://info")
+def subreddit_info_static() -> str:
+    """Returns the details of SideProject & Webdev subreddit by reading a local file"""
+    with open("subred_data.txt", "r") as f:
+        name_desc_details = f.read()
+    return name_desc_details
+
+
+# Tool that uses a dynamic resource with templates
+@mcp.tool()
+async def search_for_me(query: str) -> str:
+    """Searches the entire reddit and returns the post title, content, and score along with URL"""
+    resource_query = f"reddit://search/{query}"
+    reddit_data = await mcp.read_resource(resource_query)
+    return reddit_data[0].content
+
+
+# Tool that calls an API
 @mcp.tool()
 def get_trending_posts(subreddit: str) -> str:
     """Returns the treding hot posts in given subreddit.
@@ -54,45 +91,7 @@ def get_trending_posts(subreddit: str) -> str:
     return trending_posts
 
 
-@mcp.prompt()
-def get_reply(comment: str) -> str:
-    """Prompt to get a suitable reply for a comment"""
-    return f"Review this {comment} and provide a suitable polite response"
-
-
-@mcp.prompt()
-def reply_with_context(context: str, query: str) -> str:
-    """Prompt to get the LLM to use the context and answer a query"""
-    return f"Review this {context} and answer the {query} precisely"
-
-
-@mcp.resource("subreddit://info")
-def subreddit_info_static() -> str:
-    """Returns the details of SideProject & Webdev subreddit"""
-
-    with open("subred_data.txt", "r") as f:
-        name_desc_details = f.read()
-    return name_desc_details
-
-
-# @mcp.tool()
-# async def get_subreddit_info(query: str) -> Iterable[ReadResourceContents]:
-# async def get_subreddit_info(query: str) -> str:
-# """Answer the user query by accessing the subreddit_info from
-# get_subreddit resource. Use the reply_with_context prompt"""
-
-# data = await mcp.read_resource("subreddit://info")
-# # making the prompt
-# prompt = mcp.get_prompt(
-#     "reply_with_context",
-#     arguments={"context": data.contents[0].text, "query": query},
-# )
-# returning the reply.
-# return prompt.messages[0].content.text
-# return data
-# return data[0].content
-
-
+# Tool that uses a static resource
 @mcp.tool()
 # async def get_subreddit_info(query: str) -> Iterable[ReadResourceContents]:
 async def get_subreddit_info(query: str) -> str:
@@ -109,14 +108,7 @@ async def get_subreddit_info(query: str) -> str:
     return prompt.messages[0].content.text
 
 
-# @mcp.tool()
-# async def get_resources() -> str:
-#     """Returns the list of resources available with you"""
-#     resource_list = await mcp.list_resources()
-#     res_list_str = ",".join([res.name for res in resource_list])
-#     return f"Available resources with you are: {res_list_str}"
-
-
+# Tool that uses LLM inside the server to get a reply.
 @mcp.tool()
 def reply_comment(comment_text: str) -> str:
     """Returns a suitable polite reply for the comment"""

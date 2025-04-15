@@ -159,6 +159,31 @@ async def main():
         await client.cleanup()
 
 
+# Server code that fails, kept here for reference
+# @mcp.tool()
+# async def get_subreddit_info(query: str) -> Iterable[ReadResourceContents]:
+# async def get_subreddit_info(query: str) -> str:
+# """Answer the user query by accessing the subreddit_info from
+# get_subreddit resource. Use the reply_with_context prompt"""
+
+# data = await mcp.read_resource("subreddit://info")
+# # making the prompt
+# prompt = mcp.get_prompt(
+#     "reply_with_context",
+#     arguments={"context": data.contents[0].text, "query": query},
+# )
+# returning the reply.
+# return prompt.messages[0].content.text
+# return data
+# return data[0].content
+
+# @mcp.tool()
+# async def get_resources() -> str:
+#     """Returns the list of resources available with you"""
+#     resource_list = await mcp.list_resources()
+#     res_list_str = ",".join([res.name for res in resource_list])
+#     return f"Available resources with you are: {res_list_str}"
+
 if __name__ == "__main__":
     import sys
 
