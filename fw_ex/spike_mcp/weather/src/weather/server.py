@@ -236,4 +236,5 @@ async def main():
 
 # This is needed if you'd like to connect to a custom client
 if __name__ == "__main__":
+    print("Starting server...")
     asyncio.run(main())
