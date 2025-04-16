@@ -25,6 +25,8 @@ that support python.
 
 ```bash
 cd notion_brain_dump
+# pyproject.toml will contain the libraries that are used in the project
+
 uv run mcpclient.py server.py
 
 After the client start, you will be prompted for the query.
@@ -36,10 +38,10 @@ Query:  Provide me the list of the tasks available.
 
 - Add Task
 - List Tasks
-- Update Tasks
+- Change Title
 - Remove Tasks
-- Add Area
-- Add Resource
+- Read Page Content
+- Add Page Content
 
 These tool are using mcp resources that are
 connecting with the notion db.
