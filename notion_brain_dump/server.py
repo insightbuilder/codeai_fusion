@@ -3,7 +3,7 @@ from notion_client import AsyncClient
 import os
 from typing import List
 
-token = "ntn_token"
+token = "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"
 mcp = FastMCP("notion_bd_server")
 brain = AsyncClient(auth=token)
 
@@ -20,6 +20,127 @@ async def add_task(task: str):
         properties=newpage,
     )
     return f"Task has been added {pg_create['id']}"
+
+
+@mcp.resource("notion://dumpdb/all")
+async def get_all_database_items():
+    dump_db = "1d784ade96ac80a3b7ecf54f3eae5f49"
+    all_results = []
+    next_cursor = None
+
+    while True:
+        response = (
+            await brain.databases.query(database_id=dump_db, start_cursor=next_cursor)
+            if next_cursor
+            else await brain.databases.query(database_id=dump_db)
+        )
+
+        all_results.extend(response["results"])
+
+        if response.get("has_more"):
+            next_cursor = response["next_cursor"]
+        else:
+            break
+
+    text_conv = ""
+    for result in all_results:
+        page_id = result["id"]
+        last_edited_time = result["last_edited_time"]
+        # getting the properties now
+        task_title = result["properties"]["TaskTitle"]["title"][0]["text"]["content"]
+        task_status = result["properties"]["TaskStatus"]["select"]
+        area = result["properties"]["Area"]["rich_text"]
+        resource = result["properties"]["Resource"]["rich_text"]
+        due_date = result["properties"]["DueDate"]["date"]
+        url = result["url"]
+        text_conv += f"Task: {task_title}\t Status: {task_status}\t Area: {area}\t Resource: {resource}\t Due Date: {due_date}\t URL: {url}\t Page ID: {page_id}\t  Last Edited Time: {last_edited_time}\t "
+    # return results[0]["text"]
+    return text_conv
+
+
+@mcp.tool()
+async def list_task():
+    """Lists the tasks in the Notion database as text"""
+    tlist = await mcp.read_resource("notion://dumpdb/all")
+    return tlist
+
+
+@mcp.tool()
+async def remove_task(task_text: str):
+    """Search for the task from the Notion database and delete it"""
+    dump_db = "1d784ade96ac80a3b7ecf54f3eae5f49"
+    search_results = await brain.databases.query(
+        database_id=dump_db,
+        filter={
+            "property": "TaskTitle",
+            "title": {
+                "equals": task_text,
+            },
+        },
+    )
+    results = search_results.get("results", [])
+    page_id = results[0]["id"]
+    delete_page = await brain.pages.update(page_id=page_id, archived=True)
+    return delete_page
+
+
+@mcp.tool()
+async def add_resource(task_text: str, resource_text: str):
+    """Search for the task from the Notion database and add resource to it"""
+
+    dump_db = "1d784ade96ac80a3b7ecf54f3eae5f49"
+
+    search_results = await brain.databases.query(
+        database_id=dump_db,
+        filter={
+            "property": "TaskTitle",
+            "title": {
+                "equals": task_text,
+            },
+        },
+    )
+    results = search_results.get("results", [])
+
+    page_id = results[0]["id"]
+    prop = {}
+
+    prop["Resource"] = {
+        "type": "rich_text",
+        "rich_text": [{"text": {"content": resource_text}}],
+    }
+
+    updt = await brain.pages.update(page_id=page_id, properties=prop)
+    return f"Updated the resource to {updt['id']}"
+
+
+@mcp.tool()
+async def add_area(task_text: str, area_text: str):
+    """Search for the task from the Notion database and add area to it"""
+
+    dump_db = "1d784ade96ac80a3b7ecf54f3eae5f49"
+
+    search_results = await brain.databases.query(
+        database_id=dump_db,
+        filter={
+            "property": "TaskTitle",
+            "title": {
+                "equals": task_text,
+            },
+        },
+    )
+    results = search_results.get("results", [])
+
+    page_id = results[0]["id"]
+    prop = {}
+
+    if area_text:
+        prop["Area"] = {
+            "type": "rich_text",
+            "rich_text": [{"text": {"content": area_text}}],
+        }
+
+    updt = await brain.pages.update(page_id=page_id, properties=prop)
+    return f"Updated the area to {updt['id']}"
 
 
 @mcp.prompt()
