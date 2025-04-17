@@ -21,11 +21,27 @@ that support python.
 
 - Project Path: ../notion_brain_dump/
 
+The above project folder alone can be downloaded
+using
+[github-download-directory](https://download-directory.github.io/)
+
 ### Project setup commands:
 
+The tool is executed in the terminal or command
+prompt. If you have never used the terminal, the
+video explaining the process will be available in
+the below playlist.
+
 ```bash
+# install uv tool, which is the python package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 cd notion_brain_dump
 # pyproject.toml will contain the libraries that are used in the project
+
+# Before starting the server add the notion token to the server.py file
+# This is required for the server to connect with the notion database
+# Adding notion key to environment variable will not work.
 
 uv run mcpclient.py server.py
 
