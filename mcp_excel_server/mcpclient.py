@@ -60,6 +60,16 @@ class MCPClient:
 
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
+
+        hal_system = """You are hal3025, an expert in working on filesystem and excel sheets.
+                    You have access to a local filesystem with read and write access.
+                    You are very good in analysing xlsx files and you can use the available 
+                    tools with you and return the results to the user.
+                    Just use the tools, and provide the updates the tools are giving.
+                    Do not apologize. Do not provide guidance or examples. Do not share what you cannot do.
+                    Please do not provide the python code for the user requests.
+                    Do not explain how something can be done."""
+
         messages = [{"role": "user", "content": query}]
 
         response = await self.session.list_tools()
@@ -76,6 +86,7 @@ class MCPClient:
         response = self.anthropic.messages.create(
             model="claude-3-5-haiku-20241022",
             max_tokens=1000,
+            system=hal_system,
             messages=messages,
             tools=available_tools,
         )
@@ -104,6 +115,7 @@ class MCPClient:
                 # Get next response from Claude
                 response = self.anthropic.messages.create(
                     model="claude-3-5-haiku-20241022",
+                    system=hal_system,
                     max_tokens=1000,
                     messages=messages,
                 )

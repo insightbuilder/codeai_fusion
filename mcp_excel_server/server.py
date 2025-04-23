@@ -2,6 +2,7 @@ from mcp.server.fastmcp import FastMCP
 from openpyxl import Workbook, load_workbook
 import os
 from pathlib import Path
+from html import escape
 
 mcp = FastMCP("mcp-excel-server")
 
@@ -25,26 +26,71 @@ def create_excel_file(file_path: str = "test.xlsx", sheet_name: str = "Sheet1"):
 
 
 @mcp.tool()
-def read_all_cells(
-    file_path: str = "test.xlsx",
-    sheet_name: str = "Sheet1",
-):
-    """Use this tool when all the data inside a excel file has to be read as a corpus.
-    The data is stored along with row and col number as sentences.
-    Once all cells are read and entire corpus is ready, expect the same to be returned"""
+def get_col_name(file_path: str = "test.xlsx", sheet_name: str = "Sheet1") -> str:
+    """Use this tool when the user asks for the column names in the excel sheet.
+    The row 1 is read from the excel sheet and returned in html format."""
     try:
         wb = load_workbook(file_path, data_only=True)
         ws = wb[sheet_name]
-        corpus = ""
-        # starting to read the cell data
-        for rdx, row in enumerate(ws.iter_rows()):
-            for cdx, cell in enumerate(row):
-                text = f"row: {rdx} col: {cdx} value: {cell.value}\n"
-                corpus += text
-        # after all cells has been read return the data
-        return f"The data in {file_path} is:\n {corpus}"
+
+        rows = list(ws.iter_rows(values_only=True))
+
+        header_row = rows[0]
+        columns = (
+            "<tr>"
+            + "".join(f"<th>{escape(str(col))}</th>" for col in header_row)
+            + "</tr>"
+        )
+        return f"The columns for the {file_path} is {columns}"
     except Exception as e:
-        return f"There was issue in reading all the data: {e}"
+        return f"There was issue in reading the data: {e}"
+
+
+@mcp.tool()
+def xlsx_to_html_table(
+    file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
+) -> str:
+    """Use this tool when the user asks for analysing the excel sheet.
+    The entire excel sheet is read into a html table format.
+    This html table then can be read by you to provide the analysis"""
+
+    try:
+        wb = load_workbook(file_path, data_only=True)
+        ws = wb[sheet_name]
+
+        html_rows = []
+
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return f"Data at {file_path} is empty." + "<table></table>"
+
+        if has_headers:
+            header_row = rows[0]
+            html_rows.append(
+                "<tr>"
+                + "".join(f"<th>{escape(str(col))}</th>" for col in header_row)
+                + "</tr>"
+            )
+            data_rows = rows[1:]
+        else:
+            data_rows = rows
+
+        for row in data_rows:
+            html_rows.append(
+                "<tr>"
+                + "".join(
+                    f"<td>{escape(str(cell)) if cell is not None else ''}</td>"
+                    for cell in row
+                )
+                + "</tr>"
+            )
+
+        final_html = "<table>\n" + "\n".join(html_rows) + "\n</table>"
+
+        return f"Data in {file_path} is :\n {final_html}"
+
+    except Exception as e:
+        return f"There was issue in reading the data: {e}"
 
 
 @mcp.tool()
