@@ -123,22 +123,24 @@ class MCPClient:
                 )
 
                 final_text.append(response.content[0].text)
-
         return "\n".join(final_text)
 
     async def chat_loop(self):
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
-
+        reply_history = ""
         while True:
             try:
                 query = input("\nInteract with Excel File here: ").strip()
-
+                query_with_history = (
+                    f"Previous conversation:\n{reply_history}\n Query: {query}"
+                )
                 if query.lower() == "quit":
                     break
 
-                response = await self.process_query(query)
+                response = await self.process_query(query_with_history)
+                reply_history += f"Query: {query}\nResponse: {response}\n"
                 print("\n" + response)
 
             except Exception as e:
