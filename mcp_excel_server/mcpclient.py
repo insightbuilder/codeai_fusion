@@ -54,7 +54,7 @@ class MCPClient:
         response = await self.session.list_tools()
         tools = response.tools
         print(
-            "\nConnected to Notion MCP server with tools:",
+            "\nConnected to Excel Analysis MCP server with tools:",
             [tool.name for tool in tools],
         )
 

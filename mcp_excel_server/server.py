@@ -3,8 +3,57 @@ from openpyxl import Workbook, load_workbook
 import os
 from pathlib import Path
 from html import escape
+from anthropic import Anthropic
 
+
+anthropic = Anthropic()
 mcp = FastMCP("mcp-excel-server")
+
+global analysis_data
+
+
+def xlsx_to_html_table(
+    file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
+) -> str:
+    """The entire excel sheet is read into a html table format."""
+
+    try:
+        wb = load_workbook(file_path, data_only=True)
+        ws = wb[sheet_name]
+
+        html_rows = []
+
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return f"Data at {file_path} is empty." + "<table></table>"
+
+        if has_headers:
+            header_row = rows[0]
+            html_rows.append(
+                "<tr>"
+                + "".join(f"<th>{escape(str(col))}</th>" for col in header_row)
+                + "</tr>"
+            )
+            data_rows = rows[1:]
+        else:
+            data_rows = rows
+
+        for row in data_rows:
+            html_rows.append(
+                "<tr>"
+                + "".join(
+                    f"<td>{escape(str(cell)) if cell is not None else ''}</td>"
+                    for cell in row
+                )
+                + "</tr>"
+            )
+
+        final_html = "<table>\n" + "\n".join(html_rows) + "\n</table>"
+
+        return f"Use this Data in {file_path} file is for analysis :\n {final_html}"
+
+    except Exception as e:
+        return f"There was issue in reading the data: {e}"
 
 
 @mcp.tool()
@@ -47,50 +96,39 @@ def get_col_name(file_path: str = "test.xlsx", sheet_name: str = "Sheet1") -> st
 
 
 @mcp.tool()
-def xlsx_to_html_table(
+def analyse_table(
     file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
 ) -> str:
-    """Use this tool when the user asks for analysing the excel sheet.
-    The entire excel sheet is read into a html table format.
-    This html table then can be read by you to provide the analysis"""
+    """Use this tool when the user specifically asks for an analysis of the given file.
+    The entire excel sheet is read into a html table format, and then analysed by an expert analyst.
+    Expect a feedback from the analyst on the report completion."""
 
     try:
-        wb = load_workbook(file_path, data_only=True)
-        ws = wb[sheet_name]
+        final_html = xlsx_to_html_table(file_path, sheet_name, has_headers)
+        # sending the html to AI model for analysis
 
-        html_rows = []
+        hal_analysis_system = """You are hal4025, an expert in working on excel sheets.
+                    You are very good in analysing xlsx files and providing the report.
+                    Do not apologize. Do not provide guidance or examples. 
+                    Do not share what you cannot do.
+                    Please do not provide the python code for the user requests.
+                    Users don't know to code.
+                    Do not explain how analyis is being done."""
 
-        rows = list(ws.iter_rows(values_only=True))
-        if not rows:
-            return f"Data at {file_path} is empty." + "<table></table>"
+        messages = [{"role": "user", "content": final_html}]
+        print(final_html)
+        response = anthropic.messages.create(
+            model="claude-3-5-haiku-20241022",
+            max_tokens=1000,
+            system=hal_analysis_system,
+            messages=messages,
+        )
+        analysis_result = f"The analysis result {response.content[0].text}"
 
-        if has_headers:
-            header_row = rows[0]
-            html_rows.append(
-                "<tr>"
-                + "".join(f"<th>{escape(str(col))}</th>" for col in header_row)
-                + "</tr>"
-            )
-            data_rows = rows[1:]
-        else:
-            data_rows = rows
-
-        for row in data_rows:
-            html_rows.append(
-                "<tr>"
-                + "".join(
-                    f"<td>{escape(str(cell)) if cell is not None else ''}</td>"
-                    for cell in row
-                )
-                + "</tr>"
-            )
-
-        final_html = "<table>\n" + "\n".join(html_rows) + "\n</table>"
-
-        return f"Data in {file_path} is :\n {final_html}"
+        return f"The analysis is ready. {analysis_result}."
 
     except Exception as e:
-        return f"There was issue in reading the data: {e}"
+        return f"Unable to complete the analysis due to : {e}"
 
 
 @mcp.tool()
@@ -200,6 +238,39 @@ def search_excel_sheet_for_value(
         return f"The location of the {value_to_find} is at {results}"  # List of (row, column) tuples
     else:
         return f"The {value_to_find} cannot be located in {file_path}"
+
+
+@mcp.tool()
+def write_analysis_md(
+    file_path: str = "analysis_report.md",
+):
+    """Use this tool whenthe analysis report has to be written to the file.
+    The data is taken from the analysis_data global variable, no need to look for data from outside.
+    New report file will be generated every time, and you will get confirmation"""
+    import uuid
+
+    global analysis_data
+    try:
+        uid = uuid.uuid4()
+        ver = str(uid)[:4]
+        file_ver = ""
+
+        if "." in file_path:
+            filename = file_path.split(".")[0]
+            file_ver = f"{filename}_{ver}.md"
+        else:
+            file_ver = f"{file_path}_{ver}.md"
+        if analysis_data != "":
+            with open(file_ver, "w") as anw:
+                anw.write(analysis_data)
+
+            # after writing analysis data, reset the global variable
+            analysis_data = ""
+            return f"The report has been written to {file_ver}"
+        else:
+            return "The analysis data is empty. Kindly get the analysis done."
+    except Exception as e:
+        return f"There was issue in writing report: {e}"
 
 
 @mcp.tool()
