@@ -3,13 +3,9 @@ from openpyxl import Workbook, load_workbook
 import os
 from pathlib import Path
 from html import escape
-from anthropic import Anthropic
 
 
-anthropic = Anthropic()
 mcp = FastMCP("mcp-excel-server")
-
-global analysis_data
 
 
 @mcp.tool()
@@ -96,41 +92,6 @@ def get_col_name(file_path: str = "test.xlsx", sheet_name: str = "Sheet1") -> st
         return f"The columns for the {file_path} is {columns}"
     except Exception as e:
         return f"There was issue in reading the data: {e}"
-
-
-def analyse_table(
-    file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
-) -> str:
-    """Use this tool when the user specifically asks for an analysis of the given file.
-    The entire excel sheet is read into a html table format, and then analysed by an expert analyst.
-    Expect a feedback from the analyst on the report completion."""
-
-    try:
-        final_html = xlsx_to_html_table(file_path, sheet_name, has_headers)
-        # sending the html to AI model for analysis
-
-        hal_analysis_system = """You are hal4025, an expert in working on excel sheets.
-                    You are very good in analysing xlsx files and providing the report.
-                    Do not apologize. Do not provide guidance or examples. 
-                    Do not share what you cannot do.
-                    Please do not provide the python code for the user requests.
-                    Users don't know to code.
-                    Do not explain how analyis is being done."""
-
-        messages = [{"role": "user", "content": final_html}]
-        print(final_html)
-        response = anthropic.messages.create(
-            model="claude-3-5-haiku-20241022",
-            max_tokens=1000,
-            system=hal_analysis_system,
-            messages=messages,
-        )
-        analysis_result = f"The analysis result {response.content[0].text}"
-
-        return f"The analysis is ready. {analysis_result}."
-
-    except Exception as e:
-        return f"Unable to complete the analysis due to : {e}"
 
 
 @mcp.tool()
@@ -220,7 +181,7 @@ def search_excel_sheet_for_value(
     value_to_find: str = "5",
     match_case: bool = True,
 ):
-    """Use this tool when a value_to_find has to to be located
+    """Use this tool when  user asks to find to value_to_find data
     inside a excel file at the file_path"""
     wb = load_workbook(file_path)
     ws = wb[sheet_name]
@@ -243,15 +204,14 @@ def search_excel_sheet_for_value(
 
 
 @mcp.tool()
-def write_analysis_md(
-    file_path: str = "analysis_report.md",
+def write_report(
+    text_data: str,
+    file_path: str,
 ):
-    """Use this tool whenthe analysis report has to be written to the file.
-    The data is taken from the analysis_data global variable, no need to look for data from outside.
+    """Use this tool when the user wants some data to be written to the file.
     New report file will be generated every time, and you will get confirmation"""
     import uuid
 
-    global analysis_data
     try:
         uid = uuid.uuid4()
         ver = str(uid)[:4]
@@ -262,15 +222,10 @@ def write_analysis_md(
             file_ver = f"{filename}_{ver}.md"
         else:
             file_ver = f"{file_path}_{ver}.md"
-        if analysis_data != "":
-            with open(file_ver, "w") as anw:
-                anw.write(analysis_data)
 
-            # after writing analysis data, reset the global variable
-            analysis_data = ""
-            return f"The report has been written to {file_ver}"
-        else:
-            return "The analysis data is empty. Kindly get the analysis done."
+        with open(file_ver, "w") as anw:
+            anw.write(text_data)
+        return f"The report has been written to {file_ver}"
     except Exception as e:
         return f"There was issue in writing report: {e}"
 
