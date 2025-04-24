@@ -12,10 +12,13 @@ mcp = FastMCP("mcp-excel-server")
 global analysis_data
 
 
+@mcp.tool()
 def xlsx_to_html_table(
     file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
 ) -> str:
-    """The entire excel sheet is read into a html table format."""
+    """Use this tool when the user wants to analyse a file.
+    The entire excel sheet is read into a html table format. You can use the same to
+    do the analysis. The tool returns the html data"""
 
     try:
         wb = load_workbook(file_path, data_only=True)
@@ -74,7 +77,7 @@ def create_excel_file(file_path: str = "test.xlsx", sheet_name: str = "Sheet1"):
         return f"Faced exception: {e}. The task may not be completed."
 
 
-@mcp.tool()
+# @mcp.tool()
 def get_col_name(file_path: str = "test.xlsx", sheet_name: str = "Sheet1") -> str:
     """Use this tool when the user asks for the column names in the excel sheet.
     The row 1 is read from the excel sheet and returned in html format."""
@@ -95,7 +98,6 @@ def get_col_name(file_path: str = "test.xlsx", sheet_name: str = "Sheet1") -> st
         return f"There was issue in reading the data: {e}"
 
 
-@mcp.tool()
 def analyse_table(
     file_path: str = "test.xlsx", sheet_name: str = "Sheet1", has_headers: bool = True
 ) -> str:
