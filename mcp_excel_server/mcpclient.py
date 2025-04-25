@@ -97,7 +97,7 @@ class MCPClient:
         tool_results = []
         final_text = []
 
-        for content in response.content:
+        for content in response.content: # each tool call will handle seperately
             if content.type == "text":
                 final_text.append(content.text)
             elif content.type == "tool_use":
@@ -129,10 +129,11 @@ class MCPClient:
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
-        reply_history = ""
+        reply_history = "" # this variable stores memory
         while True:
             try:
                 query = input("\nInteract with Excel File here: ").strip()
+                # below the history is assembled
                 query_with_history = (
                     f"Previous conversation:\n{reply_history}\n Query: {query}"
                 )
@@ -140,6 +141,7 @@ class MCPClient:
                     break
 
                 response = await self.process_query(query_with_history)
+                # here is response is apended to history
                 reply_history += f"Query: {query}\nResponse: {response}\n"
                 print("\n" + response)
 
@@ -153,7 +155,8 @@ class MCPClient:
 
 async def main():
     if len(sys.argv) < 2:
-        print("Usage: python mcpclient.py mcpserver.py")
+        # we use uv package manager so uv run mcpclient.py mcpserver.py
+        print("Usage: uv run mcpclient.py server.py")
         sys.exit(1)
 
     client = MCPClient()
