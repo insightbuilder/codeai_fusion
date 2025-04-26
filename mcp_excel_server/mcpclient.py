@@ -58,6 +58,59 @@ class MCPClient:
             [tool.name for tool in tools],
         )
 
+    async def create_or_connect_db(self):
+        import sqlite3
+
+        # Connect to SQLite (creates a file called chatbot.db)
+        conn = sqlite3.connect("mcphistory.db")
+        cursor = conn.cursor()
+
+        # Create a table to store query-response pairs
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS conversations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            query TEXT NOT NULL,
+            response TEXT NOT NULL
+        )
+        """)
+
+        conn.commit()
+        conn.close()
+
+    async def save_history(self, query: str, response: str):
+        import sqlite3
+
+        # Connect to SQLite (creates a file called chatbot.db)
+        conn = sqlite3.connect("mcphistory.db")
+        cursor = conn.cursor()
+
+        # Insert the query-response pair into the table
+        cursor.execute(
+            "INSERT INTO conversations (query, response) VALUES (?, ?)",
+            (query, response),
+        )
+
+        conn.commit()
+        conn.close()
+
+    async def read_history(self):
+        import sqlite3
+
+        # Connect to SQLite (creates a file called chatbot.db)
+        conn = sqlite3.connect("mcphistory.db")
+        cursor = conn.cursor()
+
+        # Insert the query-response pair into the table
+        cursor.execute("SELECT query, response FROM conversations")
+
+        history = ""
+
+        rows = cursor.fetchall()
+        for row in rows:
+            history += f"Query: {row[0]}\nResponse: {row[1]}\n{history}\n"
+
+        return history
+
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
 
@@ -97,7 +150,7 @@ class MCPClient:
         tool_results = []
         final_text = []
 
-        for content in response.content: # each tool call will handle seperately
+        for content in response.content:  # each tool call will handle seperately
             if content.type == "text":
                 final_text.append(content.text)
             elif content.type == "tool_use":
@@ -129,20 +182,21 @@ class MCPClient:
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
-        reply_history = "" # this variable stores memory
+        history = await self.read_history()
         while True:
             try:
                 query = input("\nInteract with Excel File here: ").strip()
                 # below the history is assembled
+                print(history)
                 query_with_history = (
-                    f"Previous conversation:\n{reply_history}\n Query: {query}"
+                    f"Previous conversation:\n{history}\n Query: {query}"
                 )
                 if query.lower() == "quit":
                     break
 
                 response = await self.process_query(query_with_history)
                 # here is response is apended to history
-                reply_history += f"Query: {query}\nResponse: {response}\n"
+                await self.save_history(query, response)
                 print("\n" + response)
 
             except Exception as e:
@@ -161,6 +215,7 @@ async def main():
 
     client = MCPClient()
     try:
+        await client.create_or_connect_db()
         await client.connect_to_server(sys.argv[1])
         await client.chat_loop()
     finally:
