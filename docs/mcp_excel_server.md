@@ -67,6 +67,10 @@ manipulating and analysing the excel files.
   file
 - remove_file: Removes a file from the system
 
+The mcp client in this proect is enabled with
+SQLite db connection. The same has been discussed
+in this [video](https://youtu.be/FAMg9kZpMQw)
+
 When you need use mcp inspector to debug the code,
 use the command below. Ensure you have
 [npx](https://docs.npmjs.com/cli/v8/commands/npx)
