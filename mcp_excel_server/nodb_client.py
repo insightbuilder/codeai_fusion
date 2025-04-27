@@ -54,80 +54,12 @@ class MCPClient:
         response = await self.session.list_tools()
         tools = response.tools
         print(
-            "\nConnected to Excel Analysis MCP server with tools:",
+            "\nConnected to Notion MCP server with tools:",
             [tool.name for tool in tools],
         )
 
-    async def create_or_connect_db(self):
-        import sqlite3
-
-        # Connect to SQLite (creates a file called chatbot.db)
-        conn = sqlite3.connect("mcphistory.db")
-        cursor = conn.cursor()
-
-        # Create a table to store query-response pairs
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS conversations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            query TEXT NOT NULL,
-            response TEXT NOT NULL
-        )
-        """)
-
-        conn.commit()
-        conn.close()
-
-    async def save_history(self, query: str, response: str):
-        import sqlite3
-
-        # Connect to SQLite (creates a file called chatbot.db)
-        conn = sqlite3.connect("mcphistory.db")
-        cursor = conn.cursor()
-
-        # Insert the query-response pair into the table
-        cursor.execute(
-            "INSERT INTO conversations (query, response) VALUES (?, ?)",
-            (query, response),
-        )
-
-        conn.commit()
-        conn.close()
-
-    async def read_history(self):
-        import sqlite3
-
-        # Connect to SQLite (creates a file called chatbot.db)
-        conn = sqlite3.connect("mcphistory.db")
-        cursor = conn.cursor()
-
-        # Insert the query-response pair into the table
-        cursor.execute("SELECT query, response FROM conversations")
-
-        history = ""
-
-        rows = cursor.fetchall()
-        for row in rows:
-            history += f"Query: {row[0]}\nResponse: {row[1]}\n{history}\n"
-
-        return history
-
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
-
-        hal_system = """You are hal3025, an expert in working on filesystem and excel sheets.
-                    You have access to a local filesystem with read and write access.
-                    You are very good in analysing xlsx files and you can use the available 
-                    tools with you and return the results to the user. 
-                    When user asks you to refer to past conversation or history, then refer to 
-                    the query and response available with you and respond. Don't say you 
-                    do not have access to history.
-                    Just use the tools, and provide the updates the tools are giving.
-                    Do not use external python packages for the analysis. 
-                    Use the tools that are available to you.
-                    Do not apologize. Do not provide guidance or examples. Do not share what you cannot do.
-                    Please do not provide the python code for the user requests.
-                    Do not explain how something can be done."""
-
         messages = [{"role": "user", "content": query}]
 
         response = await self.session.list_tools()
@@ -144,7 +76,6 @@ class MCPClient:
         response = self.anthropic.messages.create(
             model="claude-3-5-haiku-20241022",
             max_tokens=1000,
-            system=hal_system,
             messages=messages,
             tools=available_tools,
         )
@@ -153,7 +84,7 @@ class MCPClient:
         tool_results = []
         final_text = []
 
-        for content in response.content:  # each tool call will handle seperately
+        for content in response.content:
             if content.type == "text":
                 final_text.append(content.text)
             elif content.type == "tool_use":
@@ -173,33 +104,27 @@ class MCPClient:
                 # Get next response from Claude
                 response = self.anthropic.messages.create(
                     model="claude-3-5-haiku-20241022",
-                    system=hal_system,
                     max_tokens=1000,
                     messages=messages,
                 )
 
                 final_text.append(response.content[0].text)
+
         return "\n".join(final_text)
 
     async def chat_loop(self):
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
-        history = await self.read_history()
+
         while True:
             try:
-                query = input("\nInteract with Excel File here: ").strip()
-                # below the history is assembled
-                print(history)
-                query_with_history = (
-                    f"Previous conversation:\n{history}\n Query: {query}"
-                )
+                query = input("\nBrain Dump Here: ").strip()
+
                 if query.lower() == "quit":
                     break
 
-                response = await self.process_query(query_with_history)
-                # here is response is apended to history
-                await self.save_history(query, response)
+                response = await self.process_query(query)
                 print("\n" + response)
 
             except Exception as e:
@@ -212,13 +137,11 @@ class MCPClient:
 
 async def main():
     if len(sys.argv) < 2:
-        # we use uv package manager so uv run mcpclient.py mcpserver.py
-        print("Usage: uv run mcpclient.py server.py")
+        print("Usage: python mcpclient.py mcpserver.py")
         sys.exit(1)
 
     client = MCPClient()
     try:
-        await client.create_or_connect_db()
         await client.connect_to_server(sys.argv[1])
         await client.chat_loop()
     finally:
