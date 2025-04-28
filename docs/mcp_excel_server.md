@@ -46,7 +46,7 @@ After the client start, you will be prompted for the query.
 Query: Who are you?.
 ```
 
-### Available MCP Server Tools:
+### Available Excel MCP Server Tools:
 
 These tool are using mcp resources that are
 manipulating and analysing the excel files.
@@ -67,12 +67,50 @@ manipulating and analysing the excel files.
   file
 - remove_file: Removes a file from the system
 
-The mcp client in this proect is enabled with
+#### Connecting SQL DB with MCP Client:
+
+The mcp client in this project is enabled with
 SQLite db connection. The same has been discussed
 in this [video](https://youtu.be/FAMg9kZpMQw)
 
+#### Multi Server Connecting with MCP Client:
+
+Multi_server_client.py script is implemented to
+connect with multiple mcp servers. Follow the.
+below command for executing the script when you
+are connecting with multiple python mcp server.
+
+Note: The supporting packages for the server files
+has to be made available either through uv or
+venv. Else the server tools cannot execute.
+
+```
+uv run Multi_server_client.py server1.py
+server2.py
+```
+
+If you are connecting with Javascript mcp server,
+then you need to have the node modules installed
+in the same folder where you are executing the mcp
+client.
+
+In case of the JS servers, the server file needs
+to be usually compiled using npm run build
+command. Refer to the documentation of the server
+for more details.
+
+The execution of the script can be done as below.
+
+```
+uv run Multi_server_client.py server1.py
+index.js
+```
+
+### Testing with mcp inspector:
+
 When you need use mcp inspector to debug the code,
 use the command below. Ensure you have
+
 [npx](https://docs.npmjs.com/cli/v8/commands/npx)
 and [node](https://nodejs.org/en/download)
 installed
@@ -91,6 +129,12 @@ server.py
 - Notion Code referred from:
   [Notion Example code](../fw_ex/notionapi_spike/)
 
+- GMail MCP Server :
+  [Gmail Server](https://github.com/GongRzhe/Gmail-MCP-Server)
+
+````
+
 ```
 
 ```
+````
