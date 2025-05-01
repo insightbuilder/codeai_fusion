@@ -169,7 +169,8 @@ def delete_value_at_cell(
         ws = wb[sheet_name]
         ws.cell(row=row_num, column=col_num).value = None
         wb.save(file_path)
-        return f"Data at row: {row_num} and col: {col_num} has been deleted"
+        return f
+    ed"
     except Exception as e:
         return f"There was issue in deleting the data. {e}"
 
