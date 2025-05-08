@@ -119,7 +119,7 @@ class MCPClient:
 
         while True:
             try:
-                query = input("\nBrain Dump Here: ").strip()
+                query = input("\n: ").strip()
 
                 if query.lower() == "quit":
                     break
