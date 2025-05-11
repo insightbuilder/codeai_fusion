@@ -3,7 +3,6 @@ import os
 from notion_client import Client
 from anthropic import Anthropic
 
-# load_dotenv()
 notion = Client(auth=os.environ["NOTION_TOKEN"])
 anthropic = Anthropic()
 
