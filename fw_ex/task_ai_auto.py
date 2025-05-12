@@ -324,3 +324,4 @@ for task in detailed_tasks:
         can_do += 1
 
 print("Total tasks that can be done without also:", can_do)
+# 43 tasks can be done without AI
