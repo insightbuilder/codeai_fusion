@@ -1,0 +1,46 @@
+subreddit:SideProject
+Name: SideProject
+Description: 
+Welcome to rSideProject, a subreddit for sharing and receiving constructive feedback on side projects
+This is also a subreddit to get motivated and inspired to work on new projects, so please submit links to projects you find interesting.
+Submission Format
+When submitting a link to a project or startup, please use this format: [Project name] - [Short description]. For example, "Reddit - A web
+site for sharing and discussing links.
+Related Communities: r/startups, r/startups, r/Entrepreneur, r/Entrepreneur, r/design_critiques,r/learnprogramming,
+r/learnprogramming,r/coding,r/coding, r/gamer r/gamedev
+Tips: [Finding time for your side project](https://news.ycombinator.com/item?id=6107815)
+[Promoting your side project](https:/news.ycombinator.com/item?id=341288)
+[Resource list for startups]\n(https://news.ycombinator.comitem?id=5235137)
+[Places to post your side project]\n(https://github.com/mmccaff/PlacesToPostYourStartup)
+Subscribers: 336068
+Created: 1358396099.0
+spoilers_enabled: False
+over_18: False
+
+reddit:webdev
+Name: webdev
+Description: Beginner question? 
+[Try the FAQ first!](/r/webdev/wiki/faq) or the [WebDev Resources Post](/r/webdev/comments/1v7en8/webdev_resources/) then post 
+in the Beginner Questions thread
+[Help fill out the wiki](/r/webdev/wiki/index)
+Posting Guidelines: No vague product support questions (like "why is this plugin not working" or "how do I set up X").
+For vague product support questions, please use communities relevant to that product for best results. 
+Specific issues that follow rule 6 are allowed.\n\n2. Do not post memes, screenshots of bad design, or jokes.
+Check out /r/ProgrammerHumor/ for this type of content.\n\n3. Read and follow [reddiquette](http://www.reddit.com/wiki/reddiquette)
+no excessive self-promotion. Please refer to the Reddit 9:1 rule when considering posting self promoting materials
+4. We do not allow any commercial promotion or solicitation. Violations can result in a ban.
+5. Sharing your project, portfolio, or any other content that you want to either show off or request feedback on is limited to Showoff Saturday.
+If you post such content on any other day, it will be removed.
+6. If you are asking for assistance on a problem, you are required to provide
+Context of the problem: Research you have completed prior to requesting assistance
+Problem you are attempting to solve with high specificity\n\n7. General open ended career and getting started posts are only
+allowed in the pinned monthly getting started/careers thread. Specific assistance questions are allowed so long as
+they follow the required assistance post guidelines. \n\n   Questions in violation of this rule will be removed or locked.
+Related Subreddits: r/web_design, r/WebDevBuddies, r/devops, r/javascript, r/learnjavascript (any JavaScript questions)
+r/webhosting (web hosting questions), r/WebdevTutorials, r/forhire, r/freelance (discussion related to freelancing)
+r/programmerhumor, r/cryptodevs
+(https://discord.gg/H9Jkc7p)
+Subscribers: 3005923
+Created: 1232857355.0
+spoilers_enabled: True
+over_18: False
