@@ -30,17 +30,19 @@ Run it with below command
 
 uv run stt_app.py
 
-text to 
-
 ## text to speech with simpler pydub
 
 - text_to_mp3.py gives the speech file 
 
-- Use the above to get synthetic speech, which is then used for speech to text in json format using stt_app.py
+- Use the above to get synthetic speech, which is then used for speech to text in json format using stt_app.py(use mp3_to_srt.py directly)
 
 - subtitles.srt is recieved in JSon Format. renamed it
 
-## Use the JSON to SRT converter:
+## Use the mp3 to SRT converter using mp3_to_srt.py:
 
-- 
+Ideally you will have your mp3 file. You will want to transcribe that. 
+
+- uv run mp3_to_srt.py your_voice.mp3 description_subs.srt
+
+The above command will do the needful.
 

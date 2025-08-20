@@ -2,12 +2,32 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #     "pydub",
+#     "faster-whisper",
 # ]
 # ///
+
 import json
 import sys
 from pathlib import Path
 from pydub import AudioSegment
+from faster_whisper import WhisperModel
+import os
+
+# Load Whisper model (you can choose size: tiny, base, small, medium, large)
+model = WhisperModel("base", compute_type="auto")
+
+def transcribe(filepath):
+    segments, _ = model.transcribe(filepath)
+
+    result = []
+    for segment in segments:
+        result.append({
+            "start": segment.start,
+            "end": segment.end,
+            "text": segment.text
+        })
+
+    return result
 
 def format_timestamp(seconds: float) -> str:
     """Convert seconds to SRT timestamp format: HH:MM:SS,mmm"""
@@ -43,17 +63,13 @@ def generate_srt(transcript, audio_file, output_file):
     print(f"SRT file created: {output_file}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: uv run generate_srt.py transcript.json input.mp3 output.srt")
+    if len(sys.argv) != 3:
+        print("Usage: uv run json_to_srt.py input.mp3 output.srt")
         sys.exit(1)
 
-    transcript_file = sys.argv[1]
-    audio_file = sys.argv[2]
-    output_file = sys.argv[3]
+    audio_file = sys.argv[1]
+    output_file = sys.argv[2]
 
-    with open(transcript_file, "r", encoding="utf-8") as f:
-        data = json.load(f)
-        transcript = data["transcription"]
-
+    transcript = transcribe(audio_file)
 
     generate_srt(transcript, audio_file, output_file)
