@@ -1,0 +1,19 @@
+1
+00:00:00,000 --> 00:00:01,000
+An apple is a sweet fruit
+
+2
+00:00:01,000 --> 00:00:02,000
+that comes in many
+
+3
+00:00:02,000 --> 00:00:04,000
+colors like red, green, and yellow.
+
+4
+00:00:04,000 --> 00:00:05,000
+ Apples are rich in fiber and vitamins
+
+5
+00:00:05,000 --> 00:00:07,891
+ and are enjoyed worldwide.

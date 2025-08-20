@@ -28,8 +28,8 @@ def transcribe():
         return jsonify({"error": "Empty filename"}), 400
 
     # Save file temporarily
-    filepath = os.path.join("/tmp", file.filename)
-    file.save(filepath)
+    filepath = os.path.join(".", file.filename)
+    # file.save(filepath)
 
     segments, _ = model.transcribe(filepath)
 
@@ -41,7 +41,7 @@ def transcribe():
             "text": segment.text
         })
 
-    os.remove(filepath)  # clean up
+    # os.remove(filepath)  # clean up
 
     return jsonify({"transcription": result})
 
