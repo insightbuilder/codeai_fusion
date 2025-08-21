@@ -15,6 +15,10 @@ import os
 
 # Load Whisper model (you can choose size: tiny, base, small, medium, large)
 model = WhisperModel("base", compute_type="auto")
+tamil_model = WhisperModel("flyingleafe/faster-whisper-large-v3",
+        device="cpu",          # change to "cuda" if you have GPU
+        compute_type="int8",    # for CPU efficiency
+    )
 
 def transcribe(filepath):
     segments, _ = model.transcribe(filepath)
@@ -27,8 +31,21 @@ def transcribe(filepath):
             "text": segment.text
         })
 
-    return result
+    return result   
 
+def transcribe_tamil(filepath):
+    segments, _ = tamil_model.transcribe(filepath, beam_size=5, language="ta")
+    
+    result = []
+    for segment in segments:
+        result.append({
+            "start": segment.start,
+            "end": segment.end,
+            "text": segment.text
+        })
+
+    return result
+   
 def format_timestamp(seconds: float) -> str:
     """Convert seconds to SRT timestamp format: HH:MM:SS,mmm"""
     millis = int(seconds * 1000)
@@ -63,13 +80,19 @@ def generate_srt(transcript, audio_file, output_file):
     print(f"SRT file created: {output_file}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: uv run json_to_srt.py input.mp3 output.srt")
+    if len(sys.argv) != 4:
+        print("Usage: uv run mp3_to_srt.py ta input.mp3 output.srt")
         sys.exit(1)
 
-    audio_file = sys.argv[1]
-    output_file = sys.argv[2]
+    lang = sys.argv[1]
+    audio_file = sys.argv[2]
+    output_file = sys.argv[3]
 
-    transcript = transcribe(audio_file)
+    if lang == "ta":
+        print("Selected Tamil Language.")
+        transcript = transcribe_tamil(audio_file)
+    else:
+        print("Default is English Language")
+        transcript = transcribe(audio_file)
 
     generate_srt(transcript, audio_file, output_file)
