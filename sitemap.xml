@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://sitename.example/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/StartlearningUVpackage/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/flask-mcp-compare/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/mcp_excel_server/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/mcp_notion_brain/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/mcp_reddit_server/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/vabired_docs/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://sitename.example/when_to_async/</loc>
+         <lastmod>2025-08-21</lastmod>
+    </url>
+</urlset>
